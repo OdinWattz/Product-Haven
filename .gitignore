@@ -1,6 +1,7 @@
 .DS_Store
 Thumbs.db
 
+
 # Local IDE/editor files
 .idea/
 .vscode/
@@ -20,6 +21,10 @@ node_modules/
 # Environment overrides
 .env
 .env.*
+
+# Design documents
+functioneel-ontwerp.md
+technisch-ontwerp.md
 
 # macOS / temporary files
 *.swp
