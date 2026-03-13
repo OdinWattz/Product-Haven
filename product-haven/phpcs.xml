@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="Product Haven">
+    <description>PHPCS configuration for the Product Haven plugin.</description>
+
+    <file>.</file>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/assets/*</exclude-pattern>
+
+    <config name="minimum_supported_wp_version" value="6.0"/>
+    <config name="testVersion" value="7.4-"/>
+
+    <rule ref="WordPress">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="ph_"/>
+                <element value="PH_"/>
+                <element value="ProductHaven"/>
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Allow short variable names used as loop iterators or local template vars -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="ph_"/>
+                <element value="PH_"/>
+                <element value="ProductHaven"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>

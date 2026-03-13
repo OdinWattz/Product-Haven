@@ -1,0 +1,26 @@
+.DS_Store
+Thumbs.db
+
+# Local IDE/editor files
+.idea/
+.vscode/
+
+# Dependency directories
+vendor/
+node_modules/
+
+# Build and archive artifacts
+*.zip
+*.tar
+*.gz
+
+# Logs
+*.log
+
+# Environment overrides
+.env
+.env.*
+
+# macOS / temporary files
+*.swp
+*.swo
