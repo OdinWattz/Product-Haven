@@ -334,14 +334,14 @@ The goal for `v1.4` is **not** to add lots of features, but to make Product Have
 #### Core TODO
 
 - [x] Convert the most visible user-facing UI text from Dutch to English
-- [ ] Improve the main admin empty states and feedback messages
+- [x] Improve the main admin empty states and feedback messages
 - [ ] Add a small set of presentation screenshots for GitHub / WordPress.org
-- [ ] Do one full smoke-test pass on a clean WordPress + WooCommerce install
-- [ ] Review dependency fallbacks for WooCommerce and Elementor one more time
+- [x] Do one full smoke-test pass on a clean WordPress + WooCommerce install
+- [x] Review dependency fallbacks for WooCommerce and Elementor one more time
 
 #### If there is still time
 
-- [ ] Clean up wording consistency across admin tabs and widgets
+- [x] Clean up wording consistency across admin tabs and widgets
 - [ ] Improve a few high-impact labels, buttons, and notices for better UX clarity
 
 #### Explicitly not in v1.4

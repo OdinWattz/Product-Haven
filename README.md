@@ -52,6 +52,7 @@ If you use Product Haven in production, it is recommended to test updates on a s
 ## Features
 
 ### Order Dashboard
+
 - **Live statistics** — revenue, order count, average order value and new customers for the chosen period (7, 14, 30, 90 days or 1 year)
 - **Interactive Chart.js graph** — revenue and orders on the same timeline, toggle per dataset
 - **Order timeline** — searchable, filterable by status, paginated
@@ -61,34 +62,39 @@ If you use Product Haven in production, it is recommended to test updates on a s
 - **CSV export** — configurable columns, filtered by current period and status
 
 ### Stock Management
+
 - Low-stock overview with configurable threshold
 - Bulk stock updates with reason logging
 - Email alerts for low stock and out-of-stock products (real-time and daily digest)
 - CSV export of full stock overview
 
 ### Quick Products
+
 - Create and edit simple WooCommerce products directly from the dashboard
 - Duplicate, quick-edit and delete products without leaving the page
 - Media library integration for product images
 
 ### Sequential Order Numbers
+
 - Clean sequential order numbers independent of WordPress post IDs
 - Configurable prefix, suffix, padding and start number
 - Orders remain searchable by sequential number in WooCommerce admin
 - Thread-safe counter using database locks
 
 ### Frontend (Elementor)
+
 - **Stats Widget** — displays revenue, order count and average order value for the logged-in customer
 - **Timeline Widget** — paginated order timeline for the logged-in customer with status badges and product list
 
 ### REST API (optional)
+
 Activate via Settings → Enable REST API.
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/wp-json/product-haven/v1/stats?days=30` | Statistics |
-| GET | `/wp-json/product-haven/v1/timeline?page=1&per_page=20` | Order timeline |
-| GET | `/wp-json/product-haven/v1/top-products?days=30&limit=10` | Top products |
+| Method | Endpoint                                                    | Description    |
+| ------ | ----------------------------------------------------------- | -------------- |
+| GET    | `/wp-json/product-haven/v1/stats?days=30`                 | Statistics     |
+| GET    | `/wp-json/product-haven/v1/timeline?page=1&per_page=20`   | Order timeline |
+| GET    | `/wp-json/product-haven/v1/top-products?days=30&limit=10` | Top products   |
 
 All endpoints require the `manage_woocommerce` capability.
 
@@ -205,16 +211,16 @@ Please try to keep pull requests focused and easy to review.
 
 Open the dashboard and click **⚙ Settings** to expand the settings panel:
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Default period | 30 days | Active period on load |
-| Chart type | Line | Line or bar chart |
-| Show average order value | On | Show/hide stat card |
-| Show top products | On | Show/hide block |
-| Orders per page | 20 | Timeline pagination |
-| Accent colour | `#10B981` | Customisable brand colour |
-| Export columns | All | Choose which columns appear in CSV |
-| Enable REST API | Off | Activate REST endpoints |
+| Setting                  | Default     | Description                        |
+| ------------------------ | ----------- | ---------------------------------- |
+| Default period           | 30 days     | Active period on load              |
+| Chart type               | Line        | Line or bar chart                  |
+| Show average order value | On          | Show/hide stat card                |
+| Show top products        | On          | Show/hide block                    |
+| Orders per page          | 20          | Timeline pagination                |
+| Accent colour            | `#10B981` | Customisable brand colour          |
+| Export columns           | All         | Choose which columns appear in CSV |
+| Enable REST API          | Off         | Activate REST endpoints            |
 
 ---
 
@@ -248,19 +254,22 @@ Product Haven is provided **as is**, without any warranty. While the plugin is i
 
 ## Changelog
 
-All notable changes to this project are documented here.  
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).  
+All notable changes to this project are documented here.
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
 ### [Unreleased]
 
+**Translate UI copy to English and add languages** - Convert Dutch comments/labels to English across admin/front/sequential CSS and JS, standardize various UI copy strings and comments, and update admin PHP comments. Also add Portuguese and Italian language buttons to the settings page. Changes are primarily copy/comment updates and small UI text tweaks; no functional logic changes.
+
 ---
 
 ### [1.3.2] — 2026-03-12
 
 #### Changed
+
 - **Quick Products — action button tooltips** — the 4 row-action buttons (Edit, Duplicate, Open in WC, Delete) now show a styled CSS tooltip on hover; more reliable than native `title` tooltips.
 - **Quick Products — "New product" button** — added bottom margin so it no longer sits flush against the filter bar.
 - **Quick Products — Publish card** — sidebar card body now uses flexbox gap for proper spacing between Status, Visibility, and Featured toggle fields.
@@ -270,6 +279,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ### [1.3.1] — 2026-03-12
 
 #### Changed
+
 - **Revenue tab** — container centred with flexbox; padding `28px 32px`; table gets `max-width:560px`, subtle box-shadow, and larger row padding.
 - **Categories tab header** — column headers moved into card-header (`mos-categories-col-header`), matching the coupons pattern; `#F8FAFC` background, `#64748B` text.
 - **Customers tab header** — column headers moved into card-header (`mos-customers-col-header`); inline `mos-report-header` row removed; same light styling as coupons/categories.
@@ -281,7 +291,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ### [1.3.0] — 2026-03-12
 
 #### Added
+
 - **French (FR) and Spanish (ES) translations** — all UI strings in `i18n.php` now have complete `fr` and `es` entries across every section:
+
   - General / Header
   - Tabs
   - Stat cards
@@ -314,16 +326,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
   - Sequential Orders tab
   - WooCommerce order statuses
   - CSV export columns
-
 - **German (DE) translations** — all entries that were missing `de` are now complete (same sections as above).
-
 - **Language switcher extended** — the header now shows **5 language buttons**: NL · EN · DE · FR · ES.
+
   - Each button has a localized `title` tooltip (e.g. "Switch to French").
   - New i18n keys: `lang_de`, `lang_fr`, `lang_es`, `switch_to_de`, `switch_to_fr`, `switch_to_es`.
-
 - **AJAX language handler** (`ph_set_lang`) now accepts `de`, `fr` and `es` in addition to `nl` and `en`. Previously selecting DE/FR/ES would silently fall back to `nl`.
-
 - **Locale mapping** — `locale` passed to JS is now correctly set per language:
+
   - `nl` → `nl-NL`
   - `en` → `en-GB`
   - `de` → `de-DE`
@@ -331,9 +341,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
   - `es` → `es-ES`
 
 #### Fixed
+
 - Broken flag emoji characters (🇫🇷 / 🇪🇸) that rendered as replacement boxes on some server encodings — replaced with working emoji characters for all language buttons.
 
 #### Changed
+
 - Language switcher `title` attribute moved from the wrapping `<div>` to individual `<button>` elements, so each button describes its own action.
 
 ---
@@ -341,6 +353,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ### [1.2.0] — 2026-03-11
 
 #### Added
+
 - **In-plugin order edit modal** — replaced the "Bewerken in WC" external link with an own modal inside the plugin.
   - 10 billing fields: voornaam, achternaam, bedrijf, e-mail, telefoon, adres 1, adres 2, stad, postcode, land.
   - Optioneel intern notitieveld dat als ordernotitie wordt opgeslagen na het bewaren.
@@ -354,11 +367,13 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **`openOrderModal()` heeft nu een `forceReload`-parameter** — vanuit de klantenkaart wordt altijd `forceReload=true` meegegeven zodat order-data nooit uit een mogelijk verouderde cache komt.
 
 #### Fixed
+
 - **Order edit modal toonde oude data bij heropenen** — na opslaan wordt de `orderCache` bijgewerkt, de modal body herrenderd en de editBtn opnieuw gebonden aan de verse data.
 - **Verkeerde stad/adres bij orders geopend vanuit klantenkaart** — `openOrderModal` sloeg een order op in `orderCache` vanuit de tijdlijn; bij een volgende open vanuit de klantenkaart werd de gecachede (mogelijk verouderde) versie getoond. Opgelost via `forceReload=true` en het legen van WP/WC caches in `ph_ajax_get_single_order`.
 - **`ph_ajax_get_single_order` legt nu WP object-cache en WC transients** — `clean_post_cache()` + `wc_delete_shop_order_transients()` voor het ophalen, zodat altijd actuele order-data wordt gelezen.
 
 #### Changed
+
 - `mos-modal-edit-link` CSS uitgebreid met `background:none; border:none; cursor:pointer; padding:0` zodat het element als knop werkt.
 - Nieuwe CSS-klassen: `.mos-order-edit-modal`, `.mos-order-edit-grid` (2-koloms grid), `.mos-order-edit-field`, `.mos-order-edit-footer`; backdrop `#mos-order-edit-backdrop` toegevoegd aan de `[hidden]`-suppressieblok.
 
@@ -367,6 +382,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ### [1.1.0] — 2026-03-10
 
 #### Added
+
 - **Voorraad-tab** — volledige Stock Sentinel-functionaliteit geïntegreerd in Product Haven als eigen "Voorraad" tab in de zijbalk.
   - Overzichtstabel met zoeken, filteren (alle / laag / uitverkocht), sorteren en paginering.
   - Statkaarten: totale producten, totale voorraadwaarde, laag op voorraad, uitverkocht.
@@ -387,12 +403,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - Full rebrand to Product Haven
 
 #### Fixed
+
 - **Operator-precedence bug** in de alertcontrole (`$opts['key'] ?? '1' !== '1'` evalueerde verkeerd) — opgelost met extra haakjes.
 - **`require_once` stond ná een vroegtijdige `return`** — verplaatst naar vóór alle controles zodat helperfuncties altijd beschikbaar zijn.
 - **Refresh-knop vernieuwe de Voorraad-tab niet** — `loadStock()` wordt nu ook aangeroepen vanuit de refresh-handler als de Voorraad-tab actief is.
 - **Settings- en edit-popup waren traag** — `backdrop-filter: blur()` verwijderd uit de CSS (GPU-zwaar); vervangen door `rgba`-achtergrond zonder blur.
 
 #### Changed
+
 - Plugin-naam in de WordPress-zijbalk gewijzigd van `OrderSync` naar `Order Pulse` (nu: **Product Haven**).
 - Voorraadupdate gebruikt `wc_update_product_stock()` in plaats van `set_stock_quantity()/save()` voor correcte hook-triggering.
 
