@@ -262,7 +262,8 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### [Unreleased]
 
-**Translate UI copy to English and add languages** - Convert Dutch comments/labels to English across admin/front/sequential CSS and JS, standardize various UI copy strings and comments, and update admin PHP comments. Also add Portuguese and Italian language buttons to the settings page. Changes are primarily copy/comment updates and small UI text tweaks; no functional logic changes.
+- **Translate UI copy to English** - Convert Dutch comments/labels to English across admin/front/sequential CSS and JS, standardize various UI copy strings and comments, and update admin PHP comments. Changes are primarily copy/comment updates and small UI text tweaks; no functional logic changes.
+- **Added more Languages** - Also added Portuguese and Italian language buttons to the settings page.
 
 ---
 
