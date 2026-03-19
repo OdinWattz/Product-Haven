@@ -22,7 +22,7 @@ function ph_qp_verify_nonce(): void {
     }
 }
 
-/* ── Product opslaan (nieuw + update) ─────────────────────────────── */
+/* ── Save Product (new + update) ─────────────────────────────── */
 function ph_ajax_qp_save_product(): void {
     ph_qp_verify_nonce();
 
@@ -178,7 +178,7 @@ function ph_ajax_qp_save_product(): void {
 }
 add_action( 'wp_ajax_ph_qp_save_product', 'ph_ajax_qp_save_product' );
 
-/* ── Product laden (bewerken) ─────────────────────────────────────── */
+/* ── Load Product (edit) ─────────────────────────────────────── */
 function ph_ajax_qp_load_product(): void {
     ph_qp_verify_nonce();
     $id = absint( $_POST['product_id'] ?? 0 );
@@ -261,7 +261,7 @@ function ph_ajax_qp_load_product(): void {
 }
 add_action( 'wp_ajax_ph_qp_load_product', 'ph_ajax_qp_load_product' );
 
-/* ── Product verwijderen ──────────────────────────────────────────── */
+/* ── Delete Product ───────────────────────────────────────────── */
 function ph_ajax_qp_delete_product(): void {
     ph_qp_verify_nonce();
     $id = absint( $_POST['product_id'] ?? 0 );
@@ -273,7 +273,7 @@ function ph_ajax_qp_delete_product(): void {
 }
 add_action( 'wp_ajax_ph_qp_delete_product', 'ph_ajax_qp_delete_product' );
 
-/* ── Productenlijst (paginering + zoeken + filter) ────────────────── */
+/* ── Productlist (index + searching + filter) ────────────────── */
 function ph_ajax_qp_get_products(): void {
     ph_qp_verify_nonce();
 
@@ -339,7 +339,7 @@ function ph_ajax_qp_get_products(): void {
 }
 add_action( 'wp_ajax_ph_qp_get_products', 'ph_ajax_qp_get_products' );
 
-/* ── Dupliceren ───────────────────────────────────────────────────── */
+/* ── Duplicating ───────────────────────────────────────────────────── */
 function ph_ajax_qp_duplicate_product(): void {
     ph_qp_verify_nonce();
     $id = absint( $_POST['product_id'] ?? 0 );
@@ -362,7 +362,7 @@ function ph_ajax_qp_duplicate_product(): void {
 }
 add_action( 'wp_ajax_ph_qp_duplicate_product', 'ph_ajax_qp_duplicate_product' );
 
-/* ── Snel-prijs en snel-voorraad inline bewerken ─────────────────── */
+/* ── Quick Price and Quick Stock inline editing ─────────────────── */
 function ph_ajax_qp_quick_edit(): void {
     ph_qp_verify_nonce();
     $id    = absint( $_POST['product_id'] ?? 0 );
@@ -401,7 +401,7 @@ function ph_ajax_qp_quick_edit(): void {
 }
 add_action( 'wp_ajax_ph_qp_quick_edit', 'ph_ajax_qp_quick_edit' );
 
-/* ── Render pagina data (categorieën, tags, merken, attributen) ───── */
+/* ── Render page data (categories, tags, brands, attributes) ───── */
 function ph_qp_get_page_data(): array {
     $cats   = get_terms( [ 'taxonomy' => 'product_cat', 'hide_empty' => false, 'orderby' => 'name' ] );
     $tags   = get_terms( [ 'taxonomy' => 'product_tag', 'hide_empty' => false, 'orderby' => 'name' ] );

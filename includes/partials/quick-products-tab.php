@@ -18,7 +18,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
 <!-- ===== TAB: QUICK PRODUCTS ===== -->
 <div class="mos-tab-panel" id="mos-panel-products">
 
-    <!-- Sub-tabs binnen het producten-paneel -->
+    <!-- Sub-tabs inside the products panel -->
     <nav class="op-qp-tabs" id="op-qp-tabs">
         <button class="op-qp-tab is-active" data-qptab="list">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
@@ -35,7 +35,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
         </button>
     </nav>
 
-    <!-- ── LIJST PANEEL ── -->
+    <!-- ── LIST PANEL ── -->
     <div class="op-qp-panel is-active" id="op-qp-panel-list">
 
         <div class="op-qp-filters">
@@ -78,17 +78,17 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
 
     </div><!-- #op-qp-panel-list -->
 
-    <!-- ── EDITOR PANEEL ── -->
+    <!-- ── EDITOR PANEL ── -->
     <div class="op-qp-panel" id="op-qp-panel-editor">
         <form id="op-qp-product-form" novalidate>
             <input type="hidden" id="op-qp-product-id" name="product_id" value="0">
 
             <div class="op-qp-editor-layout">
 
-                <!-- LINKER KOLOM -->
+                <!-- LEFT COLUMN -->
                 <div class="op-qp-editor-main">
 
-                    <!-- Basisinfo -->
+                    <!-- Basic Info -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_product_info', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -126,7 +126,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Prijs -->
+                    <!-- Prices -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_price', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -153,7 +153,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Voorraad -->
+                    <!-- Stock -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_stock', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -206,7 +206,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Verzending -->
+                    <!-- Shipping -->
                     <section class="mos-card">
                         <div class="mos-card-header">
                             <h2><?php echo esc_html( ph_t( 'qp_section_shipping', $lang ) ); ?></h2>
@@ -250,7 +250,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Belasting -->
+                    <!-- Tax -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_tax', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -277,10 +277,10 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
 
                 </div><!-- .op-qp-editor-main -->
 
-                <!-- RECHTER KOLOM -->
+                <!-- RIGHT COLUMN -->
                 <div class="op-qp-editor-sidebar">
 
-                    <!-- Publiceren -->
+                    <!-- Publish -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_publish', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -321,7 +321,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Productafbeelding -->
+                    <!-- Productimage -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_image', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -344,7 +344,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Productgalerij -->
+                    <!-- Productgallery -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_gallery', $lang ) ); ?></h2></div>
                         <div class="mos-card-body">
@@ -357,7 +357,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Categorieën -->
+                    <!-- Categories -->
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_categories', $lang ) ); ?></h2></div>
                         <div class="mos-card-body op-qp-checklist-wrap">
@@ -389,7 +389,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
 
-                    <!-- Merken -->
+                    <!-- Brands -->
                     <?php if ( ! empty( $brands ) ) : ?>
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_brands', $lang ) ); ?></h2></div>
@@ -405,7 +405,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                     </section>
                     <?php endif; ?>
 
-                    <!-- Attributen -->
+                    <!-- Attributes -->
                     <?php if ( ! empty( $attributes_data ) ) : ?>
                     <section class="mos-card">
                         <div class="mos-card-header"><h2><?php echo esc_html( ph_t( 'qp_section_attributes', $lang ) ); ?></h2></div>

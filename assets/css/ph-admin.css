@@ -1,9 +1,9 @@
 /* ============================================================
    Product Haven — Admin CSS
-   Design: donker sidebar gevoel, groene accent, data-dense
+   Design: dark sidebar feel, green accent, data-dense
    ============================================================ */
 
-/* Zorg dat [hidden] altijd werkt, ook in WP admin die het soms reset */
+/* Ensure that [hidden] always works, even in WP admin which sometimes resets it */
 .mos-wrap [hidden],
 #mos-modal-backdrop[hidden],
 #mos-customer-backdrop[hidden],
@@ -13,7 +13,7 @@
 #mos-refund-modal-backdrop[hidden],
 #mos-order-edit-backdrop[hidden] { display: none !important; }
 
-/* SVG-iconen altijd verticaal centreren t.o.v. tekst */
+/* SVG icons should always be vertically centered relative to text */
 .mos-wrap svg,
 .mos-btn svg,
 .op-qp-tab svg,
@@ -33,7 +33,7 @@
     --mos-shadow:      0 1px 3px rgba(0,0,0,.06);
 }
 
-/* ---- Wrapper ---- */
+/* Wrapper */
 .mos-wrap {
     padding: 24px 20px 40px;
     background: var(--mos-bg);
@@ -45,7 +45,7 @@
 
 .mos-wrap * { box-sizing: border-box; }
 
-/* ---- Header ---- */
+/* Header */
 .mos-header {
     display: flex;
     align-items: center;
@@ -87,7 +87,7 @@
     flex-wrap: wrap;
 }
 
-/* ---- Taal switcher ---- */
+/* Language switcher */
 .ph-lang-switcher {
     display: flex;
     background: var(--mos-surface);
@@ -127,7 +127,7 @@
     font-weight: 700;
 }
 
-/* ---- Periode knoppen ---- */
+/* Period buttons */
 .mos-period-selector {
     display: flex;
     background: var(--mos-surface);
@@ -151,7 +151,7 @@
 .mos-period-btn:hover      { background: #F1F5F9; color: var(--mos-text); }
 .mos-period-btn.is-active  { background: var(--mos-accent); color: #fff; }
 
-/* ---- Export knop ---- */
+/* Export button */
 .mos-export-btn {
     display: flex;
     align-items: center;
@@ -194,7 +194,7 @@
     animation: mos-spin .7s linear infinite;
 }
 
-/* ---- Stat kaarten ---- */
+/* Stat cards */
 .mos-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -252,7 +252,7 @@
     color: var(--mos-muted);
 }
 
-/* ---- Kaart base ---- */
+/* Card base */
 .mos-card {
     background: var(--mos-surface);
     border: 1.5px solid var(--mos-border);
@@ -286,7 +286,7 @@
     padding: 20px;
 }
 
-/* ---- Grafiek ---- */
+/* Chart */
 .mos-chart-card { padding-bottom: 0; }
 .mos-chart-wrap { padding: 20px; }
 .mos-chart-wrap canvas { width: 100% !important; max-height: 260px; }
@@ -313,7 +313,7 @@
     background: color-mix(in srgb, var(--mos-accent) 8%, transparent);
 }
 
-/* ---- Twee kolommen layout ---- */
+/* Two columns layout */
 .mos-two-col {
     display: grid;
     grid-template-columns: 1fr 340px;
@@ -323,7 +323,7 @@
 
 .mos-right-col { display: flex; flex-direction: column; gap: 20px; }
 
-/* ---- Tijdlijn filters ---- */
+/* Timeline filters */
 .mos-timeline-filters {
     display: flex;
     gap: 8px;
@@ -350,7 +350,7 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--mos-accent) 15%, transparent);
 }
 
-/* ---- Tijdlijn rijen ---- */
+/* Timeline rows */
 .mos-timeline { padding: 4px 0; }
 
 .mos-tl-row {
@@ -406,7 +406,7 @@
 .mos-status-refunded   { background: #EDE9FE; color: #7C3AED; }
 .mos-status-failed     { background: #FEE2E2; color: #DC2626; }
 
-/* ---- Paginering ---- */
+/* Pagination */
 .mos-pagination {
     display: flex;
     justify-content: center;
@@ -432,7 +432,7 @@
 .mos-page-btn.is-active { background: var(--mos-accent); border-color: var(--mos-accent); color: #fff; }
 .mos-page-btn:disabled  { opacity: .4; cursor: not-allowed; }
 
-/* ---- Top producten ---- */
+/* Top products */
 .mos-top-list { list-style: none; margin: 0; padding: 8px 0; }
 
 .mos-top-item {
@@ -459,7 +459,7 @@
 .mos-top-qty   { font-size: 13px; font-weight: 700; color: var(--mos-accent); }
 .mos-top-rev   { font-size: 12px; color: var(--mos-muted); }
 
-/* ---- Voorraad badges in top producten ---- */
+/* Stock badges in top products */
 .mos-stock-badge {
     display: inline-flex;
     align-items: center;
@@ -484,7 +484,7 @@
 }
 a.mos-stock-badge:hover { opacity: .8; }
 
-/* ---- Lage voorraad card ---- */
+/* Low stock card */
 .mos-low-stock-card .mos-card-header h2 {
     display: flex;
     align-items: center;
@@ -572,7 +572,7 @@ a.mos-stock-badge:hover { opacity: .8; }
     color: var(--mos-accent);
 }
 
-/* ---- Stock edit modal ---- */
+/* Stock edit modal */
 #mos-stock-edit-backdrop[hidden] { display: none !important; }
 
 .mos-stock-edit-modal {
@@ -580,7 +580,7 @@ a.mos-stock-badge:hover { opacity: .8; }
     width: 100%;
 }
 
-/* ---- Klantenkaart modal ---- */
+/* Customercard modal */
 #mos-customer-backdrop[hidden] { display: none !important; }
 
 .mos-customer-modal {
@@ -739,7 +739,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 .mos-customer-order-row:last-child { border-bottom: none; }
 
-/* ---- Modal ---- */
+/* Modal */
 .mos-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -810,7 +810,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 .mos-modal-edit-link:hover { color: var(--mos-accent); }
 
-/* ===== Order edit modal ===== */
+/* Order edit modal */
 .mos-order-edit-modal { max-width: 680px; }
 
 .mos-order-edit-grid {
@@ -879,7 +879,7 @@ a.mos-stock-badge:hover { opacity: .8; }
     flex: 1;
 }
 
-/* Modal inhoud */
+/* Modal content */
 .mos-modal-section { margin-bottom: 20px; }
 .mos-modal-section-title {
     font-size: 11px;
@@ -913,7 +913,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 .mos-modal-item-qty  { color: var(--mos-muted); }
 .mos-modal-item-sub  { font-weight: 600; }
 
-/* Notities */
+/* Notices */
 .mos-note-item {
     background: #F8FAFC;
     border-radius: 10px;
@@ -966,7 +966,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 .mos-note-submit:hover { background: var(--mos-accent-dark); }
 
-/* ---- Instellingen ---- */
+/* Settings */
 .mos-settings-card .mos-settings-body { padding: 20px; }
 
 .mos-settings-grid {
@@ -1047,7 +1047,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 .mos-save-btn:hover  { opacity: .92; }
 .mos-save-btn:active { transform: scale(.97); }
 
-/* ---- Skeleton ---- */
+/* Skeleton */
 .mos-skeleton {
     display: inline-block;
     height: 14px;
@@ -1070,7 +1070,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 @keyframes mos-shimmer { from { opacity: 1; } to { opacity: .45; } }
 
-/* ---- Spinner ---- */
+/* Spinner */
 .mos-loading-spinner {
     width: 32px; height: 32px;
     border: 3px solid var(--mos-border);
@@ -1082,7 +1082,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 @keyframes mos-spin { to { transform: rotate(360deg); } }
 
-/* ---- Notificaties ---- */
+/* Notificaties */
 .mos-notice {
     padding: 10px 16px;
     border-radius: 10px;
@@ -1093,7 +1093,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 
 .mos-notice-success { background: #DCFCE7; color: #15803D; }
 
-/* ---- Status-actieknoppen in modal ---- */
+/* Status-action buttons in modal */
 .mos-status-actions-section { border-top: 1px solid var(--mos-border); padding-top: 16px; }
 
 .mos-status-actions {
@@ -1139,7 +1139,7 @@ a.mos-stock-badge:hover { opacity: .8; }
     cursor: wait;
 }
 
-/* Per-knop kleuren */
+/* Per-button colors */
 .mos-sa-complete   { background: #DCFCE7; color: #15803D; border-color: #86EFAC; }
 .mos-sa-processing { background: #DBEAFE; color: #1D4ED8; border-color: #93C5FD; }
 .mos-sa-hold       { background: #FEF3C7; color: #92400E; border-color: #FCD34D; }
@@ -1186,19 +1186,17 @@ a.mos-stock-badge:hover { opacity: .8; }
 .mos-tab-panel { display: none; }
 .mos-tab-panel.is-active { display: block; }
 
-/* Eigen panels krijgen ademruimte bovenaan */
 #mos-panel-products,
 #mos-panel-sequential {
     padding-top: 24px;
 }
 
-/* Zijdelingse en onderste breathing room voor alle tab-panels */
 .mos-tab-panel.is-active {
     padding-bottom: 32px;
 }
 
 /* ============================================================
-   OMZET RAPPORT
+   REVENUE REPORT
    ============================================================ */
 #mos-revenue-report {
     padding: 28px 32px;
@@ -1247,7 +1245,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 .mos-revenue-row.mos-revenue-total .mos-revenue-value { color: var(--mos-accent); font-size: 18px; font-weight: 800; }
 
 /* ============================================================
-   RAPPORT TABEL (categorieën, coupons, dag)
+   REPORT TABLE (categories, coupons, day)
    ============================================================ */
 .mos-report-table {
     background: var(--mos-surface);
@@ -1334,7 +1332,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 .mos-report-rev { font-weight: 700; color: var(--mos-text); font-variant-numeric: tabular-nums; text-align: right; }
 .mos-report-rev.mos-revenue-minus { color: var(--mos-danger); }
 
-/* Mini balk */
+/* Mini bar */
 .mos-bar-wrap {
     flex: 1;
     height: 6px;
@@ -1366,7 +1364,7 @@ a.mos-stock-badge:hover { opacity: .8; }
 }
 
 /* ============================================================
-   DAG RAPPORT
+   DAILY REPORT
    ============================================================ */
 .mos-daily-date-wrap {
     display: flex;
@@ -1453,7 +1451,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* ============================================================
-   LOAD MORE KNOP (top producten)
+   LOAD MORE BUTTON (top products)
    ============================================================ */
 .mos-top-products-footer {
     padding: 14px 20px;
@@ -1484,7 +1482,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* ============================================================
-   KLANTEN RAPPORT
+   CUSTOMERS REPORT
    ============================================================ */
 .mos-customers-header,
 .mos-customer-row {
@@ -1547,7 +1545,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* ============================================================
-   ORDER VERWIJDEREN
+   ORDER REMOVAL
    ============================================================ */
 .mos-danger-section {
     margin-top: 8px;
@@ -1580,7 +1578,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* ============================================================
-   RESPONSIEF
+   RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
     .mos-two-col { grid-template-columns: 1fr; }
@@ -1598,7 +1596,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* =============================================================
-   VOORRAAD TAB — Stock management styles
+   STOCK TAB — Stock management styles
    ============================================================= */
 
 /* Summary cards */
@@ -1843,10 +1841,10 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 
 /* =============================================================
-   QUICK PRODUCTS TAB — volledig geïntegreerd in Product Haven
+   QUICK PRODUCTS TAB — fully integrated in Product Haven
    ============================================================= */
 
-/* ── Sub-tabs navigatie ─────────────────────────────────────── */
+/* ── Sub-tabs navigation ─────────────────────────────────────── */
 .op-qp-tabs {
     display: flex;
     align-items: center;
@@ -1888,7 +1886,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 
 .op-qp-new-btn { margin-left: auto; margin-bottom: 8px; }
 
-/* ── Sub-panelen ────────────────────────────────────────────── */
+/* ── Sub-panels ────────────────────────────────────────────── */
 .op-qp-panel { display: none; }
 .op-qp-panel.is-active { display: block; }
 
@@ -1931,7 +1929,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 
 .op-qp-search-input:focus { border-color: var(--mos-accent); }
 
-/* ── Formulier velden ─────────────────────────────────────────── */
+/* ── Form fields ─────────────────────────────────────────── */
 .op-qp-input,
 .op-qp-select,
 .op-qp-textarea {
@@ -1980,7 +1978,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     gap: 8px;
 }
 
-/* ── Toggle switch ────────────────────────────────────────────── */
+/* ── Toggle switch */
 .op-qp-toggle-label {
     display: flex;
     align-items: center;
@@ -2021,7 +2019,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 .op-qp-toggle-check:checked + .op-qp-toggle::after { transform: translateX(16px); }
 .op-qp-field-toggle-wrap { justify-content: center; }
 
-/* ── Editor layout ────────────────────────────────────────────── */
+/* ── Editor layout */
 .op-qp-editor-layout {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -2033,10 +2031,10 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     .op-qp-editor-layout { grid-template-columns: 1fr; }
 }
 
-/* ── Publish acties ───────────────────────────────────────────── */
+/* ── Publish actions */
 .op-qp-publish-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
 
-/* ── Sidebar card body spacing ────────────────────────────────── */
+/* ── Sidebar card body spacing */
 .op-qp-editor-sidebar .mos-card-body {
     display: flex;
     flex-direction: column;
@@ -2044,7 +2042,6 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 .op-qp-btn-full { width: 100%; justify-content: center; }
 
-/* ── Afbeelding box ───────────────────────────────────────────── */
 .op-qp-image-box {
     border: 2px dashed var(--mos-border);
     border-radius: 10px;
@@ -2082,7 +2079,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 
 .op-qp-image-actions { display: flex; gap: 8px; }
 
-/* ── Galerij ──────────────────────────────────────────────────── */
+/* ── Gallery */
 .op-qp-gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2121,7 +2118,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 
 .op-qp-gallery-item:hover .op-qp-gallery-remove { opacity: 1; }
 
-/* ── Categorieën checklist ─────────────────────────────────────── */
+/* ── Categories checklist */
 .op-qp-checklist-wrap {
     max-height: 200px;
     overflow-y: auto;
@@ -2153,7 +2150,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     padding: 0 6px;
 }
 
-/* ── Tags ─────────────────────────────────────────────────────── */
+/* ── Tags  */
 .op-qp-tags-selected {
     display: flex;
     flex-wrap: wrap;
@@ -2184,7 +2181,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     font-size: 14px;
 }
 
-/* ── Producttabel ─────────────────────────────────────────────── */
+/* ── Product table */
 .op-qp-table-wrap { overflow-x: auto; }
 
 .op-qp-table {
@@ -2273,12 +2270,12 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 .op-qp-badge-private  { background: #FEF3C7; color: #92400E; }
 .op-qp-badge-pending  { background: #FFF7ED; color: #9A3412; }
 
-/* Voorraad status kleuren */
+/* Stock status colors */
 .op-qp-stock-instock     { color: var(--mos-accent); font-weight: 600; }
 .op-qp-stock-outofstock  { color: var(--mos-danger); font-weight: 600; }
 .op-qp-stock-onbackorder { color: var(--mos-warning); font-weight: 600; }
 
-/* Actie knoppen in tabel */
+/* Action buttons in table */
 .op-qp-tbl-actions {
     display: flex;
     gap: 6px;
@@ -2327,7 +2324,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 }
 .op-qp-tbl-btn[data-tooltip]:hover::after { opacity: 1; }
 
-/* ── Paginering ───────────────────────────────────────────────── */
+/* ── Pagination */
 .op-qp-pagination {
     display: flex;
     align-items: center;
@@ -2359,7 +2356,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
 .op-qp-page-btn.active   { background: var(--mos-accent); color: #fff; border-color: var(--mos-accent); }
 .op-qp-page-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-/* ── Attributen ───────────────────────────────────────────────── */
+/* ── Attributes */
 .op-qp-attributes-wrap { display: flex; flex-direction: column; gap: 16px; }
 .op-qp-attr-group      { display: flex; flex-direction: column; gap: 8px; }
 
@@ -2397,7 +2394,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     color: #065F46;
 }
 
-/* ── Hulpklassen ──────────────────────────────────────────────── */
+/* ── Helper classes */
 .op-qp-hidden     { display: none !important; }
 .op-qp-mt-sm      { margin-top: 12px; }
 .op-qp-stock-fields { margin-top: 16px; }
@@ -2407,7 +2404,7 @@ input#mos-daily-date:focus { border-color: var(--mos-accent); box-shadow: 0 0 0 
     transition: max-height .2s ease;
 }
 
-/* ── Voorraad veld breedte behoud ─────────────────────────────── */
+/* ── Stock field width preservation */
 .mos-card-body .op-qp-field-row { margin-bottom: 16px; }
 .mos-card-body .op-qp-field-row:last-child { margin-bottom: 0; }
 

@@ -2,7 +2,7 @@
    Product Haven — Sequential Orders tab styles
    ========================================================================== */
 
-/* Layout: twee kolommen */
+/* Layout: two columns */
 .op-so-layout {
     display: grid;
     grid-template-columns: 1fr 300px;
@@ -16,14 +16,14 @@
     }
 }
 
-/* Sidebar kolom */
+/* Sidebar column */
 .op-so-sidebar {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Veld grid: 2 kolommen in form */
+/* Field grid: 2 columns in form */
 .op-so-field-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -114,7 +114,7 @@
     word-break: break-all;
 }
 
-/* Status rijen */
+/* Status rows */
 .op-so-status-body {
     display: flex;
     flex-direction: column;
@@ -161,7 +161,7 @@
     color: #DC2626 !important;
 }
 
-/* Info lijst */
+/* Info list */
 .op-so-info-list {
     margin: 0;
     padding-left: 18px;
@@ -174,7 +174,7 @@
     color: var(--mos-accent, #10B981);
 }
 
-/* Live preview update vanuit JS */
+/* Live preview update variant JS */
 #op-so-preview {
     transition: transform .15s, opacity .15s;
 }

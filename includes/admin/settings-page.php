@@ -16,7 +16,7 @@ $opts    = get_option( 'ph_options', [] );
 $period  = absint( $opts['default_period'] ?? 30 );
 $saved   = isset( $_GET['ph_saved'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $accent  = sanitize_hex_color( $opts['accent_color'] ?? '' ) ?: '#10B981';
-$lang    = ph_get_lang(); // 'nl' of 'en'
+$lang    = ph_get_lang(); // 'nl' or 'en'
 
 $statuses = [
     'wc-pending'    => ph_t( 'wc_status_pending',    $lang ),
@@ -48,13 +48,15 @@ $statuses = [
             </div>
         </div>
         <div class="mos-header-right">
-            <!-- Taalknop -->
+            <!-- Language Switcher -->
             <div class="ph-lang-switcher">
                 <button class="ph-lang-btn <?php echo $lang === 'nl' ? 'is-active' : ''; ?>" data-lang="nl" title="<?php echo esc_attr( ph_t( 'switch_to_nl', $lang ) ); ?>">🇳🇱 NL</button>
                 <button class="ph-lang-btn <?php echo $lang === 'en' ? 'is-active' : ''; ?>" data-lang="en" title="<?php echo esc_attr( ph_t( 'switch_to_en', $lang ) ); ?>">🇬🇧 EN</button>
                 <button class="ph-lang-btn <?php echo $lang === 'de' ? 'is-active' : ''; ?>" data-lang="de" title="<?php echo esc_attr( ph_t( 'switch_to_de', $lang ) ); ?>">🇩🇪 DE</button>
                 <button class="ph-lang-btn <?php echo $lang === 'fr' ? 'is-active' : ''; ?>" data-lang="fr" title="<?php echo esc_attr( ph_t( 'switch_to_fr', $lang ) ); ?>">🇫🇷 FR</button>
                 <button class="ph-lang-btn <?php echo $lang === 'es' ? 'is-active' : ''; ?>" data-lang="es" title="<?php echo esc_attr( ph_t( 'switch_to_es', $lang ) ); ?>">🇪🇸 ES</button>
+                <button class="ph-lang-btn <?php echo $lang === 'pt' ? 'is-active' : ''; ?>" data-lang="pt" title="<?php echo esc_attr( ph_t( 'switch_to_pt', $lang ) ); ?>">🇵🇹 PT</button>
+                <button class="ph-lang-btn <?php echo $lang === 'it' ? 'is-active' : ''; ?>" data-lang="it" title="<?php echo esc_attr( ph_t( 'switch_to_it', $lang ) ); ?>">🇮🇹 IT</button>
             </div>
             <div class="mos-period-selector" id="mos-period-selector">
                 <?php foreach ( [ 7 => '7d', 14 => '14d', 30 => '30d', 90 => '90d', 365 => '1j' ] as $d => $label ) : ?>
@@ -223,7 +225,7 @@ $statuses = [
                 </section>
                 <?php endif; ?>
 
-                <!-- Lage voorraad card -->
+                <!-- Low stock card -->
                 <section class="mos-card mos-low-stock-card" id="mos-low-stock-card">
                     <div class="mos-card-header">
                         <h2>
@@ -277,7 +279,7 @@ $statuses = [
         </div>
     </div>
 
-    <!-- ===== RETOUR MODAL ===== -->
+    <!-- ===== REFUND MODAL ===== -->
     <div class="mos-modal-backdrop" id="mos-refund-modal-backdrop" hidden>
         <div class="mos-modal" role="dialog" aria-modal="true" style="max-width:460px;">
             <div class="mos-modal-header">
@@ -386,7 +388,7 @@ $statuses = [
         </div>
     </div>
 
-    <!-- ===== TAB: OMZET ===== -->
+    <!-- ===== TAB: REVENUE ===== -->
     <div class="mos-tab-panel" id="mos-panel-revenue">
         <section class="mos-card">
             <div class="mos-card-header">
@@ -396,7 +398,7 @@ $statuses = [
         </section>
     </div>
 
-    <!-- ===== TAB: CATEGORIEËN ===== -->
+    <!-- ===== TAB: CATEGORIES ===== -->
     <div class="mos-tab-panel" id="mos-panel-categories">
         <section class="mos-card">
             <div class="mos-card-header mos-card-header--dark">
@@ -416,7 +418,7 @@ $statuses = [
         </section>
     </div>
 
-    <!-- ===== TAB: DAG RAPPORT ===== -->
+    <!-- ===== TAB: DAILY REPORT ===== -->
     <div class="mos-tab-panel" id="mos-panel-daily">
         <section class="mos-card">
             <div class="mos-card-header">
@@ -438,7 +440,7 @@ $statuses = [
         </section>
     </div>
 
-    <!-- ===== TAB: KLANTEN ===== -->
+    <!-- ===== TAB: CUSTOMERS ===== -->
     <div class="mos-tab-panel" id="mos-panel-customers">
         <section class="mos-card">
             <div class="mos-card-header mos-card-header--light">
@@ -448,7 +450,7 @@ $statuses = [
         </section>
     </div>
 
-    <!-- ===== TAB: VOORRAAD ===== -->
+    <!-- ===== TAB: STOCK ===== -->
     <?php
     $stock_opts      = get_option( 'ph_stock_options', [] );
     $stock_threshold = (int) ( $stock_opts['low_stock_threshold'] ?? 5 );
@@ -608,7 +610,7 @@ $statuses = [
     require PH_PATH . 'includes/partials/sequential-orders-tab.php';
     ?>
 
-    <!-- ===== TAB: INSTELLINGEN ===== -->
+    <!-- ===== TAB: SETTINGS ===== -->
     <div class="mos-tab-panel" id="mos-panel-settings">
         <section class="mos-card mos-settings-card">
             <?php if ( $saved ) : ?>
@@ -709,7 +711,7 @@ $statuses = [
         </section>
     </div>
 
-    <!-- ===== KLANTENKAART MODAL ===== -->
+    <!-- ===== CUSTOMER CARD MODAL ===== -->
     <div class="mos-modal-backdrop" id="mos-customer-backdrop" hidden>
         <div class="mos-modal mos-customer-modal" id="mos-customer-panel" role="dialog" aria-modal="true">
             <div class="mos-modal-header">
@@ -759,7 +761,7 @@ $statuses = [
         </div>
     </div>
 
-    <!-- ===== ORDER BEWERKEN MODAL ===== -->
+    <!-- ===== ORDER EDIT MODAL ===== -->
     <div class="mos-modal-backdrop" id="mos-order-edit-backdrop" hidden>
         <div class="mos-modal mos-order-edit-modal" role="dialog" aria-modal="true">
             <div class="mos-modal-header">

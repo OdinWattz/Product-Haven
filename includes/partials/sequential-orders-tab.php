@@ -23,7 +23,7 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
 
     <div class="op-so-layout">
 
-        <!-- ── Linker kolom: instellingen form ── -->
+        <!-- ── Left column: settings form ── -->
         <div class="op-so-main">
 
             <?php if ( $so_saved ) : ?>
@@ -100,7 +100,7 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
                 </div>
             </section>
 
-            <!-- Uitleg -->
+            <!-- Explanation -->
             <section class="mos-card" style="margin-top:20px">
                 <div class="mos-card-header">
                     <h2><?php echo esc_html( ph_t( 'so_how_title', $lang ) ); ?></h2>
@@ -118,7 +118,7 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
 
         </div><!-- .op-so-main -->
 
-        <!-- ── Rechter kolom: preview + status + reset ── -->
+        <!-- ── Right column: preview + status + reset ── -->
         <div class="op-so-sidebar">
 
             <!-- Preview -->

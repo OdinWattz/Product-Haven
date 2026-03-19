@@ -1,7 +1,7 @@
 <?php
 /**
  * Product Haven — Elementor Timeline Widget
- * Toont de persoonlijke ordertijdlijn van de ingelogde klant.
+ * Shows the personal order timeline of the logged-in customer.
  *
  * @package ProductHaven
  */
@@ -58,7 +58,7 @@ class Timeline_Widget extends Widget_Base {
 
         $this->end_controls_section();
 
-        /* ---- Stijl ---- */
+        /* ---- Style ---- */
         $this->start_controls_section( 'section_style', [
             'label' => __( 'Stijl', 'product-haven' ),
             'tab'   => Controls_Manager::TAB_STYLE,
@@ -114,10 +114,10 @@ class Timeline_Widget extends Widget_Base {
     }
 
     /**
-     * Gedeelde render-logica — aangeroepen door Elementor én door de shortcode.
+     * Shared rendering logic — called by both Elementor and the shortcode.
      *
-     * @param array $settings  Widget-instellingen (of shortcode-atts als array).
-     * @param bool  $is_editor True als we in de Elementor editor zitten.
+     * @param array $settings  Widget settings (or shortcode attributes as array).
+     * @param bool  $is_editor True if we are in the Elementor editor.
      */
     public static function render_output( array $settings, bool $is_editor = false ): void {
         $s          = $settings;
@@ -126,7 +126,7 @@ class Timeline_Widget extends Widget_Base {
         $show_total = ( $s['show_total'] ?? 'yes' ) === 'yes' ? '1' : '0';
         $is_edit    = $is_editor;
 
-        /* ---- Editor preview: statische nep-orders ---- */
+        /* ---- Editor preview: static dummy orders ---- */
         if ( $is_edit ) {
             $currency = function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '€';
             $preview_orders = [

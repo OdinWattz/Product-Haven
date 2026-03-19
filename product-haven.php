@@ -95,7 +95,7 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
         'nonce'    => wp_create_nonce( 'ph_admin_nonce' ),
         'currency' => get_woocommerce_currency_symbol(),
         'lang'     => $ph_lang,
-        'locale'   => [ 'nl' => 'nl-NL', 'en' => 'en-GB', 'de' => 'de-DE', 'fr' => 'fr-FR', 'es' => 'es-ES' ][ $ph_lang ] ?? 'nl-NL',
+        'locale'   => [ 'nl' => 'nl-NL', 'en' => 'en-GB', 'de' => 'de-DE', 'fr' => 'fr-FR', 'es' => 'es-ES', 'pt' => 'pt-PT', 'it' => 'it-IT' ][ $ph_lang ] ?? 'nl-NL',
         'i18n'     => [
             // General
             'loading_error'          => ph_t( 'loading_error', $ph_lang ),
@@ -210,6 +210,7 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
             'daily_col_revenue'      => ph_t( 'daily_col_revenue', $ph_lang ),
             'daily_no_sales'         => ph_t( 'daily_no_sales', $ph_lang ),
             // Customers report
+            'top_customers'          => ph_t( 'top_customers', $ph_lang ),
             'cust_col_customer'      => ph_t( 'cust_col_customer', $ph_lang ),
             'cust_col_orders'        => ph_t( 'cust_col_orders', $ph_lang ),
             'cust_col_avg'           => ph_t( 'cust_col_avg', $ph_lang ),
@@ -301,7 +302,7 @@ function ph_enqueue_frontend() {
 add_action( 'wp_ajax_ph_set_lang', function () {
     check_ajax_referer( 'ph_admin_nonce', 'nonce' );
     if ( ! current_user_can( 'manage_woocommerce' ) ) wp_send_json_error( [], 403 );
-    $lang = in_array( $_POST['lang'] ?? '', [ 'nl', 'en', 'de', 'fr', 'es' ], true )
+    $lang = in_array( $_POST['lang'] ?? '', [ 'nl', 'en', 'de', 'fr', 'es', 'pt', 'it' ], true )
         ? sanitize_key( $_POST['lang'] )
         : 'nl';
     update_user_meta( get_current_user_id(), 'ph_lang', $lang );

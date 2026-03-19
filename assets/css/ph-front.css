@@ -90,7 +90,7 @@
 
 .mopf-login-btn:hover { background: #059669; }
 
-/* Tijdlijnlijst */
+/* Timeline list */
 .mopf-tl-list { position: relative; padding-left: 32px; }
 
 .mopf-tl-item {
@@ -178,7 +178,7 @@
 .mopf-tl-items-list { margin: 0; padding: 0 0 0 14px; font-size: 12px; color: #64748B; }
 .mopf-tl-items-list li { margin-bottom: 2px; }
 
-/* Paginering front-end */
+/* Pagination front-end */
 .mopf-tl-pagination {
     display: flex;
     justify-content: center;
@@ -212,7 +212,7 @@
 
 @keyframes mos-shimmer { from { opacity: 1; } to { opacity: .45; } }
 
-/* Lege staat */
+/* Empty state */
 .mopf-tl-empty {
     text-align: center;
     padding: 32px;
@@ -222,7 +222,7 @@
     border: 1.5px solid #E2E8F0;
 }
 
-/* ---- Responsief ---- */
+/* ---- Responsive ---- */
 @media (max-width: 480px) {
     .mopf-stats-grid { grid-template-columns: 1fr; }
     .mopf-tl-date    { display: none; }

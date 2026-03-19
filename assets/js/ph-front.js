@@ -1,6 +1,6 @@
 /**
  * Product Haven — Frontend JS
- * Elementor widgets: Stats & Timeline voor ingelogde klanten
+ * Elementor widgets: Stats & Timeline for logged-in users.
  */
 (function () {
     'use strict';
@@ -179,7 +179,7 @@
        Init
        ============================================================ */
     function init() {
-        // In Elementor editor de preview wordt server-side gegenereerd — geen AJAX nodig.
+        // In Elementor editor the preview is generated server-side — no AJAX needed.
         if ( window.elementorFrontend && window.elementorFrontend.isEditMode() ) return;
 
         initStatsWidgets();
@@ -192,7 +192,7 @@
         init();
     }
 
-    // Elementor frontend (gepubliceerde pagina): herinitialiseer widgets na renderen.
+    // Elementor frontend (published page): reinitialize widgets after rendering.
     if (window.elementorFrontend) {
         window.elementorFrontend.hooks?.addAction('frontend/element_ready/ph_order_stats.default', function () {
             if (!window.elementorFrontend.isEditMode()) initStatsWidgets();

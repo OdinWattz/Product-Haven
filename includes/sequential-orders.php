@@ -2,11 +2,11 @@
 /**
  * Product Haven — Sequential Orders module
  *
- * Geeft WooCommerce bestellingen een eigen oplopend bestelnummer,
- * los van de WordPress post ID. Volledig geïntegreerd in Product Haven.
+ * Give WooCommerce orders their own sequential order number,
+ * independent of the WordPress post ID. Fully integrated into Product Haven.
  *
- * Originele logica: Odin's Sequential Orders (odinwattez.nl)
- * Geïntegreerd onder Product Haven prefix: ph_so_*
+ * Original logic: Odin's Sequential Orders (odinwattez.nl)
+ * Integrated under Product Haven prefix: ph_so_*
  *
  * All functions are prefixed with ph_ or ph_so_ per the plugin prefix convention.
  * phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
@@ -17,14 +17,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /* ============================================================
-   BESTELNUMMER TOEWIJZEN
+   ORDER NUMBER ASSIGNMENT
    ============================================================ */
 
 add_action( 'woocommerce_checkout_order_created', 'ph_so_assign_order_number' );
 add_action( 'woocommerce_store_api_checkout_order_processed', 'ph_so_assign_order_number' );
 
 function ph_so_assign_order_number( $order ): void {
-    // Voorkom dubbele toewijzing
+    // Prevent duplicate assignment
     if ( $order->get_meta( '_ph_so_order_number' ) ) {
         return;
     }
@@ -43,7 +43,7 @@ function ph_so_assign_order_number( $order ): void {
 }
 
 /**
- * Thread-safe atomaire teller via DB-lock.
+ * Thread-safe atomic counter via DB lock.
  */
 function ph_so_next_number(): int {
     global $wpdb;
@@ -63,7 +63,7 @@ function ph_so_next_number(): int {
 }
 
 /* ============================================================
-   BESTELNUMMER WEERGEVEN IN WOOCOMMERCE
+   ORDER NUMBER DISPLAY IN WOOCOMMERCE
    ============================================================ */
 
 add_filter( 'woocommerce_order_number', 'ph_so_filter_order_number', 10, 2 );
@@ -73,7 +73,7 @@ function ph_so_filter_order_number( $order_number, $order ) {
 }
 
 /* ============================================================
-   ZOEKEN IN ADMIN OP BESTELNUMMER
+   SEARCHING IN ADMIN BY ORDER NUMBER
    ============================================================ */
 
 add_filter( 'woocommerce_shop_order_search_fields', 'ph_so_add_search_fields' );
@@ -84,12 +84,12 @@ function ph_so_add_search_fields( $search_fields ) {
 }
 
 /* ============================================================
-   INSTELLINGEN OPSLAAN (admin_post handler)
+   SETTINGS SAVE (admin_post handler)
    ============================================================ */
 
 add_action( 'admin_post_ph_so_save_settings', 'ph_so_save_settings' );
 function ph_so_save_settings(): void {
-    if ( ! current_user_can( 'manage_options' ) ) wp_die( 'Geen toegang.' );
+    if ( ! current_user_can( 'manage_options' ) ) wp_die( 'No access.' );
     check_admin_referer( 'ph_so_settings_nonce' );
 
     $options = [
@@ -99,7 +99,7 @@ function ph_so_save_settings(): void {
         'padding'      => max( 1, min( 10, absint( $_POST['padding'] ?? 1 ) ) ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
     ];
 
-    // Als startnummer hoger is dan huidige teller, teller bijwerken
+    // If start number is higher than current counter, update counter
     $current_counter = (int) get_option( 'ph_so_counter', 0 );
     if ( $options['start_number'] > $current_counter ) {
         update_option( 'ph_so_counter', $options['start_number'] - 1, false );
@@ -112,12 +112,12 @@ function ph_so_save_settings(): void {
 }
 
 /* ============================================================
-   TELLER RESETTEN (admin_post handler)
+   COUNTER RESET (admin_post handler)
    ============================================================ */
 
 add_action( 'admin_post_ph_so_reset_counter', 'ph_so_reset_counter' );
 function ph_so_reset_counter(): void {
-    if ( ! current_user_can( 'manage_options' ) ) wp_die( 'Geen toegang.' );
+    if ( ! current_user_can( 'manage_options' ) ) wp_die( 'No access.' );
     check_admin_referer( 'ph_so_reset_nonce' );
 
     $options = get_option( 'ph_so_options', [] );
@@ -129,7 +129,7 @@ function ph_so_reset_counter(): void {
 }
 
 /* ============================================================
-   PAGE DATA HELPER — gebruikt door de tab partial
+   PAGE DATA HELPER — used by the tab partial
    ============================================================ */
 
 function ph_so_get_page_data(): array {

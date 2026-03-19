@@ -1,6 +1,6 @@
 /**
  * Product Haven — Admin JS
- * Dashboard: statistieken, grafiek, tijdlijn, modal, klantenkaart, export, tabs, rapporten
+ * Dashboard: statistics, graph, timeline, modal, customer card, export, tabs, reports
  */
 (function () {
     'use strict';
@@ -9,7 +9,7 @@
     const i18n = window.ph_admin?.i18n || {};
 
     /* ============================================================
-       Staat
+       State
        ============================================================ */
     let currentDays   = parseInt(document.querySelector('.mos-period-btn.is-active')?.dataset.days || 30);
     let currentPage   = 1;
@@ -20,10 +20,10 @@
     let visibleDatasets = { revenue: true, orders: false };
     let topProductsLimit = 5;
 
-    // Tab staat — bijhouden welke rapporten al geladen zijn
+    // Tab state — keep track of which reports have already been loaded
     const tabLoaded = { dashboard: false, revenue: false, categories: false, coupons: false, daily: false, customers: false, stock: false, products: false, sequential: false };
 
-    // Cache: order-objecten opgeslagen bij renderen tijdlijn → geen extra AJAX voor modal
+    // Cache: order objects stored during timeline rendering → no extra AJAX for modal
     const orderCache = new Map();
 
     /* ============================================================
@@ -38,7 +38,7 @@
     }
 
     /* ============================================================
-       Tijd helper — vertaalt Unix timestamp naar leesbare string
+       Time helper — translates Unix timestamp to readable string
        ============================================================ */
     function timeAgo(ts) {
         if (!ts) return '';
@@ -65,7 +65,7 @@
                 const panel = document.getElementById('mos-panel-' + target);
                 if (panel) panel.classList.add('is-active');
 
-                // Periode-selector verbergen op tabs die geen periode gebruiken
+                // Period selector hide on tabs that don't use a period
                 const periodSel = document.getElementById('mos-period-selector');
                 if (periodSel) {
                     periodSel.style.display = (target === 'settings' || target === 'products' || target === 'sequential') ? 'none' : '';
@@ -84,7 +84,7 @@
     }
 
     /* ============================================================
-       Statistieken laden
+       Load Statistics
        ============================================================ */
     function loadStats(force = false) {
         ajax('ph_get_stats', { days: currentDays, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
@@ -100,14 +100,14 @@
             if (refCard && d.refunds > 0) refCard.textContent = (i18n.refunded_prefix || 'Terugbetaald: ') + formatCurrency(d.refunds);
         });
 
-        // Top producten apart laden met huidige limit
+        // Top products separately loaded with current limit
         loadTopProducts(force);
-        // Lage voorraad card
+        // Low stock card
         loadLowStock();
     }
 
     /* ============================================================
-       LAGE VOORRAAD CARD
+       LOW STOCK CARD
        ============================================================ */
     let lowStockThreshold = 20;
     let lowStockTimer = null;
@@ -123,11 +123,11 @@
         const body = document.getElementById('mos-low-stock-body');
         if (!body) return;
 
-        // Update card header teller
+        // Update card header counter
         const card = document.getElementById('mos-low-stock-card');
         const heading = card?.querySelector('h2');
         if (heading) {
-            // Verwijder oude teller badge als die er is
+            // Remove old counter badge if it exists
             heading.querySelector('.mos-low-stock-count')?.remove();
             if (products.length > 0) {
                 const badge = document.createElement('span');
@@ -157,7 +157,7 @@
             </div>`;
         }).join('');
 
-        // Edit knoppen
+        // Edit buttons
         body.querySelectorAll('.mos-ls-edit-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 openStockEditModal(
@@ -205,7 +205,7 @@
             saveBtn.textContent = i18n.order_edit_save || 'Opslaan';
             if (!resp.success) { alert((i18n.error_prefix || 'Fout: ') + (resp.data?.message || (i18n.unknown_error_short || 'onbekend'))); return; }
             closeStockEditModal();
-            loadLowStock(); // card verversen
+            loadLowStock(); // card refresh
         });
     }
 
@@ -227,7 +227,7 @@
     });
 
     /* ============================================================
-       TOP PRODUCTEN
+       TOP PRODUCTS
        ============================================================ */
     function loadTopProducts(force = false) {
         ajax('ph_get_top_products', { days: currentDays, limit: topProductsLimit, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
@@ -244,7 +244,7 @@
             return;
         }
         list.innerHTML = products.map((p, i) => {
-            // Stock badge: alleen tonen als voorraad beheerd wordt én ≤ 20
+            // Stock badge: only show if stock is managed and ≤ 20
             let stockBadge = '';
             if (p.stock !== null && p.stock !== undefined && p.stock_low) {
                 const cls  = p.stock_out ? 'mos-stock-badge--out' : 'mos-stock-badge--low';
@@ -263,7 +263,7 @@
             </li>`;
         }).join('');
 
-        // Update load-more knop zichtbaarheid
+        // Update load-more button visibility
         const loadMoreBtn = document.getElementById('mos-top-load-more');
         if (loadMoreBtn) {
             loadMoreBtn.dataset.limit = topProductsLimit;
@@ -283,7 +283,7 @@
     }
 
     /* ============================================================
-       Grafiek
+       Chart
        ============================================================ */
     function loadChart(force = false) {
         ajax('ph_get_chart_data', { days: currentDays, type: 'both', ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
@@ -381,7 +381,7 @@
     }
 
     /* ============================================================
-       Tijdlijn
+       Timeline
        ============================================================ */
     function loadTimeline() {
         const container = document.getElementById('mos-timeline');
@@ -476,7 +476,7 @@
         if (cached) {
             _renderOrderModal(cached, backdrop, body, number, editLink, statusEl);
         } else {
-            // Order zit niet in cache, of forceReload=true (bijv. vanuit klantenkaart) — haal altijd vers op
+            // Order is not in cache, or forceReload=true (e.g. from customer card) — always fetch fresh
             backdrop.hidden = false;
             document.body.style.overflow = 'hidden';
             if (body) body.innerHTML = '<div class="mos-loading-spinner"></div>';
@@ -497,13 +497,13 @@
 
         if (number)   number.textContent = o.number;
 
-        // Bewerken-knop koppelen aan order-edit modal (ipv WC-link)
+        // Edit button link to order-edit modal (instead of WC link)
         const editBtn = document.getElementById('mos-modal-edit-btn');
         if (editBtn) {
             const newEditBtn = editBtn.cloneNode(true);
             editBtn.replaceWith(newEditBtn);
-            // Lees altijd de meest actuele versie uit de cache zodat
-            // aanpassingen die net zijn opgeslagen ook zichtbaar zijn.
+            // Always read the most current version from the cache so
+            // changes that were just saved are also visible.
             newEditBtn.addEventListener('click', () => {
                 const current = orderCache.get(o.id) || o;
                 openOrderEditModal(current);
@@ -520,7 +520,7 @@
     }
 
     function bindModalBodyEvents(body, orderId, o) {
-        // Notitie insturen
+        // Submit note
         const noteForm = body.querySelector('#mos-note-form');
         if (noteForm) {
             noteForm.addEventListener('submit', e => {
@@ -545,7 +545,7 @@
             });
         }
 
-        // Klantenkaart openen
+        // Open customer card
         const custBtn = body.querySelector('.mos-open-customer-card');
         if (custBtn && (o.customer.id || o.customer.email)) {
             custBtn.addEventListener('click', () => {
@@ -554,7 +554,7 @@
             });
         }
 
-        // Status wijzigen
+        // Change status
         body.querySelectorAll('.mos-status-action-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const action = btn.dataset.action;
@@ -568,7 +568,7 @@
             });
         });
 
-        // Order verwijderen
+        // Delete order
         const deleteBtn = body.querySelector('#mos-delete-order-btn');
         if (deleteBtn) {
             deleteBtn.addEventListener('click', () => deleteOrder(orderId));
@@ -582,20 +582,20 @@
     }
 
     /* ============================================================
-       Order bewerken modal
+       Order edit modal
        ============================================================ */
     function openOrderEditModal(o) {
         const backdrop = document.getElementById('mos-order-edit-backdrop');
         if (!backdrop) return;
 
-        // Vul ordernummer
+        // Fill in order number
         const numEl = document.getElementById('mos-order-edit-number');
         if (numEl) numEl.textContent = '#' + o.number;
 
-        // Vul hidden order id
+        // Fill in hidden order id
         document.getElementById('mos-order-edit-id').value = o.id;
 
-        // Vul billing velden
+        // Fill in billing fields
         const c = o.customer || {};
         const nameParts = (c.name || '').trim().split(' ');
         document.getElementById('mos-oe-first-name').value = c.first_name || nameParts[0] || '';
@@ -610,17 +610,17 @@
         document.getElementById('mos-oe-country').value    = c.country    || '';
         document.getElementById('mos-oe-note').value       = '';
 
-        // Reset fout
+        // Reset error message
         const errEl = document.getElementById('mos-order-edit-error');
         if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
 
-        // Reset save knop
+        // Reset save button
         const saveBtn = document.getElementById('mos-order-edit-save');
         if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = i18n.order_edit_save || 'Opslaan'; }
 
         backdrop.hidden = false;
 
-        // Sluit handlers via klonen
+        // Close handlers via cloning
         const closeBtn  = document.getElementById('mos-order-edit-close');
         const cancelBtn = document.getElementById('mos-order-edit-cancel');
         const newClose  = closeBtn.cloneNode(true);
@@ -662,12 +662,12 @@
                     if (err) { err.textContent = r?.data?.message || (i18n.unknown_error || 'Onbekende fout.'); err.style.display = ''; }
                     return;
                 }
-                // Bijgewerkte order in cache zetten en modal updaten
+                // Update cached order and modal
                 const updated = r.data;
                 orderCache.set(updated.id, updated);
                 closeEditModal();
 
-                // Herrender de order modal body met de verse data
+                // Re-render the order modal body with the fresh data
                 const body     = document.getElementById('mos-modal-body');
                 const statusEl = document.getElementById('mos-modal-status');
                 const numEl    = document.getElementById('mos-modal-number');
@@ -679,7 +679,7 @@
                 if (body) body.innerHTML = renderModalBody(updated);
                 bindModalBodyEvents(body, updated.id, updated);
 
-                // Herregistreer de editBtn in de header op de verse data
+                // Re-register the editBtn in the header with the fresh data
                 const editBtn = document.getElementById('mos-modal-edit-btn');
                 if (editBtn) {
                     const newBtn = editBtn.cloneNode(true);
@@ -690,7 +690,7 @@
                     });
                 }
 
-                // Naam in tijdlijn-rij updaten
+                // Update name in timeline row
                 const rowName = document.querySelector(`.mos-tl-row[data-order-id="${updated.id}"] .mos-tl-customer`);
                 if (rowName) rowName.textContent = updated.customer.name;
             }).catch(() => {
@@ -780,7 +780,7 @@
     }
 
     /* ============================================================
-       Order verwijderen
+       Delete order
        ============================================================ */
     function deleteOrder(orderId) {
         const backdrop  = document.getElementById('mos-delete-confirm-backdrop');
@@ -793,14 +793,14 @@
         if (textEl) textEl.textContent = (i18n.modal_delete_confirm || 'Weet je zeker dat je order #%s permanent wilt verwijderen?').replace('%s', orderId);
         backdrop.hidden = false;
 
-        // Verwijder eventuele foutmelding van vorige poging
+        // Remove any error message from previous attempt
         backdrop.querySelectorAll('.mos-delete-error').forEach(el => el.remove());
 
-        // Verwijder oude listeners door knoppen te clonen
+        // Remove old listeners by cloning buttons
         const newOk     = okBtn.cloneNode(true);
         const newCancel = cancelBtn.cloneNode(true);
         const newClose  = closeBtn.cloneNode(true);
-        // Reset staat (disabled/tekst) van vorige keer
+        // Reset state (disabled/text) from previous attempt
         newOk.disabled    = false;
         newOk.textContent = i18n.delete_confirm_ok || 'Permanent verwijderen';
         okBtn.replaceWith(newOk);
@@ -825,10 +825,10 @@
                     if (row) row.remove();
                     orderCache.delete(orderId);
                 } else {
-                    // Herstel knop tekst bij fout
+                    // Restore button text on error
                     newOk.disabled = false;
                     newOk.textContent = i18n.delete_confirm_ok || 'Permanent verwijderen';
-                    // Toon fout in de modal zelf
+                    // Show error in the modal itself
                     const errEl = document.createElement('p');
                     errEl.className = 'mos-delete-error';
                     errEl.style.cssText = 'color:#EF4444;font-size:13px;margin:8px 0 0;text-align:right;';
@@ -840,7 +840,7 @@
     }
 
     /* ============================================================
-       Klantenkaart
+       Customer Card Panel
        ============================================================ */
     function openCustomerPanel(customerId, customerEmail = '') {
         const backdrop = document.getElementById('mos-customer-backdrop');
@@ -918,16 +918,16 @@
                 ${orderRows || `<p style="padding:12px 0;color:#94A3B8;font-size:13px">${i18n.customer_orders_none || 'Geen orders gevonden.'}</p>`}
             </div>`;
 
-            // Order rijen klikbaar maken → sluit klantenkaart, opent order modal
+            // Order rows should be clickable → close customer card, open order modal
             body.querySelectorAll('.mos-cust-order-row[data-order-id]').forEach(row => {
                 row.addEventListener('click', () => {
                     const orderId = parseInt(row.dataset.orderId, 10);
                     if (!orderId) return;
-                    // Sluit klantenkaart
+                    // Close customer card
                     const custBackdrop = document.getElementById('mos-customer-backdrop');
                     if (custBackdrop) custBackdrop.hidden = true;
-                    // Altijd vers ophalen vanuit klantenkaart: cache kan stale data bevatten
-                    // van een andere klant die eerder in de tijdlijn was geladen.
+                    // Always fetch fresh data from customer card: cache may contain stale data
+                    // from another customer that was loaded earlier in the timeline.
                     openOrderModal(orderId, true);
                 });
             });
@@ -935,7 +935,7 @@
     }
 
     /* ============================================================
-       Retour modal
+       Refund modal
        ============================================================ */
     function openRefundModal(orderId, isRevert) {
         const backdrop  = document.getElementById('mos-refund-modal-backdrop');
@@ -974,7 +974,7 @@
 
         backdrop.hidden = false;
 
-        // Verwijder oude listeners via klonen
+        // Remove old listeners by cloning
         const newConfirm = confirmBtn.cloneNode(true);
         const cancelBtn  = document.getElementById('mos-refund-modal-cancel');
         const closeBtn   = document.getElementById('mos-refund-modal-close');
@@ -1033,7 +1033,7 @@
         });
     }
 
-    /** Verwerk status-update in de UI na retour of terugdraaien */
+    /** Process status update in the UI after refund or revert */
     function afterStatusChange(orderId, status, statusLabel) {
         const body     = document.getElementById('mos-modal-body');
         const statusEl = document.getElementById('mos-modal-status');
@@ -1048,7 +1048,7 @@
             cached.status       = status;
             cached.status_label = statusLabel;
             orderCache.set(orderId, cached);
-            // Re-render modal body zodat knoppenrij klopt
+            // Re-render modal body so button row is correct
             if (body) body.innerHTML = renderModalBody(cached);
             bindModalBodyEvents(body, orderId, cached);
         }
@@ -1061,7 +1061,7 @@
     }
 
     /* ============================================================
-       Order status wijzigen
+       Order status update
        ============================================================ */
     function updateOrderStatus(orderId, newStatus) {
         const body     = document.getElementById('mos-modal-body');
@@ -1087,7 +1087,7 @@
     }
 
     /* ============================================================
-       OMZET RAPPORT
+       Revenue Report
        ============================================================ */
     function loadRevenueReport(force = false) {
         const container = document.getElementById('mos-revenue-report');
@@ -1121,7 +1121,7 @@
     }
 
     /* ============================================================
-       CATEGORIEËN RAPPORT
+       CATEGORIES REPORT
        ============================================================ */
     function loadCategoriesReport(force = false) {
         const container = document.getElementById('mos-categories-report');
@@ -1166,7 +1166,7 @@
     }
 
     /* ============================================================
-       COUPONS RAPPORT
+       COUPONS REPORT
        ============================================================ */
     function loadCouponsReport(force = false) {
         const container = document.getElementById('mos-coupons-report');
@@ -1206,7 +1206,7 @@
     }
 
     /* ============================================================
-       DAG RAPPORT
+       DAILY REPORT
        ============================================================ */
     function loadDailyReport(force = false) {
         const container = document.getElementById('mos-daily-report');
@@ -1252,7 +1252,7 @@
     }
 
     /* ============================================================
-       KLANTEN RAPPORT
+       CUSTOMERS REPORT
        ============================================================ */
     function loadCustomersReport(force = false) {
         const container = document.getElementById('mos-customers-report');
@@ -1303,7 +1303,7 @@
                 ).join('')}
             </div>`;
 
-            // Klik-handler: klantenkaart openen
+            // Click handler: open customer card
             container.querySelectorAll('.mos-customer-row--clickable').forEach(row => {
                 row.addEventListener('click', () => openCustomerPanel(
                     parseInt(row.dataset.customerId, 10),
@@ -1338,10 +1338,10 @@
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
 
-        // Tabs initialiseren
+        // Initialise tabs
         initTabs();
 
-        // Periode knoppen
+        // Period buttons
         document.querySelectorAll('.mos-period-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.mos-period-btn').forEach(b => b.classList.remove('is-active'));
@@ -1349,7 +1349,7 @@
                 currentDays = parseInt(btn.dataset.days);
                 currentPage = 1;
 
-                // Reset tab loaded state voor rapporten (zodat ze herladen bij terugkeer)
+                // Reset tab loaded state for reports (so they reload when returning)
                 tabLoaded.revenue = tabLoaded.categories = tabLoaded.coupons = tabLoaded.customers = tabLoaded.stock = false;
 
                 const activeTab = document.querySelector('.mos-tab.is-active')?.dataset.tab || 'dashboard';
@@ -1375,7 +1375,7 @@
             loadTimeline();
         });
 
-        // Zoekbalk
+        // Searchbar
         const searchEl = document.getElementById('mos-timeline-search');
         if (searchEl) searchEl.addEventListener('input', () => {
             clearTimeout(searchTimer);
@@ -1386,7 +1386,7 @@
             }, 350);
         });
 
-        // Grafiek dataset toggles
+        // Chart dataset toggles
         document.querySelectorAll('.mos-toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const ds = btn.dataset.dataset;
@@ -1397,7 +1397,7 @@
             });
         });
 
-        // Top producten — meer laden
+        // Top products — load more
         const loadMoreBtn = document.getElementById('mos-top-load-more');
         if (loadMoreBtn) {
             loadMoreBtn.addEventListener('click', () => {
@@ -1408,7 +1408,7 @@
             });
         }
 
-        // Dag rapport — datum kiezen + laden
+        // Daily report — date selection + loading
         const dailyLoadBtn = document.getElementById('mos-daily-load-btn');
         if (dailyLoadBtn) {
             dailyLoadBtn.addEventListener('click', () => loadDailyReport(true));
@@ -1440,7 +1440,7 @@
             }, 1000);
         });
 
-        // Modal sluiten
+        // Close modal
         const closeBtn = document.getElementById('mos-modal-close');
         const backdrop = document.getElementById('mos-modal-backdrop');
         const modal    = document.getElementById('mos-order-modal');
@@ -1450,7 +1450,7 @@
         if (modal)    modal.addEventListener('click', e => e.stopPropagation());
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-        // Klantenkaart sluiten
+        // Close customer card
         const closePanel    = document.getElementById('mos-panel-close');
         const custBackdrop  = document.getElementById('mos-customer-backdrop');
         const custModal     = document.getElementById('mos-customer-panel');
@@ -1460,10 +1460,10 @@
         if (custModal)    custModal.addEventListener('click', e => e.stopPropagation());
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCustPanel(); });
 
-        // Initieel laden
+        // Initial load
         loadAll();
 
-        // Stock tab UI events registreren
+        // Stock tab UI events registration
         initStockTab();
     });
 
@@ -1485,7 +1485,7 @@
     }
 
     /* ============================================================
-       VOORRAAD TAB
+       STOCK TAB
        ============================================================ */
     let stockState = {
         page: 1,
@@ -1847,7 +1847,7 @@
     }
 
     // Init stock tab UI on page load (events don't depend on data)
-    // NOTE: wordt aangeroepen vanuit DOMContentLoaded hieronder
+    // NOTE: Gets called from DOMContentLoaded below
 
     /* ============================================================
        Utility
@@ -1862,7 +1862,7 @@
 
     /* ============================================================
        QUICK PRODUCTS MODULE
-       Volledig geïntegreerd in Product Haven — geen externe afhankelijkheid
+       Fully integrated into Product Haven — no external dependencies
        ============================================================ */
     const opQp = {
         currentPage: 1,
@@ -1894,7 +1894,7 @@
         document.querySelector(`.op-qp-tab[data-qptab="${tab}"]`)?.click();
     }
 
-    /* ── Productenlijst laden ─────────────────────────────────── */
+    /* ── Load Productlist ────────────────────────────────── */
     function opQpLoadProducts(page = 1) {
         opQp.currentPage = page;
         const wrap = document.getElementById('op-qp-table-wrap');
@@ -2213,7 +2213,7 @@
         }
     }
 
-    /* ── Formulier opslaan ────────────────────────────────────── */
+    /* ── Save form ────────────────────────────────────── */
     function opQpInitEditorForm() {
         const form = document.getElementById('op-qp-product-form');
         if (!form) return;
@@ -2321,7 +2321,7 @@
         });
     }
 
-    /* ── Media uploader — hoofdafbeelding ─────────────────────── */
+    /* ── Media uploader — main image ─────────────────────── */
     function opQpInitImageUploader() {
         const box         = document.getElementById('op-qp-image-box');
         const selectBtn   = document.getElementById('op-qp-select-image');
@@ -2362,7 +2362,7 @@
         });
     }
 
-    /* ── Media uploader — galerij ─────────────────────────────── */
+    /* ── Media uploader — gallery ─────────────────────────────── */
     function opQpInitGalleryUploader() {
         document.getElementById('op-qp-add-gallery')?.addEventListener('click', () => {
             if (!window.wp?.media) return;
@@ -2464,7 +2464,7 @@
     /* ── Toast ─────────────────────────────────────────────────── */
     let opQpToastTimer;
     function opQpToast(msg, type = 'success') {
-        // Gebruik de bestaande Product Haven toast als die beschikbaar is
+        // Use the existing Product Haven toast if available
         if (typeof showToast === 'function') { showToast(msg, type === 'error'); return; }
 
         let el = document.getElementById('op-qp-toast');
@@ -2482,7 +2482,7 @@
         opQpToastTimer = setTimeout(() => { el.style.opacity = '0'; setTimeout(() => { el.style.display = 'none'; }, 200); }, 3000);
     }
 
-    /* ── Init — wordt aangeroepen bij het eerste klikken op de tab ── */
+    /* ── Init — gets called from the first click on the tab ── */
     function opQpInit() {
         opQpInitTabs();
         opQpInitListEvents();
@@ -2494,7 +2494,7 @@
     }
 
     /* ============================================================
-       TAAL SWITCHER
+       LANGUAGE SWITCHER
        ============================================================ */
     function initLangSwitcher() {
         document.querySelectorAll('.ph-lang-btn').forEach(btn => {
@@ -2507,7 +2507,7 @@
                     body: new URLSearchParams({ action: 'ph_set_lang', nonce, lang }),
                 }).then(r => r.json()).then(resp => {
                     if (resp.success) {
-                        // Herlaad de pagina zodat PHP de nieuwe taal rendert
+                        // Reload the page so PHP can render the new language
                         window.location.reload();
                     }
                 });
@@ -2515,7 +2515,7 @@
         });
     }
 
-    // Initialiseer de taalknop direct bij het laden
+    // Initialize the language button immediately on load
     initLangSwitcher();
 
 })();

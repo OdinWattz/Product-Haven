@@ -1,7 +1,8 @@
 <?php
 /**
  * Product Haven — Elementor Stats Widget
- * Toont omzet, orderaantallen en gem. orderwaarde op de frontend.
+ * Displays revenue, order volumes, and average order value on the frontend.
+ * 
  *
  * @package ProductHaven
  */
@@ -24,7 +25,7 @@ class Stats_Widget extends Widget_Base {
 
     protected function register_controls(): void {
 
-        /* ---- Inhoud ---- */
+        /* ---- Content ---- */
         $this->start_controls_section( 'section_content', [
             'label' => __( 'Inhoud', 'product-haven' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
@@ -68,7 +69,7 @@ class Stats_Widget extends Widget_Base {
 
         $this->end_controls_section();
 
-        /* ---- Stijl ---- */
+        /* ---- Style ---- */
         $this->start_controls_section( 'section_style', [
             'label' => __( 'Stijl', 'product-haven' ),
             'tab'   => Controls_Manager::TAB_STYLE,
@@ -116,17 +117,17 @@ class Stats_Widget extends Widget_Base {
     }
 
     /**
-     * Gedeelde render-logica — aangeroepen door Elementor én door de shortcode.
+     * Shared rendering logic — called by both Elementor and the shortcode.
      *
-     * @param array $settings  Widget-instellingen (of shortcode-atts als array).
-     * @param bool  $is_editor True als we in de Elementor editor zitten.
+     * @param array $settings  Widget settings (or shortcode attributes as array).
+     * @param bool  $is_editor True if we are in the Elementor editor.
      */
     public static function render_output( array $settings, bool $is_editor = false ): void {
         $s        = $settings;
         $days     = absint( $s['period_days'] ?? 30 );
         $is_edit  = $is_editor;
 
-        /* ---- Editor preview: statische nep-data, geen AJAX ---- */
+        /* ---- Editor preview: static dummy data, no AJAX ---- */
         if ( $is_edit ) {
             $currency = function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '€';
             ?>
@@ -187,7 +188,7 @@ class Stats_Widget extends Widget_Base {
             return;
         }
 
-        /* ---- Live frontend: JS vult de waarden via AJAX ---- */
+        /* ---- Live frontend: JS fills in the values via AJAX ---- */
         ?>
         <div class="mopf-stats-widget"
              data-days="<?php echo absint( $days ); ?>"

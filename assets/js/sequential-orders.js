@@ -1,7 +1,7 @@
 /**
  * Product Haven — Sequential Orders tab JS
  *
- * Live preview + reset bevestiging voor de Bestelnummers tab.
+ * Live preview + reset confirmation for the Order Numbers tab.
  */
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (el) el.addEventListener('input', updatePreview);
     });
 
-    // ── Reset bevestiging ─────────────────────────────────────────
+    // ── Reset confirmation ─────────────────────────────────────────
     var resetForm = document.getElementById('op-so-reset-form');
     if (resetForm) {
         resetForm.addEventListener('submit', function (e) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Product Haven — Admin pagina handler
+ * Product Haven — Admin page handler
  *
  * All functions are prefixed with ph_ per the plugin prefix convention.
  * phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
@@ -20,7 +20,7 @@ function ph_register_menu(): void {
     }
 }
 
-/* ---- Instellingen opslaan ---- */
+/* ---- Save settings ---- */
 add_action( 'admin_init', 'ph_handle_settings_save' );
 function ph_handle_settings_save(): void {
     if ( ! isset( $_POST['ph_save'], $_POST['ph_nonce'] ) ) return;
@@ -42,7 +42,7 @@ function ph_handle_settings_save(): void {
 
     update_option( 'ph_options', $new );
 
-    // Cache legen na instellingswijziging
+    // Empty Cache after settings change
     global $wpdb;
     $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_ph_%' OR option_name LIKE '_transient_timeout_ph_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 
@@ -50,11 +50,11 @@ function ph_handle_settings_save(): void {
     exit;
 }
 
-/* ---- Pagina weergeven ---- */
+/* ---- Render admin page ---- */
 function ph_render_admin_page(): void {
     if ( ! current_user_can( 'manage_woocommerce' ) ) return;
 
-    // AJAX handlers laden (require enkel als ze nodig zijn)
+    // Load AJAX handlers (only require if needed)
     require_once PH_PATH . 'includes/ajax.php';
 
     require_once PH_PATH . 'includes/admin/settings-page.php';
