@@ -8,9 +8,9 @@
     const { ajax_url, nonce, currency, locale } = window.ph_admin || {};
     const i18n = window.ph_admin?.i18n || {};
 
-    /* ============================================================
+/*
        State
-       ============================================================ */
+*/
     let currentDays   = parseInt(document.querySelector('.mos-period-btn.is-active')?.dataset.days || 30);
     let currentPage   = 1;
     let currentStatus = 'any';
@@ -26,9 +26,9 @@
     // Cache: order objects stored during timeline rendering → no extra AJAX for modal
     const orderCache = new Map();
 
-    /* ============================================================
+/*
        AJAX helper
-       ============================================================ */
+*/
     function ajax(action, data = {}) {
         return fetch(ajax_url, {
             method: 'POST',
@@ -37,9 +37,9 @@
         }).then(r => r.json()).catch(() => ({ success: false, data: { message: 'Serverantwoord onleesbaar.' } }));
     }
 
-    /* ============================================================
+/*
        Time helper — translates Unix timestamp to readable string
-       ============================================================ */
+*/
     function timeAgo(ts) {
         if (!ts) return '';
         const diff = Math.floor(Date.now() / 1000) - ts;
@@ -52,9 +52,9 @@
         { const w = Math.floor(diff / 604800); return w + ' ' + (i18n.time_weeks_ago || (w === 1 ? 'week geleden' : 'weken geleden')); }
     }
 
-    /* ============================================================
+/*
        TABS
-       ============================================================ */
+*/
     function initTabs() {
         document.querySelectorAll('.mos-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -83,9 +83,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Load Statistics
-       ============================================================ */
+*/
     function loadStats(force = false) {
         ajax('ph_get_stats', { days: currentDays, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
             if (!resp.success) return;
@@ -106,9 +106,9 @@
         loadLowStock();
     }
 
-    /* ============================================================
+/*
        LOW STOCK CARD
-       ============================================================ */
+*/
     let lowStockThreshold = 20;
     let lowStockTimer = null;
 
@@ -169,9 +169,9 @@
         });
     }
 
-    /* ============================================================
+/* 
        STOCK EDIT MODAL
-       ============================================================ */
+*/
     function openStockEditModal(productId, name, currentStock) {
         document.getElementById('mos-stock-edit-product-id').value = productId;
         document.getElementById('mos-stock-edit-title').textContent = name;
@@ -226,9 +226,9 @@
         loadLowStock();
     });
 
-    /* ============================================================
+/*
        TOP PRODUCTS
-       ============================================================ */
+*/
     function loadTopProducts(force = false) {
         ajax('ph_get_top_products', { days: currentDays, limit: topProductsLimit, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
             if (!resp.success) return;
@@ -282,9 +282,9 @@
         return currency + Number(val).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    /* ============================================================
+/*
        Chart
-       ============================================================ */
+*/
     function loadChart(force = false) {
         ajax('ph_get_chart_data', { days: currentDays, type: 'both', ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
             if (!resp.success) return;
@@ -380,9 +380,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Timeline
-       ============================================================ */
+*/
     function loadTimeline() {
         const container = document.getElementById('mos-timeline');
         if (!container) return;
@@ -460,9 +460,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Order modal
-       ============================================================ */
+*/
     function openOrderModal(orderId, forceReload = false) {
         const backdrop = document.getElementById('mos-modal-backdrop');
         const body     = document.getElementById('mos-modal-body');
@@ -581,9 +581,9 @@
         document.body.style.overflow = '';
     }
 
-    /* ============================================================
+/*
        Order edit modal
-       ============================================================ */
+*/
     function openOrderEditModal(o) {
         const backdrop = document.getElementById('mos-order-edit-backdrop');
         if (!backdrop) return;
@@ -779,9 +779,9 @@
         </div>`;
     }
 
-    /* ============================================================
+/* 
        Delete order
-       ============================================================ */
+*/
     function deleteOrder(orderId) {
         const backdrop  = document.getElementById('mos-delete-confirm-backdrop');
         const textEl    = document.getElementById('mos-delete-confirm-text');
@@ -839,9 +839,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Customer Card Panel
-       ============================================================ */
+*/
     function openCustomerPanel(customerId, customerEmail = '') {
         const backdrop = document.getElementById('mos-customer-backdrop');
         const panel    = document.getElementById('mos-customer-panel');
@@ -934,9 +934,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Refund modal
-       ============================================================ */
+*/
     function openRefundModal(orderId, isRevert) {
         const backdrop  = document.getElementById('mos-refund-modal-backdrop');
         const titleEl   = document.getElementById('mos-refund-modal-title');
@@ -1060,9 +1060,9 @@
         }
     }
 
-    /* ============================================================
+/*
        Order status update
-       ============================================================ */
+*/
     function updateOrderStatus(orderId, newStatus) {
         const body     = document.getElementById('mos-modal-body');
         const statusEl = document.getElementById('mos-modal-status');
@@ -1086,9 +1086,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Revenue Report
-       ============================================================ */
+*/
     function loadRevenueReport(force = false) {
         const container = document.getElementById('mos-revenue-report');
         if (!container) return;
@@ -1120,9 +1120,9 @@
         });
     }
 
-    /* ============================================================
+/*
        CATEGORIES REPORT
-       ============================================================ */
+*/
     function loadCategoriesReport(force = false) {
         const container = document.getElementById('mos-categories-report');
         if (!container) return;
@@ -1165,9 +1165,9 @@
         });
     }
 
-    /* ============================================================
+/*
        COUPONS REPORT
-       ============================================================ */
+*/
     function loadCouponsReport(force = false) {
         const container = document.getElementById('mos-coupons-report');
         if (!container) return;
@@ -1205,9 +1205,9 @@
         });
     }
 
-    /* ============================================================
+/* 
        DAILY REPORT
-       ============================================================ */
+*/
     function loadDailyReport(force = false) {
         const container = document.getElementById('mos-daily-report');
         const dateInput = document.getElementById('mos-daily-date');
@@ -1251,9 +1251,9 @@
         });
     }
 
-    /* ============================================================
+/*
        CUSTOMERS REPORT
-       ============================================================ */
+*/
     function loadCustomersReport(force = false) {
         const container = document.getElementById('mos-customers-report');
         if (!container) return;
@@ -1313,9 +1313,9 @@
         });
     }
 
-    /* ============================================================
+/*
        CSV Export
-       ============================================================ */
+*/
     function exportCsv() {
         const form = document.createElement('form');
         form.method = 'POST';
@@ -1333,9 +1333,9 @@
         form.remove();
     }
 
-    /* ============================================================
+/*
        Events
-       ============================================================ */
+*/
     document.addEventListener('DOMContentLoaded', () => {
 
         // Initialise tabs
@@ -1473,9 +1473,9 @@
         setTimeout(() => loadChart(force), 150);
     }
 
-    /* ============================================================
+/*
        Utility
-       ============================================================ */
+*/
     function esc(str) {
         return String(str ?? '')
             .replace(/&/g, '&amp;')
@@ -1484,9 +1484,9 @@
             .replace(/"/g, '&quot;');
     }
 
-    /* ============================================================
+/*
        STOCK TAB
-       ============================================================ */
+*/
     let stockState = {
         page: 1,
         perPage: 25,
@@ -1849,9 +1849,9 @@
     // Init stock tab UI on page load (events don't depend on data)
     // NOTE: Gets called from DOMContentLoaded below
 
-    /* ============================================================
+/*
        Utility
-       ============================================================ */
+*/
     function esc(str) {
         return String(str ?? '')
             .replace(/&/g, '&amp;')
@@ -1860,10 +1860,10 @@
             .replace(/"/g, '&quot;');
     }
 
-    /* ============================================================
+/*
        QUICK PRODUCTS MODULE
        Fully integrated into Product Haven — no external dependencies
-       ============================================================ */
+*/
     const opQp = {
         currentPage: 1,
         searchTimer: null,
@@ -2493,9 +2493,9 @@
         opQpLoadProducts(1);
     }
 
-    /* ============================================================
+/*
        LANGUAGE SWITCHER
-       ============================================================ */
+*/
     function initLangSwitcher() {
         document.querySelectorAll('.ph-lang-btn').forEach(btn => {
             btn.addEventListener('click', () => {

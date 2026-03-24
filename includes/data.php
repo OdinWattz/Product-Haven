@@ -277,7 +277,6 @@ function ph_get_timeline( array $args = [] ): array {
     }
 
     if ( ! empty( $args['search'] ) ) {
-        // Numeric = order ID search
         if ( is_numeric( $args['search'] ) ) {
             $query_args['post__in'] = [ (int) $args['search'] ];
         } else {
@@ -651,7 +650,7 @@ function ph_get_top_products( int $days = 30, int $limit = 10 ): array {
             'product_id' => $product_id,
             'qty'        => (int) $r->qty,
             'revenue'    => round( (float) $r->revenue, 2 ),
-            'stock'      => $stock,                          // null = not managed
+            'stock'      => $stock,
             'stock_low'  => $stock !== null && $stock <= $low_stock_threshold,
             'stock_out'  => $stock !== null && $stock <= 0,
             'edit_url'   => $product_id ? get_edit_post_link( $product_id, 'raw' ) : '',
@@ -1059,7 +1058,7 @@ function ph_export_csv( array $args = [] ): void {
         'orderby' => 'date',
         'order'   => 'DESC',
         'return'  => 'objects',
-        'type'    => 'shop_order', // No refund objects included
+        'type'    => 'shop_order',
     ];
 
     $status = sanitize_key( $args['status'] ?? 'any' );
@@ -1134,7 +1133,7 @@ function ph_export_csv( array $args = [] ): void {
 
     // Report header
     fputcsv( $out, [ 'Product Haven Export', gmdate( 'd-m-Y H:i' ), 'Period: ' . ( $days ? "{$days} days" : 'all' ) ], ';' );
-    fputcsv( $out, [], ';' ); // empty separator line
+    fputcsv( $out, [], ';' );
     fputcsv( $out, $headers, ';' );
 
     foreach ( $wc_orders as $order ) {

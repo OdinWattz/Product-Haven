@@ -88,7 +88,7 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
                                 <p class="op-so-desc"><?php echo esc_html( ph_t( 'so_padding_desc', $lang ) ); ?></p>
                             </div>
 
-                        </div><!-- .op-so-field-grid -->
+                        </div>
 
                         <div class="op-so-form-footer">
                             <button type="submit" class="mos-btn mos-btn-primary">
@@ -116,7 +116,7 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
                 </div>
             </section>
 
-        </div><!-- .op-so-main -->
+        </div>
 
         <!-- ── Right column: preview + status + reset ── -->
         <div class="op-so-sidebar">
@@ -170,9 +170,6 @@ $so_reset = isset( $_GET['ph_so_reset'] ); // phpcs:ignore WordPress.Security.No
                     </form>
                 </div>
             </section>
-
-        </div><!-- .op-so-sidebar -->
-
-    </div><!-- .op-so-layout -->
-
-</div><!-- #mos-panel-sequential -->
+        </div>
+    </div>
+</div>
