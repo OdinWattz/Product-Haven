@@ -8,9 +8,9 @@
     const cfg = window.ph_data || {};
     const { ajax_url, nonce, currency, i18n = {} } = cfg;
 
-    /* ============================================================
+/*
        AJAX helper
-       ============================================================ */
+*/
     function ajax(action, data = {}) {
         return fetch(ajax_url, {
             method: 'POST',
@@ -23,9 +23,9 @@
         return currency + Number(val).toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    /* ============================================================
+/*
        Stats Widget
-       ============================================================ */
+*/
     function initStatsWidgets() {
         document.querySelectorAll('.mopf-stats-widget').forEach(widget => {
             const days      = parseInt(widget.dataset.days || 30);
@@ -81,9 +81,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Timeline Widget
-       ============================================================ */
+*/
     function initTimelineWidgets() {
         document.querySelectorAll('.mopf-timeline-widget').forEach(widget => {
             const showItems = widget.dataset.showItems === '1';
@@ -164,9 +164,9 @@
         });
     }
 
-    /* ============================================================
+/*
        Utility
-       ============================================================ */
+*/
     function esc(str) {
         return String(str ?? '')
             .replace(/&/g, '&amp;')
@@ -175,9 +175,9 @@
             .replace(/"/g, '&quot;');
     }
 
-    /* ============================================================
+/*
        Init
-       ============================================================ */
+*/
     function init() {
         // In Elementor editor the preview is generated server-side — no AJAX needed.
         if ( window.elementorFrontend && window.elementorFrontend.isEditMode() ) return;

@@ -16,9 +16,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/* ============================================================
+/*
    ORDER NUMBER ASSIGNMENT
-   ============================================================ */
+*/
 
 add_action( 'woocommerce_checkout_order_created', 'ph_so_assign_order_number' );
 add_action( 'woocommerce_store_api_checkout_order_processed', 'ph_so_assign_order_number' );
@@ -62,9 +62,9 @@ function ph_so_next_number(): int {
     return $next;
 }
 
-/* ============================================================
+/*
    ORDER NUMBER DISPLAY IN WOOCOMMERCE
-   ============================================================ */
+*/
 
 add_filter( 'woocommerce_order_number', 'ph_so_filter_order_number', 10, 2 );
 function ph_so_filter_order_number( $order_number, $order ) {
@@ -72,9 +72,9 @@ function ph_so_filter_order_number( $order_number, $order ) {
     return $full ?: $order_number;
 }
 
-/* ============================================================
+/*
    SEARCHING IN ADMIN BY ORDER NUMBER
-   ============================================================ */
+*/
 
 add_filter( 'woocommerce_shop_order_search_fields', 'ph_so_add_search_fields' );
 function ph_so_add_search_fields( $search_fields ) {
@@ -83,9 +83,9 @@ function ph_so_add_search_fields( $search_fields ) {
     return $search_fields;
 }
 
-/* ============================================================
+/*
    SETTINGS SAVE (admin_post handler)
-   ============================================================ */
+*/
 
 add_action( 'admin_post_ph_so_save_settings', 'ph_so_save_settings' );
 function ph_so_save_settings(): void {
@@ -111,9 +111,9 @@ function ph_so_save_settings(): void {
     exit;
 }
 
-/* ============================================================
+/*
    COUNTER RESET (admin_post handler)
-   ============================================================ */
+*/
 
 add_action( 'admin_post_ph_so_reset_counter', 'ph_so_reset_counter' );
 function ph_so_reset_counter(): void {
@@ -128,9 +128,9 @@ function ph_so_reset_counter(): void {
     exit;
 }
 
-/* ============================================================
+/*
    PAGE DATA HELPER — used by the tab partial
-   ============================================================ */
+*/
 
 function ph_so_get_page_data(): array {
     $options      = get_option( 'ph_so_options', [] );

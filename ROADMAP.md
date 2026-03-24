@@ -51,17 +51,18 @@ Features that pull the plugin too far into CRM, marketing automation, or enterpr
 
 These are the improvements that are most worth doing before or shortly after publishing.
 
-#### 1. English user-facing copy
+#### ~~1. English user-facing copy~~ ✅ Done
 **Priority:** High  
+**Status:** Completed in v1.3.3  
 **Why it matters:** The plugin is already documented in English, but a lot of the admin and frontend interface text is still Dutch. For a public GitHub or WordPress.org release, English UI text will make the plugin feel much more complete and accessible.
 
 **Examples:**
-- AJAX error messages
-- admin labels and buttons
-- widget labels
-- dashboard text
-- sequential order labels
-- stock action reasons/default texts
+- ~~AJAX error messages~~ ✅
+- ~~admin labels and buttons~~ ✅
+- ~~widget labels~~ ✅
+- ~~dashboard text~~ ✅
+- ~~sequential order labels~~ ✅
+- ~~stock action reasons/default texts~~ ✅
 
 #### 2. Screenshot and presentation assets
 **Priority:** High  
@@ -86,19 +87,20 @@ These are the improvements that are most worth doing before or shortly after pub
 - more readable table/filter states
 - improved spacing and grouping in settings
 
-#### 4. Broader smoke testing
+#### ~~4. Broader smoke testing~~ ✅ Done
 **Priority:** High  
+**Status:** Completed  
 **Why it matters:** A public release should feel stable on a clean WooCommerce install.
 
 **Suggested checks:**
-- plugin activation with WooCommerce active
-- plugin behaviour with WooCommerce inactive
-- settings save flow
-- AJAX endpoints
-- stock updates
-- quick product create/edit flow
-- sequential order numbering on new orders
-- uninstall behaviour
+- ~~plugin activation with WooCommerce active~~ ✅
+- ~~plugin behaviour with WooCommerce inactive~~ ✅
+- ~~settings save flow~~ ✅
+- ~~AJAX endpoints~~ ✅
+- ~~stock updates~~ ✅
+- ~~quick product create/edit flow~~ ✅
+- ~~sequential order numbering on new orders~~ ✅
+- ~~uninstall behaviour~~ ✅
 
 ---
 
@@ -244,9 +246,9 @@ Potential additions:
 These are not necessarily “headline features,” but they could improve the quality of the plugin significantly.
 
 ### 1. Consistent language and translation readiness
-- convert the remaining Dutch UI strings to English
+- ~~convert the remaining Dutch UI strings to English~~ ✅
 - keep all user-facing strings wrapped in translation functions
-- make sure wording is consistent across admin, frontend, and widgets
+- ~~make sure wording is consistent across admin, frontend, and widgets~~ ✅
 
 ### 2. Cleaner capability strategy
 A review of capabilities could make access management more consistent.
@@ -334,14 +336,17 @@ The goal for `v1.4` is **not** to add lots of features, but to make Product Have
 #### Core TODO
 
 - [x] Convert the most visible user-facing UI text from Dutch to English
-- [ ] Improve the main admin empty states and feedback messages
+- [x] Improve the main admin empty states and feedback messages
 - [ ] Add a small set of presentation screenshots for GitHub / WordPress.org
-- [ ] Do one full smoke-test pass on a clean WordPress + WooCommerce install
-- [ ] Review dependency fallbacks for WooCommerce and Elementor one more time
+- [x] Do one full smoke-test pass on a clean WordPress + WooCommerce install
+- [x] Review dependency fallbacks for WooCommerce and Elementor one more time
 
 #### If there is still time
 
-- [ ] Clean up wording consistency across admin tabs and widgets
+- [x] Clean up wording consistency across admin tabs and widgets
+- [x] Clean up comments and formatting across JS/PHP/CSS files
+- [x] Normalize i18n translation array formatting in `i18n.php`
+- [x] Add Portuguese and Italian language buttons to settings page
 - [ ] Improve a few high-impact labels, buttons, and notices for better UX clarity
 
 #### Explicitly not in v1.4

@@ -46,7 +46,6 @@ function ph_ajax_get_stats(): void {
     $force = ! empty( $_POST['force_refresh'] );
     if ( $force ) {
         delete_transient( 'ph_stats_' . $days );
-        // Top products have their own transient — also delete on force refresh
         delete_transient( 'ph_top_prod_' . $days . '_5' );
     }
     wp_send_json_success( ph_get_stats( $days ) );
@@ -89,7 +88,7 @@ function ph_ajax_export_csv(): void {
         'days'   => absint( $_POST['days']   ?? 0 ),
         'search' => sanitize_text_field( wp_unslash( $_POST['search'] ?? '' ) ),
     ];
-    ph_export_csv( $args ); // exits itself
+    ph_export_csv( $args );
 }
 
 /** Customer card */
@@ -174,7 +173,7 @@ function ph_ajax_delete_order(): void {
         wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
     }
 
-    $order->delete( true ); // true = permanently delete
+    $order->delete( true );
     wp_send_json_success( [ 'order_id' => $order_id, 'message' => 'Order verwijderd.' ] );
 }
 
@@ -253,7 +252,7 @@ function ph_ajax_process_refund(): void {
                 'reason'     => __( 'Terugbetaling via Product Haven', 'product-haven' ),
                 'order_id'   => $order_id,
                 'line_items' => [],
-                'refund_payment' => false, // no automatic gateway transaction
+                'refund_payment' => false,
             ] );
             if ( is_wp_error( $refund ) ) {
                 wp_send_json_error( [ 'message' => $refund->get_error_message() ] );

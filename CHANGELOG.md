@@ -8,6 +8,22 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and applied minor whitespace/trailing-comma tweaks. Affects `ph-admin.js`, `ph-front.js`, `sequential-orders.css`, `settings-page.php`, `ajax.php`, `data.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `sequential-orders.php`, `stats-widget.php`. No functional changes.
+- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No translation keys or string values were modified.
+
+### Documentation
+- **Changelog split: translation and languages** — Separated the combined Unreleased changelog bullet into two distinct entries (UI copy translation + language additions) in `README.md`.
+- **Docs update: changelog, README, and roadmap** — Added Unreleased changelog entry describing UI copy translation to English and Portuguese/Italian language button additions; consolidated README formatting (tables, spacing); marked completed ROADMAP items (smoke test, dependency review, wording cleanup).
+
+---
+
+## [1.3.3] — 2026-03-19
+
+### Changed
+- **Translate UI copy to English** — Converted Dutch comments/labels to English across admin/front/sequential CSS and JS, standardized various UI copy strings and comments, and updated admin PHP comments. Changes are copy/comment updates and small UI text tweaks; no functional logic changes.
+- **Added Portuguese and Italian language buttons** — Added PT and IT language buttons to the settings page.
+
 ---
 
 ## [1.3.2] — 2026-03-12

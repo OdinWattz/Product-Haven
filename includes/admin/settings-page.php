@@ -16,7 +16,7 @@ $opts    = get_option( 'ph_options', [] );
 $period  = absint( $opts['default_period'] ?? 30 );
 $saved   = isset( $_GET['ph_saved'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $accent  = sanitize_hex_color( $opts['accent_color'] ?? '' ) ?: '#10B981';
-$lang    = ph_get_lang(); // 'nl' or 'en'
+$lang    = ph_get_lang();
 
 $statuses = [
     'wc-pending'    => ph_t( 'wc_status_pending',    $lang ),
@@ -254,7 +254,7 @@ $statuses = [
             </div>
         </div>
 
-    </div><!-- #mos-panel-dashboard -->
+    </div>
 
     <!-- ===== DELETE CONFIRM MODAL ===== -->
     <div class="mos-modal-backdrop" id="mos-delete-confirm-backdrop" hidden>
@@ -596,7 +596,7 @@ $statuses = [
             </div>
         </div>
 
-    </div><!-- #mos-panel-stock -->
+    </div>
 
     <!-- ===== TAB: QUICK PRODUCTS ===== -->
     <?php

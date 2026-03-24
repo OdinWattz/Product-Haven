@@ -76,7 +76,7 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
             <div class="op-qp-pagination" id="op-qp-pagination"></div>
         </section>
 
-    </div><!-- #op-qp-panel-list -->
+    </div>
 
     <!-- ── EDITOR PANEL ── -->
     <div class="op-qp-panel" id="op-qp-panel-editor">
@@ -431,11 +431,8 @@ extract( $qp ); // $cats, $tags, $brands, $attributes_data, $tax_class_opt, $shi
                         </div>
                     </section>
                     <?php endif; ?>
-
-                </div><!-- .op-qp-editor-sidebar -->
-
-            </div><!-- .op-qp-editor-layout -->
+                </div>
+            </div>
         </form>
-    </div><!-- #op-qp-panel-editor -->
-
-</div><!-- #mos-panel-products -->
+    </div>
+</div>

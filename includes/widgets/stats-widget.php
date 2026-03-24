@@ -144,7 +144,7 @@ class Stats_Widget extends Widget_Base {
                         <div class="mopf-stat-body">
                             <span class="mopf-stat-label"><?php esc_html_e( 'Omzet', 'product-haven' ); ?></span>
                             <span class="mopf-stat-value mopf-accent"><?php echo esc_html( $currency . '1.234,56' ); ?></span>
-                            <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -161,7 +161,7 @@ class Stats_Widget extends Widget_Base {
                         <div class="mopf-stat-body">
                             <span class="mopf-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
                             <span class="mopf-stat-value mopf-accent">12</span>
-                            <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -178,11 +178,11 @@ class Stats_Widget extends Widget_Base {
                         <div class="mopf-stat-body">
                             <span class="mopf-stat-label"><?php esc_html_e( 'Gem. orderwaarde', 'product-haven' ); ?></span>
                             <span class="mopf-stat-value mopf-accent"><?php echo esc_html( $currency . '102,88' ); ?></span>
-                            <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
-                </div><!-- .mopf-stats-grid -->
+                </div>
             </div>
             <?php
             return;
@@ -208,7 +208,7 @@ class Stats_Widget extends Widget_Base {
                     <div class="mopf-stat-body">
                         <span class="mopf-stat-label"><?php esc_html_e( 'Omzet', 'product-haven' ); ?></span>
                         <span class="mopf-stat-value mopf-accent mopf-val-revenue">–</span>
-                        <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                     <?php if ( $s['show_chart'] === 'yes' ) : ?>
                         <canvas class="mopf-sparkline" data-type="revenue" width="80" height="32"></canvas>
@@ -229,7 +229,7 @@ class Stats_Widget extends Widget_Base {
                     <div class="mopf-stat-body">
                         <span class="mopf-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
                         <span class="mopf-stat-value mopf-accent mopf-val-orders">–</span>
-                        <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                     <?php if ( $s['show_chart'] === 'yes' ) : ?>
                         <canvas class="mopf-sparkline" data-type="orders" width="80" height="32"></canvas>
@@ -250,7 +250,7 @@ class Stats_Widget extends Widget_Base {
                     <div class="mopf-stat-body">
                         <span class="mopf-stat-label"><?php esc_html_e( 'Gem. orderwaarde', 'product-haven' ); ?></span>
                         <span class="mopf-stat-value mopf-accent mopf-val-avg">–</span>
-                        <span class="mopf-stat-period"><?php /* translators: %d: number of days */ printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                 </div>
                 <?php endif; ?>
