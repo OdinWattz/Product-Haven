@@ -22,16 +22,16 @@ require_once PH_PATH . 'includes/data.php';
 
 function ph_verify_admin_nonce(): void {
     if ( ! check_ajax_referer( 'ph_admin_nonce', 'nonce', false ) ) {
-        wp_send_json_error( [ 'message' => 'Ongeldige nonce.' ], 403 );
+        wp_send_json_error( [ 'message' => 'Invalid nonce.' ], 403 );
     }
     if ( ! current_user_can( 'manage_woocommerce' ) ) {
-        wp_send_json_error( [ 'message' => 'Geen toegang.' ], 403 );
+        wp_send_json_error( [ 'message' => 'No access.' ], 403 );
     }
 }
 
 function ph_verify_front_nonce(): void {
     if ( ! check_ajax_referer( 'ph_front_nonce', 'nonce', false ) ) {
-        wp_send_json_error( [ 'message' => 'Ongeldige nonce.' ], 403 );
+        wp_send_json_error( [ 'message' => 'Invalid nonce.' ], 403 );
     }
 }
 
@@ -96,7 +96,7 @@ function ph_ajax_get_customer(): void {
     ph_verify_admin_nonce();
     $email = sanitize_email( wp_unslash( $_POST['customer_email'] ?? '' ) );
     $id    = absint( $_POST['customer_id'] ?? 0 );
-    if ( ! $email && ! $id ) wp_send_json_error( [ 'message' => 'Geen klant opgegeven.' ] );
+    if ( ! $email && ! $id ) wp_send_json_error( [ 'message' => 'No customer specified.' ] );
     wp_send_json_success( ph_get_customer_card( $id, $email ) );
 }
 
@@ -104,14 +104,14 @@ function ph_ajax_get_customer(): void {
 function ph_ajax_get_single_order(): void {
     ph_verify_admin_nonce();
     $order_id = absint( $_POST['order_id'] ?? 0 );
-    if ( ! $order_id ) wp_send_json_error( [ 'message' => 'Geen order ID.' ] );
+    if ( ! $order_id ) wp_send_json_error( [ 'message' => 'No order ID specified.' ] );
 
     // Clear WP/WC caches so we always read fresh order data.
     clean_post_cache( $order_id );
     wc_delete_shop_order_transients( $order_id );
 
     $order = wc_get_order( $order_id );
-    if ( ! $order ) wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+    if ( ! $order ) wp_send_json_error( [ 'message' => 'Order not found.' ] );
     wp_send_json_success( ph_format_order( $order ) );
 }
 
@@ -123,14 +123,14 @@ function ph_ajax_update_order_note(): void {
     $is_cust  = ! empty( $_POST['customer_note'] );
 
     if ( ! $order_id || ! $note ) {
-        wp_send_json_error( [ 'message' => 'Ontbrekende gegevens.' ] );
+        wp_send_json_error( [ 'message' => 'Missing data.' ] );
     }
 
     $order = wc_get_order( $order_id );
-    if ( ! $order ) wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+    if ( ! $order ) wp_send_json_error( [ 'message' => 'Order not found.' ] );
 
     $note_id = $order->add_order_note( $note, $is_cust ? 1 : 0, true );
-    wp_send_json_success( [ 'note_id' => $note_id, 'message' => __( 'Notitie toegevoegd.', 'product-haven' ) ] );
+    wp_send_json_success( [ 'note_id' => $note_id, 'message' => __( 'Note added.', 'product-haven' ) ] );
 }
 
 /** Update order status */
@@ -142,15 +142,15 @@ function ph_ajax_update_order_status(): void {
 
     $allowed = [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'refunded', 'failed' ];
     if ( ! $order_id || ! in_array( $new_status, $allowed, true ) ) {
-        wp_send_json_error( [ 'message' => 'Ongeldige status of order ID.' ] );
+        wp_send_json_error( [ 'message' => 'Invalid status or order ID.' ] );
     }
 
     $order = wc_get_order( $order_id );
     if ( ! $order ) {
-        wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+        wp_send_json_error( [ 'message' => 'Order not found.' ] );
     }
 
-    $order->update_status( $new_status, __( 'Status gewijzigd via Product Haven.', 'product-haven' ), true );
+    $order->update_status( $new_status, __( 'Status updated via Product Haven.', 'product-haven' ), true );
 
     wp_send_json_success( [
         'order_id'     => $order_id,
@@ -165,16 +165,16 @@ function ph_ajax_delete_order(): void {
 
     $order_id = absint( $_POST['order_id'] ?? 0 );
     if ( ! $order_id ) {
-        wp_send_json_error( [ 'message' => 'Geen order ID opgegeven.' ] );
+        wp_send_json_error( [ 'message' => 'No order ID specified.' ] );
     }
 
     $order = wc_get_order( $order_id );
     if ( ! $order ) {
-        wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+        wp_send_json_error( [ 'message' => 'Order not found.' ] );
     }
 
     $order->delete( true );
-    wp_send_json_success( [ 'order_id' => $order_id, 'message' => 'Order verwijderd.' ] );
+    wp_send_json_success( [ 'order_id' => $order_id, 'message' => 'Order deleted.' ] );
 }
 
 /** Edit order (customer details + note) */
@@ -183,12 +183,12 @@ function ph_ajax_qp_save_order(): void {
 
     $order_id = absint( $_POST['order_id'] ?? 0 );
     if ( ! $order_id ) {
-        wp_send_json_error( [ 'message' => 'Geen order ID opgegeven.' ] );
+        wp_send_json_error( [ 'message' => 'No order ID specified.' ] );
     }
 
     $order = wc_get_order( $order_id );
     if ( ! $order ) {
-        wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+        wp_send_json_error( [ 'message' => 'Order not found.' ] );
     }
 
     // Update billing address fields
@@ -236,12 +236,12 @@ function ph_ajax_process_refund(): void {
     $refund_type = sanitize_key( $_POST['refund_type'] ?? 'status_only' );
 
     if ( ! $order_id ) {
-        wp_send_json_error( [ 'message' => 'Geen order ID opgegeven.' ] );
+        wp_send_json_error( [ 'message' => 'No order ID specified.' ] );
     }
 
     $order = wc_get_order( $order_id );
     if ( ! $order ) {
-        wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+        wp_send_json_error( [ 'message' => 'Order not found.' ] );
     }
 
     if ( 'full_refund' === $refund_type ) {
@@ -249,7 +249,7 @@ function ph_ajax_process_refund(): void {
         if ( $amount > 0 ) {
             $refund = wc_create_refund( [
                 'amount'     => $amount,
-                'reason'     => __( 'Terugbetaling via Product Haven', 'product-haven' ),
+                'reason'     => __( 'Refund via Product Haven', 'product-haven' ),
                 'order_id'   => $order_id,
                 'line_items' => [],
                 'refund_payment' => false,
@@ -260,7 +260,7 @@ function ph_ajax_process_refund(): void {
         }
     }
 
-    $order->update_status( 'refunded', __( 'Retour verwerkt via Product Haven.', 'product-haven' ), true );
+    $order->update_status( 'refunded', __( 'Refunded via Product Haven.', 'product-haven' ), true );
 
     wp_send_json_success( [
         'order_id'     => $order_id,
@@ -282,12 +282,12 @@ function ph_ajax_revert_refund(): void {
 
     $allowed_statuses = [ 'pending', 'processing', 'on-hold', 'completed', 'cancelled', 'failed' ];
     if ( ! $order_id || ! in_array( $new_status, $allowed_statuses, true ) ) {
-        wp_send_json_error( [ 'message' => 'Ongeldige parameters.' ] );
+        wp_send_json_error( [ 'message' => 'Invalid parameters.' ] );
     }
 
     $order = wc_get_order( $order_id );
     if ( ! $order ) {
-        wp_send_json_error( [ 'message' => 'Order niet gevonden.' ] );
+        wp_send_json_error( [ 'message' => 'Order not found.' ] );
     }
 
     if ( $delete_refunds ) {
@@ -301,7 +301,7 @@ function ph_ajax_revert_refund(): void {
         wc_delete_shop_order_transients( $order_id );
     }
 
-    $order->update_status( $new_status, __( 'Retour teruggedraaid via Product Haven.', 'product-haven' ), true );
+    $order->update_status( $new_status, __( 'Refund reverted via Product Haven.', 'product-haven' ), true );
 
     wp_send_json_success( [
         'order_id'     => $order_id,
@@ -390,7 +390,7 @@ function ph_ajax_front_stats(): void {
 
     $user_id = get_current_user_id();
     if ( ! $user_id ) {
-        wp_send_json_error( [ 'message' => 'Niet ingelogd.' ], 401 );
+        wp_send_json_error( [ 'message' => 'Not logged in.' ], 401 );
     }
 
     $days = absint( $_POST['days'] ?? 30 );
@@ -415,7 +415,7 @@ function ph_ajax_front_stats(): void {
 
 /** Timeline for unauthenticated visitors (public — returns empty data) */
 function ph_ajax_front_stats_public(): void {
-    wp_send_json_error( [ 'message' => __( 'Log in om je statistieken te zien.', 'product-haven' ) ], 401 );
+    wp_send_json_error( [ 'message' => __( 'Log in to see your statistics.', 'product-haven' ) ], 401 );
 }
 
 /** Order timeline for the logged-in customer */
@@ -423,7 +423,7 @@ function ph_ajax_front_timeline(): void {
     ph_verify_front_nonce();
 
     $user_id = get_current_user_id();
-    if ( ! $user_id ) wp_send_json_error( [ 'message' => 'Niet ingelogd.' ], 401 );
+    if ( ! $user_id ) wp_send_json_error( [ 'message' => 'Not logged in.' ], 401 );
 
     $page  = absint( $_POST['page'] ?? 1 );
     $limit = 10;
@@ -465,10 +465,10 @@ function ph_ajax_update_stock(): void {
 
     $product_id = absint( $_POST['product_id'] ?? 0 );
     $new_stock  = absint( $_POST['new_stock']  ?? 0 );
-    $reason     = sanitize_text_field( wp_unslash( $_POST['reason'] ?? 'Bijgewerkt via Product Haven' ) );
+    $reason     = sanitize_text_field( wp_unslash( $_POST['reason'] ?? 'Updated via Product Haven' ) );
 
     if ( ! $product_id ) {
-        wp_send_json_error( [ 'message' => 'Ongeldig product.' ] );
+        wp_send_json_error( [ 'message' => 'Invalid product.' ] );
     }
 
     wp_send_json_success( ph_update_stock( $product_id, $new_stock, $reason ) );
@@ -495,18 +495,18 @@ function ph_ajax_stock_update(): void {
     ph_verify_admin_nonce();
     $updates = json_decode( wp_unslash( $_POST['updates'] ?? '[]' ), true ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
     if ( ! is_array( $updates ) || empty( $updates ) ) {
-        wp_send_json_error( [ 'message' => 'Geen geldige updates.' ] );
+        wp_send_json_error( [ 'message' => 'No valid updates.' ] );
     }
     $results = [];
     foreach ( $updates as $u ) {
         $product_id = absint( $u['id']     ?? 0 );
         $new_stock  = absint( $u['qty']    ?? $u['stock'] ?? 0 );
-        $reason     = sanitize_text_field( $u['reason'] ?? 'Handmatig bijgewerkt via Product Haven' );
+        $reason     = sanitize_text_field( $u['reason'] ?? 'Manually updated via Product Haven' );
         if ( $product_id > 0 ) {
             $results[] = ph_stock_update( $product_id, $new_stock, $reason );
         }
     }
-    wp_send_json_success( [ 'updated' => count( $results ), 'message' => count( $results ) . ' product(en) bijgewerkt.', 'results' => $results ] );
+    wp_send_json_success( [ 'updated' => count( $results ), 'message' => count( $results ) . ' product(s) updated.', 'results' => $results ] );
 }
 
 function ph_ajax_stock_export_csv(): void {
@@ -529,15 +529,15 @@ function ph_ajax_stock_save_settings(): void {
         [ 'low', 'out' ]
     ) );
     update_option( 'ph_stock_options', $opts );
-    wp_send_json_success( [ 'message' => 'Instellingen opgeslagen.' ] );
+    wp_send_json_success( [ 'message' => 'Settings saved.' ] );
 }
 
 function ph_ajax_stock_send_test_alert(): void {
     ph_verify_admin_nonce();
     $result = ph_stock_send_alert( true );
     if ( $result ) {
-        wp_send_json_success( [ 'message' => 'Test-e-mail verstuurd.' ] );
+        wp_send_json_success( [ 'message' => 'Test email sent.' ] );
     } else {
-        wp_send_json_error( [ 'message' => 'Verzenden mislukt. Controleer het e-mailadres.' ] );
+        wp_send_json_error( [ 'message' => 'Sending failed. Please check the email address.' ] );
     }
 }

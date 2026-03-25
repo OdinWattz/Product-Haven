@@ -529,10 +529,10 @@ function ph_get_low_stock( int $threshold = 20 ): array {
 /**
  * Update stock of a product (inline editing in Product Haven).
  */
-function ph_update_stock( int $product_id, int $new_stock, string $reason = 'Bijgewerkt via Product Haven' ): array {
+function ph_update_stock( int $product_id, int $new_stock, string $reason = 'Updated via Product Haven' ): array {
     $product = wc_get_product( $product_id );
     if ( ! $product ) {
-        return [ 'success' => false, 'message' => 'Product niet gevonden.' ];
+        return [ 'success' => false, 'message' => 'Product not found.' ];
     }
     $old_stock = (int) $product->get_stock_quantity();
     $product->set_stock_quantity( $new_stock );
@@ -1096,19 +1096,19 @@ function ph_export_csv( array $args = [] ): void {
 
     $header_map = [
         'id'          => 'Order ID',
-        'date'        => 'Datum',
+        'date'        => 'Date',
         'status'      => 'Status',
-        'customer'    => 'Klant',
+        'customer'    => 'Customer',
         'email'       => 'E-mail',
-        'city'        => 'Stad',
-        'total'       => 'Totaal (incl. BTW)',
-        'subtotal'    => 'Subtotaal',
-        'tax'         => 'BTW',
-        'shipping'    => 'Verzendkosten',
-        'discount'    => 'Korting',
-        'items'       => 'Aantal producten',
-        'products'    => 'Producten',
-        'payment'     => 'Betaalmethode',
+        'city'        => 'City',
+        'total'       => 'Total (incl. VAT)',
+        'subtotal'    => 'Subtotal',
+        'tax'         => 'VAT',
+        'shipping'    => 'Shipping',
+        'discount'    => 'Discount',
+        'items'       => 'Number of products',
+        'products'    => 'Products',
+        'payment'     => 'Payment method',
     ];
 
     $headers = array_values( array_filter(
@@ -1173,7 +1173,7 @@ function ph_export_csv( array $args = [] ): void {
     // Summary at the bottom
     $total_revenue = array_sum( array_map( fn( $o ) => $o instanceof WC_Order ? (float) $o->get_total() : 0, $wc_orders ) );
     fputcsv( $out, [], ';' );
-    fputcsv( $out, [ 'Totaal orders:', count( $wc_orders ), '', '', '', '', number_format( $total_revenue, 2, ',', '.' ) ], ';' );
+    fputcsv( $out, [ 'Total orders:', count( $wc_orders ), '', '', '', '', number_format( $total_revenue, 2, ',', '.' ) ], ';' );
 
     fclose( $out ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- streaming output
     exit;
@@ -1285,9 +1285,9 @@ function ph_stock_get_option( string $key, $default = '' ) {
     return $opts[ $key ] ?? $default;
 }
 
-function ph_stock_update( int $product_id, int $new_stock, string $reason = 'Handmatig bijgewerkt' ): array {
+function ph_stock_update( int $product_id, int $new_stock, string $reason = 'Manually updated' ): array {
     $product = wc_get_product( $product_id );
-    if ( ! $product ) return [ 'success' => false, 'message' => 'Product niet gevonden.' ];
+    if ( ! $product ) return [ 'success' => false, 'message' => 'Product not found.' ];
 
     $old_stock = (int) $product->get_stock_quantity();
 
@@ -1354,7 +1354,7 @@ function ph_stock_export_csv(): void {
     header( 'Cache-Control: no-cache, no-store, must-revalidate' );
     $out = fopen( 'php://output', 'w' );
     fwrite( $out, "\xEF\xBB\xBF" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite -- streaming output
-    fputcsv( $out, [ 'Product', 'SKU', 'Voorraad', 'Status', 'Prijs', 'Voorraadwaarde', 'Bewerken' ] );
+    fputcsv( $out, [ 'Product', 'SKU', 'Stock', 'Status', 'Price', 'Stock Value', 'Edit' ] );
     foreach ( $all['products'] as $p ) {
         fputcsv( $out, [ $p['name'], $p['sku'], $p['stock'], ucfirst( $p['status'] ), $p['price'], $p['stock_value'], $p['edit_url'] ] );
     }
@@ -1376,8 +1376,8 @@ function ph_stock_send_alert( bool $force_test = false ): bool {
 
     $site_name = get_bloginfo( 'name' );
     $subject   = $force_test
-        ? sprintf( '[%s] Product Haven — Test voorraad alert', $site_name )
-        : sprintf( '[%s] Product Haven — %d producten vereisen aandacht', $site_name, count( $alert_ps ) );
+        ? sprintf( '[%s] Product Haven — Test stock alert', $site_name )
+        : sprintf( '[%s] Product Haven — %d products require attention', $site_name, count( $alert_ps ) );
 
     $message = ph_stock_build_email( array_values( $alert_ps ), $threshold, $force_test );
     $headers = [ 'Content-Type: text/html; charset=UTF-8', 'From: ' . $site_name . ' <' . get_option( 'admin_email' ) . '>' ];
@@ -1412,7 +1412,7 @@ function ph_stock_check_single( $product ): void {
     $sku        = $product->get_sku() ?: '–';
     $edit_url   = get_edit_post_link( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product_id, 'raw' );
 
-    $subject = sprintf( '[%s] Voorraad alert: %s (%d stuks)', $site_name, $name, $stock );
+    $subject = sprintf( '[%s] Stock alert: %s (%d items)', $site_name, $name, $stock );
     $p_data  = [ [ 'name' => $name, 'sku' => $sku, 'stock' => $stock, 'status' => $status, 'edit_url' => $edit_url ] ];
     $message = ph_stock_build_email( $p_data, $threshold, false );
     $headers = [ 'Content-Type: text/html; charset=UTF-8', 'From: ' . $site_name . ' <' . get_option( 'admin_email' ) . '>' ];
@@ -1459,16 +1459,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cta{display:inline-block;margin-top:24px;background:<?php echo esc_attr( $cta_color ); ?>;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:14px}
 .footer{padding:16px 32px;background:#F8FAFC;font-size:12px;color:#94A3B8;border-top:1px solid #E2E8F0}
 </style></head><body><div class="wrap">
-<div class="header"><h1>📦 Product Haven — Voorraad</h1><p><?php echo esc_html( $site_name ); ?> — Voorraad alert</p></div>
+<div class="header"><h1>📦 Product Haven — Stock</h1><p><?php echo esc_html( $site_name ); ?> — Stock alert</p></div>
 <div class="body">
 <?php if ( $is_test ) : ?><div class="test-badge">⚠️ Dit is een test-e-mail.</div><?php endif; ?>
 <p style="color:#64748B;font-size:14px;margin:0 0 20px"><?php
-if ( empty( $products ) ) { echo 'Geen producten met lage of nul voorraad gevonden.'; }
-else { echo esc_html( sprintf( '%d %s vereist%s je aandacht (drempel: %d stuks).', count( $products ), count( $products ) === 1 ? 'product' : 'producten', count( $products ) === 1 ? '' : 'en', $threshold ) ); }
+if ( empty( $products ) ) { echo 'No products with low or zero stock found.'; }
+else { echo esc_html( sprintf( '%d %s requires%s your attention (threshold: %d items).', count( $products ), count( $products ) === 1 ? 'product' : 'products', count( $products ) === 1 ? '' : 'and', $threshold ) ); }
 ?></p>
-<?php foreach ( $products as $p ) : ?><div class="product-row"><div><div class="product-name"><?php echo esc_html( $p['name'] ); ?></div><div class="product-meta">SKU: <?php echo esc_html( $p['sku'] ); ?></div></div><div style="text-align:right"><div class="stock-num stock-num-<?php echo esc_attr( $p['status'] ); ?>"><?php echo (int) $p['stock']; ?></div><span class="badge badge-<?php echo esc_attr( $p['status'] ); ?>"><?php echo $p['status'] === 'out' ? 'Uitverkocht' : 'Lage voorraad'; ?></span></div></div><?php endforeach; ?>
-<a href="<?php echo esc_url( $dashboard ); ?>" class="cta">Ga naar Product Haven →</a>
-</div><div class="footer">Automatisch verstuurd door Product Haven op <?php echo esc_html( $site_url ); ?></div>
+<?php foreach ( $products as $p ) : ?><div class="product-row"><div><div class="product-name"><?php echo esc_html( $p['name'] ); ?></div><div class="product-meta">SKU: <?php echo esc_html( $p['sku'] ); ?></div></div><div style="text-align:right"><div class="stock-num stock-num-<?php echo esc_attr( $p['status'] ); ?>"><?php echo (int) $p['stock']; ?></div><span class="badge badge-<?php echo esc_attr( $p['status'] ); ?>"><?php echo $p['status'] === 'out' ? 'Out of stock' : 'Low stock'; ?></span></div></div><?php endforeach; ?>
+<a href="<?php echo esc_url( $dashboard ); ?>" class="cta">Go to Product Haven →</a>
+</div><div class="footer">Automatically sent by Product Haven on <?php echo esc_html( $site_url ); ?></div>
 </div></body></html><?php
     return ob_get_clean();
 }

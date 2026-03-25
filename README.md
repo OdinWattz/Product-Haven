@@ -262,6 +262,8 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### [Unreleased]
 
+#### Changed
+
 ---
 
 ### [1.4.0] — 2026-03-25
@@ -273,6 +275,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **Code comments and formatting cleanup** — Simplified inline comments and section dividers across JS/PHP/CSS, removed end-of-block HTML comments from admin partials, minor whitespace tweaks. No functional changes.
 - **i18n translation array formatting** — Normalized spacing and column alignment in `includes/i18n.php`. No keys or values were modified.
 - **UX clarity pass** — Replaced all remaining Dutch fallback strings in `ph-admin.js` with English equivalents. Fixed `aria-label="Sluiten"` on modal close buttons to `aria-label="Close"`. Changed period selector label `1j` → `1y` in `settings-page.php`.
+- **CSS/JS class prefix rename** — Renamed all legacy `mos-`, `op-` and `mopf-` prefixes to `ph-` across all PHP, JS and CSS files. Affects `settings-page.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `stats-widget.php`, `timeline-widget.php`, `ph-admin.css`, `ph-admin.js`, `ph-front.css`, `ph-front.js`, `sequential-orders.css`, `sequential-orders.js` and `product-haven.php`. No functional changes — purely a naming consistency fix to align with the Product Haven (`ph-`) prefix convention.
 
 #### Documentation
 

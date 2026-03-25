@@ -24,8 +24,8 @@ function ph_register_menu(): void {
 add_action( 'admin_init', 'ph_handle_settings_save' );
 function ph_handle_settings_save(): void {
     if ( ! isset( $_POST['ph_save'], $_POST['ph_nonce'] ) ) return;
-    if ( ! current_user_can( 'manage_woocommerce' ) ) wp_die( 'Geen toegang.' );
-    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ph_nonce'] ) ), 'ph_save_settings' ) ) wp_die( 'Beveiligingsfout.' );
+    if ( ! current_user_can( 'manage_woocommerce' ) ) wp_die( 'No access.' );
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ph_nonce'] ) ), 'ph_save_settings' ) ) wp_die( 'Safety error.' );
 
     $current = get_option( 'ph_options', [] );
     $new = [

@@ -57,7 +57,7 @@ add_action( 'ph_dashboard_register_items', function () {
     ph_dashboard_register_dashboard_item( [
         'id'          => PH_SLUG,
         'name'        => __( 'Product Haven', 'product-haven' ),
-        'description' => __( 'Live order-statistieken, tijdlijn en klantenkaarten voor jouw webshop.', 'product-haven' ),
+        'description' => __( 'Live order-statistics, timeline and customer cards for your webshop.', 'product-haven' ),
         'menu_slug'   => 'product-haven',
         'svg'         => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
     ] );
@@ -85,10 +85,10 @@ add_action( 'admin_enqueue_scripts', function ( $hook ) {
     if ( strpos( $hook, 'product-haven' ) === false ) return;
     wp_enqueue_media(); // For Quick Products image/gallery uploader
     wp_enqueue_style(  'ph-admin-css',        PH_URL . 'assets/css/ph-admin.css',        [], PH_VERSION );
-    wp_enqueue_style(  'op-sequential-css',   PH_URL . 'assets/css/sequential-orders.css', [], PH_VERSION );
+    wp_enqueue_style(  'ph-sequential-css',   PH_URL . 'assets/css/sequential-orders.css', [], PH_VERSION );
     wp_enqueue_script( 'ph-chart-js',  PH_URL . 'assets/js/vendor/chart.umd.min.js', [], '4.4.0', true );
     wp_enqueue_script( 'ph-admin-js',        PH_URL . 'assets/js/ph-admin.js',        [ 'ph-chart-js' ], PH_VERSION, true );
-    wp_enqueue_script( 'op-sequential-js',   PH_URL . 'assets/js/sequential-orders.js', [], PH_VERSION, true );
+    wp_enqueue_script( 'ph-sequential-js',   PH_URL . 'assets/js/sequential-orders.js', [], PH_VERSION, true );
     $ph_lang = ph_get_lang();
     wp_localize_script( 'ph-admin-js', 'ph_admin', [
         'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -288,9 +288,9 @@ function ph_enqueue_frontend() {
         'nonce'    => wp_create_nonce( 'ph_front_nonce' ),
         'currency' => get_woocommerce_currency_symbol(),
         'i18n'     => [
-            'revenue'  => __( 'Omzet', 'product-haven' ),
+            'revenue'  => __( 'Revenue', 'product-haven' ),
             'orders'   => __( 'Orders', 'product-haven' ),
-            'no_data'  => __( 'Geen data beschikbaar', 'product-haven' ),
+            'no_data'  => __( 'No data available', 'product-haven' ),
         ],
     ] );
 }
@@ -394,7 +394,7 @@ function ph_ajax_lazy_load(): void {
     if ( isset( $fn_map[ $action ] ) && function_exists( $fn_map[ $action ] ) ) {
         call_user_func( $fn_map[ $action ] );
     } else {
-        wp_send_json_error( [ 'message' => 'Onbekende actie.' ], 400 );
+        wp_send_json_error( [ 'message' => 'Unknown action.' ], 400 );
     }
 }
 

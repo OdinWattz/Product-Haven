@@ -27,12 +27,12 @@ class Stats_Widget extends Widget_Base {
 
         /* ---- Content ---- */
         $this->start_controls_section( 'section_content', [
-            'label' => __( 'Inhoud', 'product-haven' ),
+            'label' => __( 'Contents', 'product-haven' ),
             'tab'   => Controls_Manager::TAB_CONTENT,
         ] );
 
         $this->add_control( 'period_days', [
-            'label'   => __( 'Periode (dagen)', 'product-haven' ),
+            'label'   => __( 'Period (days)', 'product-haven' ),
             'type'    => Controls_Manager::NUMBER,
             'default' => 30,
             'min'     => 1,
@@ -40,28 +40,28 @@ class Stats_Widget extends Widget_Base {
         ] );
 
         $this->add_control( 'show_revenue', [
-            'label'        => __( 'Toon omzet', 'product-haven' ),
+            'label'        => __( 'Show revenue', 'product-haven' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'show_orders', [
-            'label'        => __( 'Toon orderaantal', 'product-haven' ),
+            'label'        => __( 'Show order count', 'product-haven' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'show_avg', [
-            'label'        => __( 'Toon gem. orderwaarde', 'product-haven' ),
+            'label'        => __( 'Show avg. order value', 'product-haven' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
         ] );
 
         $this->add_control( 'show_chart', [
-            'label'        => __( 'Toon minikraafiek', 'product-haven' ),
+            'label'        => __( 'Show minigraph', 'product-haven' ),
             'type'         => Controls_Manager::SWITCHER,
             'default'      => 'yes',
             'return_value' => 'yes',
@@ -71,40 +71,40 @@ class Stats_Widget extends Widget_Base {
 
         /* ---- Style ---- */
         $this->start_controls_section( 'section_style', [
-            'label' => __( 'Stijl', 'product-haven' ),
+            'label' => __( 'Style', 'product-haven' ),
             'tab'   => Controls_Manager::TAB_STYLE,
         ] );
 
         $this->add_control( 'accent_color', [
-            'label'     => __( 'Accentkleur', 'product-haven' ),
+            'label'     => __( 'Accent color', 'product-haven' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#10B981',
             'selectors' => [
-                '{{WRAPPER}} .mopf-accent' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .mopf-stat-icon' => 'background: color-mix(in srgb, {{VALUE}} 15%, transparent); color: {{VALUE}};',
+                '{{WRAPPER}} .ph-accent' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .ph-stat-icon' => 'background: color-mix(in srgb, {{VALUE}} 15%, transparent); color: {{VALUE}};',
             ],
         ] );
 
         $this->add_control( 'card_bg', [
-            'label'     => __( 'Kaart achtergrond', 'product-haven' ),
+            'label'     => __( 'Card background', 'product-haven' ),
             'type'      => Controls_Manager::COLOR,
             'default'   => '#ffffff',
-            'selectors' => [ '{{WRAPPER}} .mopf-stat-card' => 'background: {{VALUE}};' ],
+            'selectors' => [ '{{WRAPPER}} .ph-stat-card' => 'background: {{VALUE}};' ],
         ] );
 
         $this->add_control( 'card_radius', [
-            'label'      => __( 'Afronding', 'product-haven' ),
+            'label'      => __( 'Border radius', 'product-haven' ),
             'type'       => Controls_Manager::SLIDER,
             'size_units' => [ 'px' ],
             'range'      => [ 'px' => [ 'min' => 0, 'max' => 32 ] ],
             'default'    => [ 'size' => 16, 'unit' => 'px' ],
-            'selectors'  => [ '{{WRAPPER}} .mopf-stat-card' => 'border-radius: {{SIZE}}{{UNIT}};' ],
+            'selectors'  => [ '{{WRAPPER}} .ph-stat-card' => 'border-radius: {{SIZE}}{{UNIT}};' ],
         ] );
 
         $this->add_group_control( Group_Control_Typography::get_type(), [
             'name'     => 'value_typography',
-            'label'    => __( 'Waarde typografie', 'product-haven' ),
-            'selector' => '{{WRAPPER}} .mopf-stat-value',
+            'label'    => __( 'Value typography', 'product-haven' ),
+            'selector' => '{{WRAPPER}} .ph-stat-value',
         ] );
 
         $this->end_controls_section();
@@ -131,54 +131,54 @@ class Stats_Widget extends Widget_Base {
         if ( $is_edit ) {
             $currency = function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '€';
             ?>
-            <div class="mopf-stats-widget" style="pointer-events:none">
-                <div class="mopf-stats-grid">
+            <div class="ph-stats-widget" style="pointer-events:none">
+                <div class="ph-stats-grid">
                     <?php if ( $s['show_revenue'] === 'yes' ) : ?>
-                    <div class="mopf-stat-card">
-                        <div class="mopf-stat-icon">
+                    <div class="ph-stat-card">
+                        <div class="ph-stat-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                                 <line x1="12" y1="1" x2="12" y2="23"/>
                                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                             </svg>
                         </div>
-                        <div class="mopf-stat-body">
-                            <span class="mopf-stat-label"><?php esc_html_e( 'Omzet', 'product-haven' ); ?></span>
-                            <span class="mopf-stat-value mopf-accent"><?php echo esc_html( $currency . '1.234,56' ); ?></span>
-                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <div class="ph-stat-body">
+                            <span class="ph-stat-label"><?php esc_html_e( 'Revenue', 'product-haven' ); ?></span>
+                            <span class="ph-stat-value ph-accent"><?php echo esc_html( $currency . '1.234,56' ); ?></span>
+                            <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
 
                     <?php if ( $s['show_orders'] === 'yes' ) : ?>
-                    <div class="mopf-stat-card">
-                        <div class="mopf-stat-icon">
+                    <div class="ph-stat-card">
+                        <div class="ph-stat-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
                                 <line x1="3" y1="6" x2="21" y2="6"/>
                                 <path d="M16 10a4 4 0 0 1-8 0"/>
                             </svg>
                         </div>
-                        <div class="mopf-stat-body">
-                            <span class="mopf-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
-                            <span class="mopf-stat-value mopf-accent">12</span>
-                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <div class="ph-stat-body">
+                            <span class="ph-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
+                            <span class="ph-stat-value ph-accent">12</span>
+                            <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
 
                     <?php if ( $s['show_avg'] === 'yes' ) : ?>
-                    <div class="mopf-stat-card">
-                        <div class="mopf-stat-icon">
+                    <div class="ph-stat-card">
+                        <div class="ph-stat-icon">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                                 <line x1="18" y1="20" x2="18" y2="10"/>
                                 <line x1="12" y1="20" x2="12" y2="4"/>
                                 <line x1="6"  y1="20" x2="6"  y2="14"/>
                             </svg>
                         </div>
-                        <div class="mopf-stat-body">
-                            <span class="mopf-stat-label"><?php esc_html_e( 'Gem. orderwaarde', 'product-haven' ); ?></span>
-                            <span class="mopf-stat-value mopf-accent"><?php echo esc_html( $currency . '102,88' ); ?></span>
-                            <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                        <div class="ph-stat-body">
+                            <span class="ph-stat-label"><?php esc_html_e( 'Avg. order value', 'product-haven' ); ?></span>
+                            <span class="ph-stat-value ph-accent"><?php echo esc_html( $currency . '102,88' ); ?></span>
+                            <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -190,35 +190,35 @@ class Stats_Widget extends Widget_Base {
 
         /* ---- Live frontend: JS fills in the values via AJAX ---- */
         ?>
-        <div class="mopf-stats-widget"
+        <div class="ph-stats-widget"
              data-days="<?php echo absint( $days ); ?>"
              data-show-chart="<?php echo $s['show_chart'] === 'yes' ? '1' : '0'; ?>">
 
-            <div class="mopf-stats-grid">
+            <div class="ph-stats-grid">
 
                 <?php if ( $s['show_revenue'] === 'yes' ) : ?>
-                <div class="mopf-stat-card">
-                    <div class="mopf-stat-icon">
+                <div class="ph-stat-card">
+                    <div class="ph-stat-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round">
                             <line x1="12" y1="1" x2="12" y2="23"/>
                             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                         </svg>
                     </div>
-                    <div class="mopf-stat-body">
-                        <span class="mopf-stat-label"><?php esc_html_e( 'Omzet', 'product-haven' ); ?></span>
-                        <span class="mopf-stat-value mopf-accent mopf-val-revenue">–</span>
-                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                    <div class="ph-stat-body">
+                        <span class="ph-stat-label"><?php esc_html_e( 'Revenue', 'product-haven' ); ?></span>
+                        <span class="ph-stat-value ph-accent ph-val-revenue">–</span>
+                        <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                     <?php if ( $s['show_chart'] === 'yes' ) : ?>
-                        <canvas class="mopf-sparkline" data-type="revenue" width="80" height="32"></canvas>
+                        <canvas class="ph-sparkline" data-type="revenue" width="80" height="32"></canvas>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
 
                 <?php if ( $s['show_orders'] === 'yes' ) : ?>
-                <div class="mopf-stat-card">
-                    <div class="mopf-stat-icon">
+                <div class="ph-stat-card">
+                    <div class="ph-stat-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round">
                             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -226,20 +226,20 @@ class Stats_Widget extends Widget_Base {
                             <path d="M16 10a4 4 0 0 1-8 0"/>
                         </svg>
                     </div>
-                    <div class="mopf-stat-body">
-                        <span class="mopf-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
-                        <span class="mopf-stat-value mopf-accent mopf-val-orders">–</span>
-                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                    <div class="ph-stat-body">
+                        <span class="ph-stat-label"><?php esc_html_e( 'Orders', 'product-haven' ); ?></span>
+                        <span class="ph-stat-value ph-accent ph-val-orders">–</span>
+                        <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                     <?php if ( $s['show_chart'] === 'yes' ) : ?>
-                        <canvas class="mopf-sparkline" data-type="orders" width="80" height="32"></canvas>
+                        <canvas class="ph-sparkline" data-type="orders" width="80" height="32"></canvas>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
 
                 <?php if ( $s['show_avg'] === 'yes' ) : ?>
-                <div class="mopf-stat-card">
-                    <div class="mopf-stat-icon">
+                <div class="ph-stat-card">
+                    <div class="ph-stat-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round">
                             <line x1="18" y1="20" x2="18" y2="10"/>
@@ -247,10 +247,10 @@ class Stats_Widget extends Widget_Base {
                             <line x1="6"  y1="20" x2="6"  y2="14"/>
                         </svg>
                     </div>
-                    <div class="mopf-stat-body">
-                        <span class="mopf-stat-label"><?php esc_html_e( 'Gem. orderwaarde', 'product-haven' ); ?></span>
-                        <span class="mopf-stat-value mopf-accent mopf-val-avg">–</span>
-                        <span class="mopf-stat-period"><?php printf( esc_html__( 'Afgelopen %d dagen', 'product-haven' ), absint( $days ) ); ?></span>
+                    <div class="ph-stat-body">
+                        <span class="ph-stat-label"><?php esc_html_e( 'Avg. order value', 'product-haven' ); ?></span>
+                        <span class="ph-stat-value ph-accent ph-val-avg">–</span>
+                        <span class="ph-stat-period"><?php printf( esc_html__( 'Last %d days', 'product-haven' ), absint( $days ) ); ?></span>
                     </div>
                 </div>
                 <?php endif; ?>
