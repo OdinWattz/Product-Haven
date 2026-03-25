@@ -1,6 +1,6 @@
 # Product Haven
 
-**Version:** 1.3.0
+**Version:** 1.4.0
 **Requires:** WordPress 6.0+, WooCommerce 7.0+, PHP 7.4+
 **Optional:** Elementor 3.0+ (for frontend widgets)
 **License:** GPL-3.0-or-later
@@ -262,9 +262,22 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### [Unreleased]
 
+---
+
+### [1.4.0] — 2026-03-25
+
 #### Changed
-- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and applied minor whitespace/trailing-comma tweaks. No functional changes.
-- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No translation keys or string values were modified.
+
+- **Translate UI copy to English** — Converted Dutch comments/labels to English across admin/front/sequential CSS and JS, standardized UI copy strings and comments, and updated admin PHP comments. No functional logic changes.
+- **Portuguese and Italian language buttons** — Added PT and IT to the settings page language switcher; now supports 7 languages: NL, EN, DE, FR, ES, PT, IT.
+- **Code comments and formatting cleanup** — Simplified inline comments and section dividers across JS/PHP/CSS, removed end-of-block HTML comments from admin partials, minor whitespace tweaks. No functional changes.
+- **i18n translation array formatting** — Normalized spacing and column alignment in `includes/i18n.php`. No keys or values were modified.
+- **UX clarity pass** — Replaced all remaining Dutch fallback strings in `ph-admin.js` with English equivalents. Fixed `aria-label="Sluiten"` on modal close buttons to `aria-label="Close"`. Changed period selector label `1j` → `1y` in `settings-page.php`.
+
+#### Documentation
+
+- README and readme.txt updated; multilingual feature description expanded for PT and IT.
+- Roadmap updated; two items (screenshots, UX clarity pass) carried forward to v1.5.
 
 ---
 

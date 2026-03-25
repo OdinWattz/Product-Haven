@@ -4,7 +4,7 @@ Tags: woocommerce, orders, inventory, stock management, sequential order numbers
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,7 +65,7 @@ Use in production is at your own discretion, and testing on a staging site befor
 
 **Multilingual**
 
-* Fully translated into Dutch (NL), English (EN), German (DE), French (FR) and Spanish (ES)
+* Fully translated into Dutch (NL), English (EN), German (DE), French (FR), Spanish (ES), Portuguese (PT) and Italian (IT)
 * Language switcher in the admin header
 
 **REST API (optional)**
@@ -131,6 +131,14 @@ Yes. Go to the **Order Numbers** tab and use the reset button. You can set any s
 
 == Changelog ==
 
+= 1.4.0 =
+* Translated all remaining Dutch UI copy, comments and labels to English across admin, frontend and sequential order files
+* Added Portuguese (PT) and Italian (IT) to the language switcher — now 7 languages: NL, EN, DE, FR, ES, PT, IT
+* Cleaned up inline comments and section dividers across JS/PHP/CSS; no functional changes
+* Normalized i18n translation array formatting in i18n.php for improved readability
+* UX clarity pass: replaced all remaining Dutch fallback strings in ph-admin.js with English; fixed modal close button aria-labels; corrected period selector label from 1j to 1y
+* Updated README, readme.txt and roadmap to reflect v1.4 release
+
 = 1.3.2 =
 * Quick Products — action buttons now show styled CSS tooltips on hover (Edit, Duplicate, Open in WC, Delete)
 * Quick Products — "New product" button gets bottom margin so it no longer sits flush against the filter bar
@@ -168,6 +176,9 @@ Yes. Go to the **Order Numbers** tab and use the reset button. You can set any s
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.4.0 =
+Polish and public-readiness release. All remaining Dutch UI text converted to English, PT and IT language support added, code comments cleaned up. No functional or database changes.
 
 = 1.3.2 =
 Minor UI improvements to Quick Products.

@@ -8,13 +8,20 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+---
+
+## [1.4.0] — 2026-03-25
+
 ### Changed
-- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and applied minor whitespace/trailing-comma tweaks. Affects `ph-admin.js`, `ph-front.js`, `sequential-orders.css`, `settings-page.php`, `ajax.php`, `data.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `sequential-orders.php`, `stats-widget.php`. No functional changes.
-- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No translation keys or string values were modified.
+- **Translate UI copy to English** — Converted Dutch comments/labels to English across admin/front/sequential CSS and JS, standardized UI copy strings and comments, and updated admin PHP comments. No functional logic changes.
+- **Portuguese and Italian language buttons** — Added PT and IT language buttons to the settings page; language switcher now supports 7 languages: NL, EN, DE, FR, ES, PT, IT.
+- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and minor whitespace/trailing-comma tweaks. Affects `ph-admin.js`, `ph-front.js`, `sequential-orders.css`, `settings-page.php`, `ajax.php`, `data.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `sequential-orders.php`, `stats-widget.php`. No functional changes.
+- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No keys or values were modified.
+- **UX clarity pass** — Replaced all remaining Dutch fallback strings in `ph-admin.js` with English equivalents (error messages, modal labels, status buttons, time-ago strings, customer card, refund/revert modal descriptions). Fixed three `aria-label="Sluiten"` attributes on modal close buttons to `aria-label="Close"`. Changed the period selector label `1j` to `1y` in `settings-page.php`.
 
 ### Documentation
-- **Changelog split: translation and languages** — Separated the combined Unreleased changelog bullet into two distinct entries (UI copy translation + language additions) in `README.md`.
-- **Docs update: changelog, README, and roadmap** — Added Unreleased changelog entry describing UI copy translation to English and Portuguese/Italian language button additions; consolidated README formatting (tables, spacing); marked completed ROADMAP items (smoke test, dependency review, wording cleanup).
+- **README and readme.txt updated** — Consolidated formatting, updated version references, and expanded multilingual feature description to reflect PT and IT additions.
+- **Roadmap updated** — Marked completed v1.4 items; two items (screenshots, UX clarity pass) carried forward to v1.5.
 
 ---
 

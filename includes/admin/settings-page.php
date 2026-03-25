@@ -59,7 +59,7 @@ $statuses = [
                 <button class="ph-lang-btn <?php echo $lang === 'it' ? 'is-active' : ''; ?>" data-lang="it" title="<?php echo esc_attr( ph_t( 'switch_to_it', $lang ) ); ?>">🇮🇹 IT</button>
             </div>
             <div class="mos-period-selector" id="mos-period-selector">
-                <?php foreach ( [ 7 => '7d', 14 => '14d', 30 => '30d', 90 => '90d', 365 => '1j' ] as $d => $label ) : ?>
+                <?php foreach ( [ 7 => '7d', 14 => '14d', 30 => '30d', 90 => '90d', 365 => '1y' ] as $d => $label ) : ?>
                     <button class="mos-period-btn <?php echo $d === $period ? 'is-active' : ''; ?>"
                             data-days="<?php echo absint( $d ); ?>">
                         <?php echo esc_html( $label ); ?>
@@ -264,7 +264,7 @@ $statuses = [
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                     <?php echo esc_html( ph_t( 'delete_order', $lang ) ); ?>
                 </h3>
-                <button class="mos-modal-close" id="mos-delete-confirm-close" aria-label="Sluiten">
+                <button class="mos-modal-close" id="mos-delete-confirm-close" aria-label="Close">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
@@ -287,7 +287,7 @@ $statuses = [
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
                     <span id="mos-refund-modal-title"><?php echo esc_html( ph_t( 'refund_title', $lang ) ); ?></span>
                 </h3>
-                <button class="mos-modal-close" id="mos-refund-modal-close" aria-label="Sluiten">
+                <button class="mos-modal-close" id="mos-refund-modal-close" aria-label="Close">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>
@@ -360,7 +360,7 @@ $statuses = [
         <div class="mos-modal mos-stock-edit-modal" role="dialog" aria-modal="true">
             <div class="mos-modal-header">
                 <h3 id="mos-stock-edit-title"><?php echo esc_html( ph_t( 'edit_stock', $lang ) ); ?></h3>
-                <button class="mos-modal-close" id="mos-stock-edit-close" aria-label="Sluiten">
+                <button class="mos-modal-close" id="mos-stock-edit-close" aria-label="Close">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
             </div>

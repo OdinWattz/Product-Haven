@@ -43,13 +43,13 @@
     function timeAgo(ts) {
         if (!ts) return '';
         const diff = Math.floor(Date.now() / 1000) - ts;
-        if (diff < 60)                       return i18n.time_just_now  || 'Zojuist';
-        if (diff < 3600)  { const m = Math.floor(diff / 60);    return m + ' ' + (i18n.time_min_ago   || 'min geleden'); }
-        if (diff < 7200)                     return '1 ' + (i18n.time_hour_ago  || 'uur geleden');
-        if (diff < 86400) { const h = Math.floor(diff / 3600);  return h + ' ' + (i18n.time_hours_ago || 'uur geleden'); }
-        if (diff < 172800)                   return i18n.time_yesterday || 'Gisteren';
-        if (diff < 604800) { const d = Math.floor(diff / 86400);  return d + ' ' + (i18n.time_days_ago  || 'd geleden'); }
-        { const w = Math.floor(diff / 604800); return w + ' ' + (i18n.time_weeks_ago || (w === 1 ? 'week geleden' : 'weken geleden')); }
+        if (diff < 60)                       return i18n.time_just_now  || 'Just now';
+        if (diff < 3600)  { const m = Math.floor(diff / 60);    return m + ' ' + (i18n.time_min_ago   || 'min ago'); }
+        if (diff < 7200)                     return '1 ' + (i18n.time_hour_ago  || 'hour ago');
+        if (diff < 86400) { const h = Math.floor(diff / 3600);  return h + ' ' + (i18n.time_hours_ago || 'hours ago'); }
+        if (diff < 172800)                   return i18n.time_yesterday || 'Yesterday';
+        if (diff < 604800) { const d = Math.floor(diff / 86400);  return d + ' ' + (i18n.time_days_ago  || 'd ago'); }
+        { const w = Math.floor(diff / 604800); return w + ' ' + (i18n.time_weeks_ago || (w === 1 ? 'week ago' : 'weeks ago')); }
     }
 
 /*
@@ -97,7 +97,7 @@
             setStatCard('new_customers', d.new_customers);
 
             const refCard = document.querySelector('[data-stat="revenue"] .mos-stat-sub');
-            if (refCard && d.refunds > 0) refCard.textContent = (i18n.refunded_prefix || 'Terugbetaald: ') + formatCurrency(d.refunds);
+            if (refCard && d.refunds > 0) refCard.textContent = (i18n.refunded_prefix || 'Refunded: ') + formatCurrency(d.refunds);
         });
 
         // Top products separately loaded with current limit
@@ -138,20 +138,20 @@
         }
 
         if (!products.length) {
-            body.innerHTML = '<p style="padding:16px 20px;color:#10B981;font-size:13px;margin:0;">' + (i18n.all_stock_ok || '✓ Alle producten hebben voldoende voorraad.') + '</p>';
+            body.innerHTML = '<p style="padding:16px 20px;color:#10B981;font-size:13px;margin:0;">' + (i18n.all_stock_ok || '✓ All products have sufficient stock.') + '</p>';
             return;
         }
 
         body.innerHTML = products.map(p => {
             const statusCls = p.status === 'out' ? 'mos-ls-status--out' : 'mos-ls-status--low';
-            const statusTxt = p.status === 'out' ? (i18n.out_of_stock_short || 'Op!') : `${p.stock}×`;
+            const statusTxt = p.status === 'out' ? (i18n.out_of_stock_short || 'Out!') : `${p.stock}×`;
             return `
             <div class="mos-ls-row" data-id="${p.id}">
                 <img class="mos-ls-img" src="${esc(p.image)}" alt="" width="36" height="36">
                 <span class="mos-ls-name" title="${esc(p.name)}">${esc(p.name)}</span>
                 <span class="mos-ls-sku">${esc(p.sku)}</span>
                 <span class="mos-ls-stock ${statusCls}">${statusTxt}</span>
-                <button class="mos-ls-edit-btn" data-id="${p.id}" data-name="${esc(p.name)}" data-stock="${p.stock}" title="${i18n.edit_stock_title || 'Voorraad aanpassen'}">
+                <button class="mos-ls-edit-btn" data-id="${p.id}" data-name="${esc(p.name)}" data-stock="${p.stock}" title="${i18n.edit_stock_title || 'Edit stock'}">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 </button>
             </div>`;
@@ -189,21 +189,21 @@
         const productId = parseInt(document.getElementById('mos-stock-edit-product-id').value);
         const newStock  = parseInt(document.getElementById('mos-stock-edit-qty').value);
         const reason    = document.getElementById('mos-stock-edit-reason').value.trim()
-                          || (i18n.stock_edit_default_reason || 'Bijgewerkt via Product Haven');
+                          || (i18n.stock_edit_default_reason || 'Updated via Product Haven');
 
         if (isNaN(newStock) || newStock < 0) {
-            alert(i18n.stock_edit_invalid_qty || 'Vul een geldig getal in (0 of hoger).');
+            alert(i18n.stock_edit_invalid_qty || 'Please enter a valid number (0 or higher).');
             return;
         }
 
         const saveBtn = document.getElementById('mos-stock-edit-save');
         saveBtn.disabled = true;
-        saveBtn.textContent = i18n.saving || 'Opslaan…';
+        saveBtn.textContent = i18n.saving || 'Saving…';
 
         ajax('ph_update_stock', { product_id: productId, new_stock: newStock, reason }).then(resp => {
             saveBtn.disabled = false;
-            saveBtn.textContent = i18n.order_edit_save || 'Opslaan';
-            if (!resp.success) { alert((i18n.error_prefix || 'Fout: ') + (resp.data?.message || (i18n.unknown_error_short || 'onbekend'))); return; }
+            saveBtn.textContent = i18n.order_edit_save || 'Save';
+            if (!resp.success) { alert((i18n.error_prefix || 'Error: ') + (resp.data?.message || (i18n.unknown_error_short || 'unknown'))); return; }
             closeStockEditModal();
             loadLowStock(); // card refresh
         });
@@ -240,7 +240,7 @@
         const list = document.getElementById('mos-top-products');
         if (!list) return;
         if (!products.length) {
-            list.innerHTML = '<li style="padding:12px 20px;color:#94A3B8;font-size:13px">' + (i18n.no_data || 'Geen data beschikbaar.') + '</li>';
+            list.innerHTML = '<li style="padding:12px 20px;color:#94A3B8;font-size:13px">' + (i18n.no_data || 'No data available.') + '</li>';
             return;
         }
         list.innerHTML = products.map((p, i) => {
@@ -248,9 +248,9 @@
             let stockBadge = '';
             if (p.stock !== null && p.stock !== undefined && p.stock_low) {
                 const cls  = p.stock_out ? 'mos-stock-badge--out' : 'mos-stock-badge--low';
-                const label = p.stock_out ? (i18n.out_of_stock_short || 'Op!') : `${p.stock} ${i18n.remaining || 'resterend'}`;
+                const label = p.stock_out ? (i18n.out_of_stock_short || 'Out!') : `${p.stock} ${i18n.remaining || 'remaining'}`;
                 const link  = p.edit_url
-                    ? `<a href="${esc(p.edit_url)}" class="mos-stock-badge ${cls}" title="${i18n.edit_stock_title || 'Voorraad aanpassen'}">${label}</a>`
+                    ? `<a href="${esc(p.edit_url)}" class="mos-stock-badge ${cls}" title="${i18n.edit_stock_title || 'Edit stock'}">${label}</a>`
                     : `<span class="mos-stock-badge ${cls}">${label}</span>`;
                 stockBadge = link;
             }
@@ -300,7 +300,7 @@
 
         if (visibleDatasets.revenue) {
             datasets.push({
-                label:           i18n.chart_revenue || 'Omzet',
+                label:           i18n.chart_revenue || 'Revenue',
                 data:            data.revenue,
                 borderColor:     '#10B981',
                 backgroundColor: 'rgba(16,185,129,.08)',
@@ -396,7 +396,7 @@
             search:   currentSearch,
             per_page: 20,
         }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Failed to load.') + '</p>'; return; }
             renderTimeline(resp.data);
         });
     }
@@ -417,7 +417,7 @@
         const pagination = document.getElementById('mos-pagination');
 
         if (!data.orders.length) {
-            container.innerHTML = '<p style="padding:20px;text-align:center;color:#64748B">' + (i18n.no_orders_found || 'Geen orders gevonden.') + '</p>';
+            container.innerHTML = '<p style="padding:20px;text-align:center;color:#64748B">' + (i18n.no_orders_found || 'No orders found.') + '</p>';
             if (pagination) pagination.innerHTML = '';
             return;
         }
@@ -482,7 +482,7 @@
             if (body) body.innerHTML = '<div class="mos-loading-spinner"></div>';
             ajax('ph_get_single_order', { order_id: orderId }).then(r => {
                 if (!r.success) {
-                    if (body) body.innerHTML = '<p style="padding:20px;color:#EF4444">' + (i18n.order_load_error || 'Order kon niet worden geladen.') + '</p>';
+                    if (body) body.innerHTML = '<p style="padding:20px;color:#EF4444">' + (i18n.order_load_error || 'Order could not be loaded.') + '</p>';
                     return;
                 }
                 orderCache.set(r.data.id, r.data);
@@ -537,7 +537,7 @@
                         const notesEl = body.querySelector('#mos-notes-list');
                         if (notesEl) {
                             notesEl.insertAdjacentHTML('afterbegin',
-                                `<div class="mos-note-item"><div class="mos-note-meta">${i18n.note_just_now_you || 'Zojuist · jij'}</div><div>${esc(note)}</div></div>`
+                                `<div class="mos-note-item"><div class="mos-note-meta">${i18n.note_just_now_you || 'Just Now · You'}</div><div>${esc(note)}</div></div>`
                             );
                         }
                     }
@@ -616,7 +616,7 @@
 
         // Reset save button
         const saveBtn = document.getElementById('mos-order-edit-save');
-        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = i18n.order_edit_save || 'Opslaan'; }
+        if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = i18n.order_edit_save || 'Save'; }
 
         backdrop.hidden = false;
 
@@ -637,7 +637,7 @@
 
         newSave.addEventListener('click', () => {
             newSave.disabled = true;
-            newSave.textContent = i18n.order_edit_saving || 'Opslaan…';
+            newSave.textContent = i18n.order_edit_saving || 'Saving…';
 
             const data = {
                 order_id:            o.id,
@@ -657,9 +657,9 @@
             ajax('ph_qp_save_order', data).then(r => {
                 if (!r || !r.success) {
                     newSave.disabled = false;
-                    newSave.textContent = i18n.order_edit_save || 'Opslaan';
+                    newSave.textContent = i18n.order_edit_save || 'Save';
                     const err = document.getElementById('mos-order-edit-error');
-                    if (err) { err.textContent = r?.data?.message || (i18n.unknown_error || 'Onbekende fout.'); err.style.display = ''; }
+                    if (err) { err.textContent = r?.data?.message || (i18n.unknown_error || 'Unknown error.'); err.style.display = ''; }
                     return;
                 }
                 // Update cached order and modal
@@ -695,9 +695,9 @@
                 if (rowName) rowName.textContent = updated.customer.name;
             }).catch(() => {
                 newSave.disabled = false;
-                newSave.textContent = i18n.order_edit_save || 'Opslaan';
+                newSave.textContent = i18n.order_edit_save || 'Save';
                 const err = document.getElementById('mos-order-edit-error');
-                if (err) { err.textContent = i18n.connection_error || 'Verbindingsfout. Probeer opnieuw.'; err.style.display = ''; }
+                if (err) { err.textContent = i18n.connection_error || 'Connection error. Please try again.'; err.style.display = ''; }
             });
         });
     }
@@ -718,49 +718,49 @@
                     <div>${n.content}</div>
                 </div>`
               ).join('')
-            : `<p style="color:#94A3B8;font-size:13px">${i18n.modal_no_notes || 'Nog geen notities.'}</p>`;
+            : `<p style="color:#94A3B8;font-size:13px">${i18n.modal_no_notes || 'No notes yet.'}</p>`;
 
         const custLink = (o.customer.id || o.customer.email)
             ? `<button class="mos-open-customer-card" style="background:none;border:none;color:#10B981;font-weight:600;cursor:pointer;font-size:12px;padding:0;">
-                   ${i18n.modal_open_customer || '↗ Klantenkaart openen'}
+                   ${i18n.modal_open_customer || '↗ Open customer card'}
                </button>`
             : '';
 
         return `
         <div class="mos-modal-section">
-            <div class="mos-modal-section-title">${i18n.modal_customer || 'Klant'}</div>
+            <div class="mos-modal-section-title">${i18n.modal_customer || 'Customer'}</div>
             <div class="mos-modal-info-grid">
-                <div class="mos-modal-info-item"><label>${i18n.modal_name || 'Naam'}</label><span>${esc(o.customer.name)}</span> ${custLink}</div>
+                <div class="mos-modal-info-item"><label>${i18n.modal_name || 'Name'}</label><span>${esc(o.customer.name)}</span> ${custLink}</div>
                 <div class="mos-modal-info-item"><label>${i18n.modal_email_label || 'E-mail'}</label><span>${esc(o.customer.email)}</span></div>
-                ${o.customer.phone ? `<div class="mos-modal-info-item"><label>${i18n.modal_phone_label || 'Telefoon'}</label><span>${esc(o.customer.phone)}</span></div>` : ''}
-                <div class="mos-modal-info-item"><label>${i18n.modal_address || 'Adres'}</label><span>${[o.customer.address_1, o.customer.address_2, o.customer.postcode, o.customer.city, o.customer.country].filter(Boolean).join(', ')}</span></div>
-                <div class="mos-modal-info-item"><label>${i18n.modal_payment || 'Betaling'}</label><span>${esc(o.payment)}</span></div>
-                <div class="mos-modal-info-item"><label>${i18n.modal_date || 'Datum'}</label><span>${esc(o.date)}</span></div>
+                ${o.customer.phone ? `<div class="mos-modal-info-item"><label>${i18n.modal_phone_label || 'Phone'}</label><span>${esc(o.customer.phone)}</span></div>` : ''}
+                <div class="mos-modal-info-item"><label>${i18n.modal_address || 'Address'}</label><span>${[o.customer.address_1, o.customer.address_2, o.customer.postcode, o.customer.city, o.customer.country].filter(Boolean).join(', ')}</span></div>
+                <div class="mos-modal-info-item"><label>${i18n.modal_payment || 'Payment'}</label><span>${esc(o.payment)}</span></div>
+                <div class="mos-modal-info-item"><label>${i18n.modal_date || 'Date'}</label><span>${esc(o.date)}</span></div>
                 <div class="mos-modal-info-item"><label>${i18n.modal_total || 'Totaal'}</label><span style="font-weight:800">${o.total}</span></div>
             </div>
         </div>
 
         <div class="mos-modal-section">
-            <div class="mos-modal-section-title">${i18n.modal_products || 'Producten'} (${o.items_count})</div>
+            <div class="mos-modal-section-title">${i18n.modal_products || 'Products'} (${o.items_count})</div>
             ${items}
         </div>
 
         <div class="mos-modal-section">
-            <div class="mos-modal-section-title">${i18n.modal_order_notes || 'Ordernotities'}</div>
+            <div class="mos-modal-section-title">${i18n.modal_order_notes || 'Ordernotes'}</div>
             <div id="mos-notes-list">${notes}</div>
             <form id="mos-note-form" class="mos-note-form" style="margin-top:12px">
-                <textarea class="mos-note-input" placeholder="${i18n.modal_note_placeholder || 'Notitie toevoegen…'}" rows="2"></textarea>
-                <button type="submit" class="mos-note-submit">${i18n.modal_note_add || 'Toevoegen'}</button>
+                <textarea class="mos-note-input" placeholder="${i18n.modal_note_placeholder || 'Add note…'}" rows="2"></textarea>
+                <button type="submit" class="mos-note-submit">${i18n.modal_note_add || 'Add'}</button>
             </form>
         </div>
 
         <div class="mos-modal-section mos-status-actions-section">
-            <div class="mos-modal-section-title">${i18n.modal_change_status || 'Status wijzigen'}</div>
+            <div class="mos-modal-section-title">${i18n.modal_change_status || 'Change status'}</div>
             <div class="mos-status-actions">
-                <button class="mos-status-action-btn mos-sa-complete${o.status === 'completed'  ? ' is-current' : ''}" data-status="completed"  ${o.status === 'completed'  ? 'disabled' : ''}>${i18n.modal_complete || '✓ Voltooien'}</button>
-                <button class="mos-status-action-btn mos-sa-processing${o.status === 'processing' ? ' is-current' : ''}" data-status="processing" ${o.status === 'processing' ? 'disabled' : ''}>${i18n.modal_processing || '↻ Verwerken'}</button>
-                <button class="mos-status-action-btn mos-sa-hold${o.status === 'on-hold'    ? ' is-current' : ''}" data-status="on-hold"    ${o.status === 'on-hold'    ? 'disabled' : ''}>${i18n.modal_on_hold || '⏸ In de wacht'}</button>
-                <button class="mos-status-action-btn mos-sa-cancel${o.status === 'cancelled'  ? ' is-current' : ''}" data-status="cancelled"  ${o.status === 'cancelled'  ? 'disabled' : ''}>${i18n.modal_cancel || '✕ Annuleren'}</button>
+                <button class="mos-status-action-btn mos-sa-complete${o.status === 'completed'  ? ' is-current' : ''}" data-status="completed"  ${o.status === 'completed'  ? 'disabled' : ''}>${i18n.modal_complete || '✓ Complete'}</button>
+                <button class="mos-status-action-btn mos-sa-processing${o.status === 'processing' ? ' is-current' : ''}" data-status="processing" ${o.status === 'processing' ? 'disabled' : ''}>${i18n.modal_processing || '↻ Processing'}</button>
+                <button class="mos-status-action-btn mos-sa-hold${o.status === 'on-hold'    ? ' is-current' : ''}" data-status="on-hold"    ${o.status === 'on-hold'    ? 'disabled' : ''}>${i18n.modal_on_hold || '⏸ On hold'}</button>
+                <button class="mos-status-action-btn mos-sa-cancel${o.status === 'cancelled'  ? ' is-current' : ''}" data-status="cancelled"  ${o.status === 'cancelled'  ? 'disabled' : ''}>${i18n.modal_cancel || '✕ Cancel'}</button>
                 <button class="mos-status-action-btn mos-sa-fail${o.status === 'failed'     ? ' is-current' : ''}" data-status="failed"     ${o.status === 'failed'     ? 'disabled' : ''}>${i18n.modal_failed || '⚠ Mislukt'}</button>
                 ${o.status === 'refunded'
                     ? `<button class="mos-status-action-btn mos-sa-refund is-current mos-sa-revert" data-action="revert">${i18n.modal_revert_refund || '↩ Retour terugdraaien'}</button>`
@@ -770,12 +770,12 @@
         </div>
 
         <div class="mos-modal-section mos-danger-section">
-            <div class="mos-modal-section-title">${i18n.modal_danger_zone || 'Gevaarlijke acties'}</div>
+            <div class="mos-modal-section-title">${i18n.modal_danger_zone || 'Danger zone'}</div>
             <button id="mos-delete-order-btn" class="mos-delete-order-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-                ${i18n.modal_delete_order || 'Bestelling permanent verwijderen'}
+                ${i18n.modal_delete_order || 'Permanently delete order'}
             </button>
-            <p class="mos-danger-warning">${i18n.modal_irreversible || '⚠ Dit kan niet ongedaan worden gemaakt.'}</p>
+            <p class="mos-danger-warning">${i18n.modal_irreversible || '⚠ This action cannot be undone.'}</p>
         </div>`;
     }
 
@@ -790,7 +790,7 @@
         const closeBtn  = document.getElementById('mos-delete-confirm-close');
         if (!backdrop) return;
 
-        if (textEl) textEl.textContent = (i18n.modal_delete_confirm || 'Weet je zeker dat je order #%s permanent wilt verwijderen?').replace('%s', orderId);
+        if (textEl) textEl.textContent = (i18n.modal_delete_confirm || 'Are you sure you want to permanently delete order #%s?').replace('%s', orderId);
         backdrop.hidden = false;
 
         // Remove any error message from previous attempt
@@ -802,7 +802,7 @@
         const newClose  = closeBtn.cloneNode(true);
         // Reset state (disabled/text) from previous attempt
         newOk.disabled    = false;
-        newOk.textContent = i18n.delete_confirm_ok || 'Permanent verwijderen';
+        newOk.textContent = i18n.delete_confirm_ok || 'Permanently delete';
         okBtn.replaceWith(newOk);
         cancelBtn.replaceWith(newCancel);
         closeBtn.replaceWith(newClose);
@@ -815,7 +815,7 @@
 
         newOk.addEventListener('click', () => {
             newOk.disabled = true;
-            newOk.textContent = i18n.delete_confirm_ok_busy || 'Verwijderen…';
+            newOk.textContent = i18n.delete_confirm_ok_busy || 'Deleting…';
 
             ajax('ph_delete_order', { order_id: orderId }).then(r => {
                 closeConfirm();
@@ -827,12 +827,12 @@
                 } else {
                     // Restore button text on error
                     newOk.disabled = false;
-                    newOk.textContent = i18n.delete_confirm_ok || 'Permanent verwijderen';
+                    newOk.textContent = i18n.delete_confirm_ok || 'Permanently delete';
                     // Show error in the modal itself
                     const errEl = document.createElement('p');
                     errEl.className = 'mos-delete-error';
                     errEl.style.cssText = 'color:#EF4444;font-size:13px;margin:8px 0 0;text-align:right;';
-                    errEl.textContent = (i18n.delete_error_prefix || 'Mislukt: ') + (r.data?.message || (i18n.delete_unknown_error || 'onbekende fout'));
+                    errEl.textContent = (i18n.delete_error_prefix || 'Failed: ') + (r.data?.message || (i18n.delete_unknown_error || 'unknown error'));
                     newOk.closest('div').appendChild(errEl);
                 }
             });
@@ -852,7 +852,7 @@
         body.innerHTML  = '<div class="mos-loading-spinner"></div>';
 
         ajax('ph_get_customer', { customer_id: customerId, customer_email: customerEmail }).then(resp => {
-            if (!resp.success) { body.innerHTML = '<p style="padding:20px">' + (i18n.customer_not_found || 'Klant niet gevonden.') + '</p>'; return; }
+            if (!resp.success) { body.innerHTML = '<p style="padding:20px">' + (i18n.customer_not_found || 'Customer not found.') + '</p>'; return; }
             const c = resp.data;
 
             const statusColors = {
@@ -888,7 +888,7 @@
                     <div class="mos-customer-name">${esc(c.name)}</div>
                     <div class="mos-customer-email">${esc(c.email)}</div>
                     ${c.city ? `<div class="mos-cust-city">📍 ${esc(c.city)}${c.country ? ', ' + esc(c.country) : ''}</div>` : ''}
-                    <div class="mos-cust-since">${i18n.customer_since || 'Lid sinds'} ${esc(c.registered)}</div>
+                    <div class="mos-cust-since">${i18n.customer_since || 'Member since'} ${esc(c.registered)}</div>
                 </div>
             </div>
 
@@ -899,23 +899,23 @@
                 </div>
                 <div class="mos-cstat-item">
                     <span class="mos-cstat-val">${c.total_spent}</span>
-                    <span class="mos-cstat-label">${i18n.customer_total_spent || 'Totaal besteed'}</span>
+                    <span class="mos-cstat-label">${i18n.customer_total_spent || 'Total spent'}</span>
                 </div>
                 <div class="mos-cstat-item">
                     <span class="mos-cstat-val">${c.avg_order}</span>
-                    <span class="mos-cstat-label">${i18n.customer_avg_order || 'Gem. order'}</span>
+                    <span class="mos-cstat-label">${i18n.customer_avg_order || 'Avg. order'}</span>
                 </div>
             </div>
 
             <div class="mos-cust-orders-wrap">
-                <div class="mos-cust-orders-title">${i18n.customer_orders_history || 'Ordergeschiedenis'}</div>
+                <div class="mos-cust-orders-title">${i18n.customer_orders_history || 'Order history'}</div>
                 <div class="mos-cust-orders-header">
                     <span>${i18n.customer_col_order || 'Order'}</span>
-                    <span>${i18n.customer_col_date || 'Datum'}</span>
+                    <span>${i18n.customer_col_date || 'Date'}</span>
                     <span>${i18n.customer_col_status || 'Status'}</span>
-                    <span>${i18n.customer_col_amount || 'Bedrag'}</span>
+                    <span>${i18n.customer_col_amount || 'Amount'}</span>
                 </div>
-                ${orderRows || `<p style="padding:12px 0;color:#94A3B8;font-size:13px">${i18n.customer_orders_none || 'Geen orders gevonden.'}</p>`}
+                ${orderRows || `<p style="padding:12px 0;color:#94A3B8;font-size:13px">${i18n.customer_orders_none || 'No orders found.'}</p>`}
             </div>`;
 
             // Order rows should be clickable → close customer card, open order modal
@@ -950,11 +950,11 @@
 
         orderIdEl.value = orderId;
         if (errorEl) { errorEl.style.display = 'none'; errorEl.textContent = ''; }
-        if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = i18n.refund_confirm_btn || 'Bevestigen'; }
+        if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.textContent = i18n.refund_confirm_btn || 'Confirm'; }
 
         if (isRevert) {
-            if (titleEl) titleEl.textContent = i18n.revert_modal_title || 'Retour terugdraaien';
-            if (descEl)  descEl.textContent  = (i18n.revert_modal_desc || 'Order #%s staat op "Retour". Kies de nieuwe status en of bestaande terugbetalingsrecords verwijderd moeten worden.').replace('%s', orderId);
+            if (titleEl) titleEl.textContent = i18n.revert_modal_title || 'Revert return';
+            if (descEl)  descEl.textContent  = (i18n.revert_modal_desc || 'Order #%s is on "Return". Choose the new status and whether existing refund records should be deleted.').replace('%s', orderId);
             if (refundWrap) refundWrap.style.display = 'none';
             if (revertWrap) revertWrap.style.display = '';
             // Reset checkboxes/radios
@@ -963,8 +963,8 @@
             const firstRevert = revertWrap ? revertWrap.querySelector('input[type=radio]') : null;
             if (firstRevert) firstRevert.checked = true;
         } else {
-            if (titleEl) titleEl.textContent = i18n.refund_modal_title || 'Retour verwerken';
-            if (descEl)  descEl.textContent  = (i18n.refund_modal_desc || 'Wil je order #%s als retour markeren? Kies hoe je de terugbetaling wilt verwerken.').replace('%s', orderId);
+            if (titleEl) titleEl.textContent = i18n.refund_modal_title || 'Process refund';
+            if (descEl)  descEl.textContent  = (i18n.refund_modal_desc || 'Do you want to mark order #%s as a return? Choose how you want to process the refund.').replace('%s', orderId);
             if (refundWrap) refundWrap.style.display = '';
             if (revertWrap) revertWrap.style.display = 'none';
             // Reset radio
@@ -991,7 +991,7 @@
 
         newConfirm.addEventListener('click', () => {
             newConfirm.disabled = true;
-            newConfirm.textContent = i18n.processing || 'Bezig…';
+            newConfirm.textContent = i18n.processing || 'Processing…';
             const errEl = document.getElementById('mos-refund-modal-error');
 
             if (isRevert) {
@@ -1001,16 +1001,16 @@
                 ajax('ph_revert_refund', { order_id: orderId, new_status: revertStatus, delete_refunds: deleteRefunds }).then(r => {
                     if (!r || !r.success) {
                         newConfirm.disabled = false;
-                        newConfirm.textContent = i18n.refund_confirm_btn || 'Bevestigen';
-                        if (errEl) { errEl.textContent = (i18n.failed_prefix || 'Mislukt: ') + (r?.data?.message || (i18n.unknown_error_short || 'onbekende fout')); errEl.style.display = ''; }
+                        newConfirm.textContent = i18n.refund_confirm_btn || 'Confirm';
+                        if (errEl) { errEl.textContent = (i18n.failed_prefix || 'Failed: ') + (r?.data?.message || (i18n.unknown_error_short || 'unknown error')); errEl.style.display = ''; }
                         return;
                     }
                     closeRefundModal();
                     afterStatusChange(orderId, r.data.status, r.data.status_label);
                 }).catch(() => {
                     newConfirm.disabled = false;
-                    newConfirm.textContent = i18n.refund_confirm_btn || 'Bevestigen';
-                    if (errEl) { errEl.textContent = i18n.connection_error || 'Verbindingsfout. Probeer opnieuw.'; errEl.style.display = ''; }
+                    newConfirm.textContent = i18n.refund_confirm_btn || 'Confirm';
+                    if (errEl) { errEl.textContent = i18n.connection_error || 'Connection error. Please try again.'; errEl.style.display = ''; }
                 });
             } else {
                 const refundRadio = document.querySelector('input[name=mos_refund_type]:checked');
@@ -1018,16 +1018,16 @@
                 ajax('ph_process_refund', { order_id: orderId, refund_type: refundType }).then(r => {
                     if (!r || !r.success) {
                         newConfirm.disabled = false;
-                        newConfirm.textContent = i18n.refund_confirm_btn || 'Bevestigen';
-                        if (errEl) { errEl.textContent = (i18n.failed_prefix || 'Mislukt: ') + (r?.data?.message || (i18n.unknown_error_short || 'onbekende fout')); errEl.style.display = ''; }
+                        newConfirm.textContent = i18n.refund_confirm_btn || 'Confirm';
+                        if (errEl) { errEl.textContent = (i18n.failed_prefix || 'Failed: ') + (r?.data?.message || (i18n.unknown_error_short || 'unknown error')); errEl.style.display = ''; }
                         return;
                     }
                     closeRefundModal();
                     afterStatusChange(orderId, r.data.status, r.data.status_label);
                 }).catch(() => {
                     newConfirm.disabled = false;
-                    newConfirm.textContent = i18n.refund_confirm_btn || 'Bevestigen';
-                    if (errEl) { errEl.textContent = i18n.connection_error || 'Verbindingsfout. Probeer opnieuw.'; errEl.style.display = ''; }
+                    newConfirm.textContent = i18n.refund_confirm_btn || 'Confirm';
+                    if (errEl) { errEl.textContent = i18n.connection_error || 'Connection error. Please try again.'; errEl.style.display = ''; }
                 });
             }
         });
@@ -1095,17 +1095,17 @@
         container.innerHTML = '<div class="mos-loading-spinner"></div>';
 
         ajax('ph_get_revenue_report', { days: currentDays, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Error loading.') + '</p>'; return; }
             const d = resp.data;
 
             const rows = [
-                { label: i18n.rev_gross    || 'Bruto verkoop',   value: formatCurrency(d.gross_sales),  class: '' },
-                { label: i18n.rev_refunds  || 'Retourneringen',  value: '− ' + formatCurrency(d.refunds), class: 'mos-revenue-minus' },
-                { label: i18n.rev_coupons  || 'Waardebonnen',    value: '− ' + formatCurrency(d.coupons), class: 'mos-revenue-minus' },
-                { label: i18n.rev_net      || 'Netto omzet',     value: formatCurrency(d.net_sales),    class: 'mos-revenue-net' },
-                { label: i18n.rev_taxes    || 'Belastingen',     value: formatCurrency(d.taxes),        class: '' },
-                { label: i18n.rev_shipping || 'Verzendkosten',   value: formatCurrency(d.shipping),     class: '' },
-                { label: i18n.rev_total    || 'Totale verkopen', value: formatCurrency(d.total_sales),  class: 'mos-revenue-total' },
+                { label: i18n.rev_gross    || 'Gross Sales',   value: formatCurrency(d.gross_sales),  class: '' },
+                { label: i18n.rev_refunds  || 'Refunds',  value: '− ' + formatCurrency(d.refunds), class: 'mos-revenue-minus' },
+                { label: i18n.rev_coupons  || 'Coupons',    value: '− ' + formatCurrency(d.coupons), class: 'mos-revenue-minus' },
+                { label: i18n.rev_net      || 'Net Sales',     value: formatCurrency(d.net_sales),    class: 'mos-revenue-net' },
+                { label: i18n.rev_taxes    || 'Taxes',     value: formatCurrency(d.taxes),        class: '' },
+                { label: i18n.rev_shipping || 'Shipping',   value: formatCurrency(d.shipping),     class: '' },
+                { label: i18n.rev_total    || 'Total Sales', value: formatCurrency(d.total_sales),  class: 'mos-revenue-total' },
             ];
 
             container.innerHTML = `
@@ -1139,11 +1139,11 @@
         }
 
         ajax('ph_get_top_categories', { days: currentDays, limit: 20, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Error loading.') + '</p>'; return; }
             const cats = resp.data;
 
             if (!cats.length) {
-                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.cat_no_data || 'Geen categoriedata beschikbaar.') + '</p>';
+                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.cat_no_data || 'No category data available.') + '</p>';
                 return;
             }
 
@@ -1177,15 +1177,15 @@
         const colHeader = document.querySelector('.mos-coupons-col-header');
         if (colHeader) {
             const s = 'color:#64748B;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em';
-            colHeader.innerHTML = `<span style="${s}">${i18n.coupon_col_code || 'Coupon code'}</span><span style="${s}">${i18n.coupon_col_used || 'Gebruikt (orders)'}</span><span style="${s}">${i18n.coupon_col_discount || 'Totale korting'}</span>`;
+            colHeader.innerHTML = `<span style="${s}">${i18n.coupon_col_code || 'Coupon code'}</span><span style="${s}">${i18n.coupon_col_used || 'Used (orders)'}</span><span style="${s}">${i18n.coupon_col_discount || 'Total discount'}</span>`;
         }
 
         ajax('ph_get_coupons_report', { days: currentDays, limit: 50, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Error loading.') + '</p>'; return; }
             const coupons = resp.data;
 
             if (!coupons.length) {
-                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.coupon_no_data || 'Geen coupons gebruikt in deze periode.') + '</p>';
+                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.coupon_no_data || 'No coupons used in this period.') + '</p>';
                 return;
             }
 
@@ -1217,24 +1217,24 @@
         container.innerHTML = '<div class="mos-loading-spinner"></div>';
 
         ajax('ph_get_daily_products', { date, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Error loading.') + '</p>'; return; }
             const d = resp.data;
 
             if (!d.products.length) {
-                container.innerHTML = `<p style="padding:20px;color:#94A3B8;font-size:13px">${(i18n.daily_no_sales || 'Geen verkopen gevonden op %s.').replace('%s', esc(d.date))}</p>`;
+                container.innerHTML = `<p style="padding:20px;color:#94A3B8;font-size:13px">${(i18n.daily_no_sales || 'No sales found on %s.').replace('%s', esc(d.date))}</p>`;
                 return;
             }
 
             const maxQty = d.products[0]?.qty || 1;
             container.innerHTML = `
             <div class="mos-daily-summary">
-                <strong>${i18n.daily_date_label || 'Datum:'}</strong> ${esc(d.date)} &nbsp;|&nbsp;
-                <strong>${i18n.daily_total_label || 'Totale omzet:'}</strong> ${formatCurrency(d.day_total)} &nbsp;|&nbsp;
-                <strong>${i18n.daily_products_label || 'Producten:'}</strong> ${d.products.length}
+                <strong>${i18n.daily_date_label || 'Date:'}</strong> ${esc(d.date)} &nbsp;|&nbsp;
+                <strong>${i18n.daily_total_label || 'Total revenue:'}</strong> ${formatCurrency(d.day_total)} &nbsp;|&nbsp;
+                <strong>${i18n.daily_products_label || 'Products:'}</strong> ${d.products.length}
             </div>
             <div class="mos-report-table">
                 <div class="mos-report-header">
-                    <span>${i18n.daily_col_product || 'Product'}</span><span>${i18n.daily_col_qty || 'Stuks verkocht'}</span><span>${i18n.daily_col_revenue || 'Opbrengst'}</span>
+                    <span>${i18n.daily_col_product || 'Product'}</span><span>${i18n.daily_col_qty || 'Units sold'}</span><span>${i18n.daily_col_revenue || 'Revenue'}</span>
                 </div>
                 ${d.products.map((p, i) => `
                     <div class="mos-report-row">
@@ -1265,17 +1265,17 @@
             colHeader.innerHTML = `
                 <span style="${s}">${i18n.top_customers || 'Top customers'}</span>
                 <span style="${s}">${i18n.cust_col_orders || 'Orders'}</span>
-                <span style="${s}">${i18n.cust_col_avg || 'Gem. order'}</span>
-                <span style="${s}">${i18n.cust_col_last || 'Laatste order'}</span>
-                <span style="${s}">${i18n.cust_col_total || 'Totaal besteed'}</span>`;
+                <span style="${s}">${i18n.cust_col_avg || 'Avg. order'}</span>
+                <span style="${s}">${i18n.cust_col_last || 'Last order'}</span>
+                <span style="${s}">${i18n.cust_col_total || 'Total spent'}</span>`;
         }
 
         ajax('ph_get_top_customers', { days: currentDays, limit: 25, ...(force ? { force_refresh: 1 } : {}) }).then(resp => {
-            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Fout bij laden.') + '</p>'; return; }
+            if (!resp.success) { container.innerHTML = '<p style="padding:20px;color:#64748B">' + (i18n.loading_error || 'Error loading.') + '</p>'; return; }
             const customers = resp.data;
 
             if (!customers.length) {
-                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.cust_no_data || 'Geen klantdata beschikbaar in deze periode.') + '</p>';
+                container.innerHTML = '<p style="padding:20px;color:#94A3B8;font-size:13px">' + (i18n.cust_no_data || 'No customer data available for this period.') + '</p>';
                 return;
             }
 
@@ -1547,7 +1547,7 @@
 
         tbody.innerHTML = products.map(function(p) {
             const statusClass = { out: 'op-stock-badge--out', low: 'op-stock-badge--low', ok: 'op-stock-badge--ok' }[p.status] || '';
-            const statusLabel = { out: i18n.stock_out_short || 'Uitverkocht', low: i18n.stock_low_short || 'Laag', ok: i18n.stock_ok_short || 'Op voorraad' }[p.status] || p.status;
+            const statusLabel = { out: i18n.stock_out_short || 'Uitverkocht', low: i18n.stock_low_short || 'Laag', ok: i18n.stock_ok_short || 'In stock' }[p.status] || p.status;
             const stockVal   = p.stock === null || p.stock === undefined ? '–' : p.stock;
             const priceVal   = p.price ? '€' + parseFloat(p.price).toFixed(2) : '–';
             const valueVal   = p.stock_value ? '€' + parseFloat(p.stock_value).toFixed(2) : '–';
@@ -1560,7 +1560,7 @@
                 '<td><span class="op-stock-badge ' + statusClass + '">' + esc(statusLabel) + '</span></td>' +
                 '<td>' + esc(priceVal) + '</td>' +
                 '<td>' + esc(valueVal) + '</td>' +
-                '<td><button class="mos-btn mos-btn-sm op-stock-edit-btn" data-id="' + esc(p.id) + '" data-name="' + esc(p.name) + '" data-qty="' + esc(stockVal) + '">' + (i18n.stock_edit_btn || 'Bewerken') + '</button></td>' +
+                '<td><button class="mos-btn mos-btn-sm op-stock-edit-btn" data-id="' + esc(p.id) + '" data-name="' + esc(p.name) + '" data-qty="' + esc(stockVal) + '">' + (i18n.stock_edit_btn || 'Update') + '</button></td>' +
             '</tr>';
         }).join('');
 
@@ -1593,7 +1593,7 @@
         stockState.totalPages = totalPages;
         if (totalPages <= 1) { el.innerHTML = ''; return; }
         let html = '<div class="op-stock-pages">';
-        html += '<span class="op-stock-total">' + total + (i18n.stock_total_label || ' producten') + '</span>';
+        html += '<span class="op-stock-total">' + total + (i18n.stock_total_label || ' products') + '</span>';
         for (let i = 1; i <= totalPages; i++) {
             html += '<button class="op-stock-page-btn ' + (i === stockState.page ? 'is-active' : '') + '" data-page="' + i + '">' + i + '</button>';
         }
@@ -1613,7 +1613,7 @@
         if (!bar) return;
         const n = stockState.selected.size;
         bar.hidden = n === 0;
-        if (count) count.textContent = n + (i18n.stock_n_selected || ' geselecteerd');
+        if (count) count.textContent = n + (i18n.stock_n_selected || ' selected');
     }
 
     function syncSelectAll() {
@@ -1632,7 +1632,7 @@
         const qtyEl    = document.getElementById('op-stock-edit-qty');
         const reasonEl = document.getElementById('op-stock-edit-reason');
         if (!backdrop) return;
-        if (titleEl)  titleEl.textContent = name ? (i18n.stock_modal_title_prefix || 'Voorraad: ') + name : (i18n.stock_modal_title_default || 'Voorraad bijwerken');
+        if (titleEl)  titleEl.textContent = name ? (i18n.stock_modal_title_prefix || 'Stock: ') + name : (i18n.stock_modal_title_default || 'Update stock');
         if (idEl)     idEl.value = id;
         if (qtyEl)    { qtyEl.value = qty === '–' ? '' : qty; }
         if (reasonEl) reasonEl.value = '';
@@ -1654,7 +1654,7 @@
         ajax('ph_stock_update', { updates: JSON.stringify(updates) }).then(function(res) {
             var data = res && res.success ? res.data : null;
             closeStockTabEditModal();
-            stockAlert(data && data.message ? data.message : (i18n.stock_updated || 'Voorraad bijgewerkt.'), 'success');
+            stockAlert(data && data.message ? data.message : (i18n.stock_updated || 'Stock updated.'), 'success');
             loadStock();
         });
     }
@@ -1720,14 +1720,14 @@
         var bulkBtn = document.getElementById('op-stock-bulk-update');
         if (bulkBtn) {
             bulkBtn.addEventListener('click', function() {
-                var qty = prompt((i18n.stock_bulk_prompt || 'Nieuwe voorraad voor %s producten:').replace('%s', stockState.selected.size));
+                var qty = prompt((i18n.stock_bulk_prompt || 'New stock for %s products:').replace('%s', stockState.selected.size));
                 if (qty === null || qty === '') return;
                 var updates = Array.from(stockState.selected).map(function(id) {
-                    return { id: id, qty: parseInt(qty, 10), reason: i18n.stock_bulk_reason || 'Bulkupdate' };
+                    return { id: id, qty: parseInt(qty, 10), reason: i18n.stock_bulk_reason || 'Bulk update' };
                 });
                 ajax('ph_stock_update', { updates: JSON.stringify(updates) }).then(function(res) {
                     var data = res && res.success ? res.data : null;
-                    stockAlert(data && data.message ? data.message : (i18n.stock_updated || 'Voorraad bijgewerkt.'), 'success');
+                    stockAlert(data && data.message ? data.message : (i18n.stock_updated || 'Stock updated.'), 'success');
                     stockState.selected.clear();
                     updateBulkBar();
                     loadStock();
@@ -1781,7 +1781,7 @@
                 ajax('ph_stock_save_settings', { settings: JSON.stringify(settings) }).then(function(res) {
                     var data = res && res.success ? res.data : null;
                     closeStockSettings();
-                    stockAlert(data && data.message ? data.message : (i18n.stock_saved || 'Instellingen opgeslagen.'), 'success');
+                    stockAlert(data && data.message ? data.message : (i18n.stock_saved || 'Settings saved.'), 'success');
                 });
             });
         }
@@ -1795,8 +1795,8 @@
                 ajax('ph_stock_send_test_alert', {}).then(function(res) {
                     var data = res && res.success ? res.data : null;
                     testAlertBtn.disabled = false;
-                    testAlertBtn.textContent = i18n.send_test_alert || 'Test-alert versturen';
-                    stockAlert(data && data.message ? data.message : (i18n.stock_test_sent || 'Test-alert verstuurd.'), 'success');
+                    testAlertBtn.textContent = i18n.send_test_alert || 'Send test alert';
+                    stockAlert(data && data.message ? data.message : (i18n.stock_test_sent || 'Test alert sent.'), 'success');
                 });
             });
         }
@@ -1911,7 +1911,7 @@
             orderby      : document.getElementById('op-qp-filter-orderby')?.value || 'date',
         }).then(resp => {
             if (!resp.success) {
-                wrap.innerHTML = '<p style="padding:20px;color:#EF4444">' + (i18n.qp_load_error || 'Fout bij laden.') + '</p>';
+                wrap.innerHTML = '<p style="padding:20px;color:#EF4444">' + (i18n.qp_load_error || 'Error loading.') + '</p>';
                 return;
             }
             opQpRenderTable(resp.data);
@@ -1928,17 +1928,17 @@
         if (countEl) countEl.textContent = total;
 
         if (!products.length) {
-            wrap.innerHTML = '<p style="padding:28px;text-align:center;color:#94A3B8">' + (i18n.qp_no_products || 'Geen producten gevonden.') + '</p>';
+            wrap.innerHTML = '<p style="padding:28px;text-align:center;color:#94A3B8">' + (i18n.qp_no_products || 'No products found.') + '</p>';
             if (pag) pag.innerHTML = '';
             return;
         }
 
         const statusBadge = { publish: 'publish', draft: 'draft', private: 'private', pending: 'pending' };
         const statusLabel = {
-            publish: i18n.qp_published || 'Gepubliceerd',
-            draft:   i18n.qp_draft     || 'Concept',
-            private: i18n.qp_private   || 'Privé',
-            pending: i18n.qp_pending   || 'Wacht',
+            publish: i18n.qp_published || 'Published',
+            draft:   i18n.qp_draft     || 'Draft',
+            private: i18n.qp_private   || 'Private',
+            pending: i18n.qp_pending   || 'Pending',
         };
 
         const rows = products.map(p => {
@@ -1966,16 +1966,16 @@
                 <td>${stockHtml}</td>
                 <td>
                     <div class="op-qp-tbl-actions">
-                        <button class="op-qp-tbl-btn op-qp-edit-btn" data-id="${p.id}" title="${i18n.qp_edit_title || 'Bewerken'}" data-tooltip="${i18n.qp_edit_title || 'Bewerken'}">
+                        <button class="op-qp-tbl-btn op-qp-edit-btn" data-id="${p.id}" title="${i18n.qp_edit_title || 'Update'}" data-tooltip="${i18n.qp_edit_title || 'Update'}">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                         </button>
-                        <button class="op-qp-tbl-btn op-qp-dup-btn" data-id="${p.id}" title="${i18n.qp_duplicate_title || 'Dupliceren'}" data-tooltip="${i18n.qp_duplicate_title || 'Dupliceren'}">
+                        <button class="op-qp-tbl-btn op-qp-dup-btn" data-id="${p.id}" title="${i18n.qp_duplicate_title || 'Duplicate'}" data-tooltip="${i18n.qp_duplicate_title || 'Duplicate'}">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                         </button>
-                        <a class="op-qp-tbl-btn" href="${esc(p.edit_url)}" target="_blank" title="${i18n.qp_wc_edit_title || 'In WC bewerken'}" data-tooltip="${i18n.qp_wc_edit_title || 'In WC bewerken'}">
+                        <a class="op-qp-tbl-btn" href="${esc(p.edit_url)}" target="_blank" title="${i18n.qp_wc_edit_title || 'Update in WC'}" data-tooltip="${i18n.qp_wc_edit_title || 'Update in WC'}">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
-                        <button class="op-qp-tbl-btn op-qp-tbl-danger op-qp-del-btn" data-id="${p.id}" title="${i18n.qp_delete_title || 'Verwijderen'}" data-tooltip="${i18n.qp_delete_title || 'Verwijderen'}">
+                        <button class="op-qp-tbl-btn op-qp-tbl-danger op-qp-del-btn" data-id="${p.id}" title="${i18n.qp_delete_title || 'Delete'}" data-tooltip="${i18n.qp_delete_title || 'Delete'}">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
                         </button>
                     </div>
@@ -1990,8 +1990,8 @@
                     <th></th>
                     <th>${i18n.qp_col_product || 'Product'}</th>
                     <th>${i18n.qp_col_status || 'Status'}</th>
-                    <th>${i18n.qp_col_price || 'Prijs'} (${sym})</th>
-                    <th>${i18n.qp_col_stock || 'Voorraad'}</th>
+                    <th>${i18n.qp_col_price || 'Price'} (${sym})</th>
+                    <th>${i18n.qp_col_stock || 'Stock'}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -2004,9 +2004,9 @@
 
     function opQpStockLabel(s) {
         return {
-            instock:     i18n.qp_instock     || 'Op voorraad',
-            outofstock:  i18n.qp_outofstock  || 'Niet op voorraad',
-            onbackorder: i18n.qp_onbackorder || 'Nabestelling',
+            instock:     i18n.qp_instock     || 'In stock',
+            outofstock:  i18n.qp_outofstock  || 'Out of stock',
+            onbackorder: i18n.qp_onbackorder || 'On backorder',
         }[s] || s;
     }
 
@@ -2038,10 +2038,10 @@
 
         document.querySelectorAll('.op-qp-del-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                if (!confirm(i18n.qp_delete_confirm || 'Product verwijderen?')) return;
+                if (!confirm(i18n.qp_delete_confirm || 'Delete product?')) return;
                 opQpAjax('ph_qp_delete_product', { product_id: btn.dataset.id }).then(r => {
-                    if (r.success) { opQpToast(i18n.qp_deleted || 'Product verwijderd.'); opQpLoadProducts(opQp.currentPage); }
-                    else opQpToast(r.data?.message || (i18n.qp_update_error || 'Fout.'), 'error');
+                    if (r.success) { opQpToast(i18n.qp_deleted || 'Product deleted.'); opQpLoadProducts(opQp.currentPage); }
+                    else opQpToast(r.data?.message || (i18n.qp_update_error || 'Error.'), 'error');
                 });
             });
         });
@@ -2049,8 +2049,8 @@
         document.querySelectorAll('.op-qp-dup-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 opQpAjax('ph_qp_duplicate_product', { product_id: btn.dataset.id }).then(r => {
-                    if (r.success) { opQpToast((i18n.qp_duplicated_prefix || 'Gedupliceerd: ') + r.data.name); opQpLoadProducts(opQp.currentPage); }
-                    else opQpToast(r.data?.message || (i18n.qp_update_error || 'Fout.'), 'error');
+                    if (r.success) { opQpToast((i18n.qp_duplicated_prefix || 'Duplicated: ') + r.data.name); opQpLoadProducts(opQp.currentPage); }
+                    else opQpToast(r.data?.message || (i18n.qp_update_error || 'Error.'), 'error');
                 });
             });
         });
@@ -2062,8 +2062,8 @@
                     field      : input.dataset.field,
                     value      : input.value,
                 }).then(r => {
-                    if (r.success) opQpToast(i18n.qp_updated || 'Bijgewerkt.');
-                    else opQpToast(i18n.qp_update_error || 'Fout bij opslaan.', 'error');
+                    if (r.success) opQpToast(i18n.qp_updated || 'Updated.');
+                    else opQpToast(i18n.qp_update_error || 'Error saving.', 'error');
                 });
             });
         });
@@ -2110,10 +2110,10 @@
     function opQpOpenEditor(productId) {
         opQpResetEditor();
         opQpSwitchTab('editor');
-        document.getElementById('op-qp-editor-tab-label').textContent = i18n.qp_loading_label || 'Laden…';
+        document.getElementById('op-qp-editor-tab-label').textContent = i18n.qp_loading_label || 'Loading…';
 
         opQpAjax('ph_qp_load_product', { product_id: productId }).then(resp => {
-            if (!resp.success) { opQpToast(i18n.qp_not_found || 'Product niet gevonden.', 'error'); return; }
+            if (!resp.success) { opQpToast(i18n.qp_not_found || 'Product not found.', 'error'); return; }
             opQpFillEditor(resp.data);
         });
     }
@@ -2221,11 +2221,11 @@
         form.addEventListener('submit', e => {
             e.preventDefault();
             const name = document.getElementById('op-qp-name')?.value.trim();
-            if (!name) { opQpToast(i18n.qp_name_required || 'Productnaam is verplicht.', 'error'); return; }
+            if (!name) { opQpToast(i18n.qp_name_required || 'Productname is obliged.', 'error'); return; }
 
             const btn = document.getElementById('op-qp-save-btn');
             btn.disabled    = true;
-            btn.textContent = i18n.qp_saving || 'Opslaan…';
+            btn.textContent = i18n.qp_saving || 'Saving…';
 
             const catIds   = [...document.querySelectorAll('.op-qp-cat-check:checked')].map(c => c.value);
             const brandIds = [...document.querySelectorAll('.op-qp-brand-check:checked')].map(c => c.value);
@@ -2294,7 +2294,7 @@
                     btn.disabled = false;
                     btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> ${i18n.qp_save_btn || 'Opslaan'}`;
 
-                    if (!resp.success) { opQpToast(resp.data?.message || (i18n.qp_save_error || 'Fout bij opslaan.'), 'error'); return; }
+                    if (!resp.success) { opQpToast(resp.data?.message || (i18n.qp_save_error || 'Error saving.'), 'error'); return; }
 
                     const d = resp.data;
                     document.getElementById('op-qp-product-id').value = d.product_id;
@@ -2303,12 +2303,12 @@
                     const editLink = document.getElementById('op-qp-wc-edit-link');
                     if (editLink && d.edit_url) { editLink.href = d.edit_url; editLink.classList.remove('op-qp-hidden'); }
 
-                    opQpToast(i18n.qp_saved || 'Opgeslagen!', 'success');
+                    opQpToast(i18n.qp_saved || 'Saved!', 'success');
                 })
                 .catch(() => {
                     btn.disabled    = false;
-                    btn.textContent = i18n.qp_save_btn || 'Opslaan';
-                    opQpToast(i18n.qp_save_error || 'Fout bij opslaan.', 'error');
+                    btn.textContent = i18n.qp_save_btn || 'Save';
+                    opQpToast(i18n.qp_save_error || 'Error saving.', 'error');
                 });
         });
 
@@ -2331,11 +2331,11 @@
         const placeholder = document.getElementById('op-qp-image-placeholder');
 
         function openFrame() {
-            if (!window.wp?.media) { alert(i18n.qp_media_unavailable || 'WordPress Media is niet beschikbaar.'); return; }
+            if (!window.wp?.media) { alert(i18n.qp_media_unavailable || 'WordPress Media is not available.'); return; }
             if (opQp.mainMediaFrame) { opQp.mainMediaFrame.open(); return; }
             opQp.mainMediaFrame = wp.media({
-                title   : i18n.qp_media_title || 'Stel productafbeelding in',
-                button  : { text: i18n.qp_media_btn || 'Stel in als afbeelding' },
+                title   : i18n.qp_media_title || 'Set product image',
+                button  : { text: i18n.qp_media_btn || 'Set as image' },
                 multiple: false,
                 library : { type: 'image' },
             });
@@ -2368,8 +2368,8 @@
             if (!window.wp?.media) return;
             if (opQp.galleryFrame) { opQp.galleryFrame.open(); return; }
             opQp.galleryFrame = wp.media({
-                title   : i18n.qp_gallery_title || 'Galerij afbeeldingen selecteren',
-                button  : { text: i18n.qp_gallery_btn || 'Toevoegen aan galerij' },
+                title   : i18n.qp_gallery_title || 'Select gallery images',
+                button  : { text: i18n.qp_gallery_btn || 'Add to gallery' },
                 multiple: true,
                 library : { type: 'image' },
             });
@@ -2397,7 +2397,7 @@
     function opQpGalleryItemHtml(id, url) {
         return `<div class="op-qp-gallery-item" data-id="${id}">
             <img src="${esc(url)}" alt="">
-            <button type="button" class="op-qp-gallery-remove" data-id="${id}" title="${i18n.qp_remove_gallery_title || 'Verwijderen'}">×</button>
+            <button type="button" class="op-qp-gallery-remove" data-id="${id}" title="${i18n.qp_remove_gallery_title || 'Remove from gallery'}">×</button>
         </div>`;
     }
 

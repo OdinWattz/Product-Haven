@@ -3,7 +3,7 @@
  * Plugin Name:       Product Haven
  * Plugin URI:        https://odinwattez.nl/product-haven/
  * Description:       All-in-one WooCommerce management: orders, stock, products & sequential order numbers — with Elementor widgets.
- * Version:           1.3.2
+ * Version:           1.4.0
  * Author:            Odin Wattez
  * Author URI:        https://odinwattez.nl/
  * License:           GPL-3.0-or-later
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 // ---------- CONSTANTS ----------
 define( 'PH_PATH',    plugin_dir_path( __FILE__ ) );
 define( 'PH_URL',     plugin_dir_url( __FILE__ ) );
-define( 'PH_VERSION', '1.3.2' );
+define( 'PH_VERSION', '1.4.0' );
 define( 'PH_SLUG',    'product-haven' );
 
 // ---------- LOAD FILES ----------

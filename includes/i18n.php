@@ -115,13 +115,13 @@ function ph_translations(): array { // phpcs:ignore WordPress.NamingConventions.
         'save'                      => [ 'nl' => 'Opslaan',                         'en' => 'Save',                       'de' => 'Speichern',                    'fr' => 'Enregistrer',                  'es' => 'Guardar',                    'pt' => 'Guardar',                   'it' => 'Salva' ],
 
         /* ---- Tab: Revenue ---- */
-        'revenue_overview'          => [ 'nl' => 'Omzetoverzicht', 'en' => 'Revenue overview', 'de' => 'Umsatzübersicht', 'fr' => 'Aperçu du chiffre d\'affaires', 'es' => 'Resumen de ingresos', 'pt' => 'Resumo de receita', 'it' => 'Panoramica ricavi' ],
+        'revenue_overview'          => [ 'nl' => 'Omzetoverzicht',  'en' => 'Revenue overview', 'de' => 'Umsatzübersicht',  'fr' => 'Aperçu du chiffre d\'affaires', 'es' => 'Resumen de ingresos',    'pt' => 'Resumo de receita',     'it' => 'Panoramica ricavi' ],
 
         /* ---- Tab: Categories ---- */
-        'top_categories'            => [ 'nl' => 'Top categorieën', 'en' => 'Top categories', 'de' => 'Top-Kategorien', 'fr' => 'Meilleures catégories', 'es' => 'Principales categorías', 'pt' => 'Principais categorias', 'it' => 'Categorie principali' ],
+        'top_categories'            => [ 'nl' => 'Top categorieën', 'en' => 'Top categories',   'de' => 'Top-Kategorien',   'fr' => 'Meilleures catégories',         'es' => 'Principales categorías', 'pt' => 'Principais categorias', 'it' => 'Categorie principali' ],
 
         /* ---- Tab: Coupons ---- */
-        'coupon_usage'              => [ 'nl' => 'Coupongebruik', 'en' => 'Coupon usage', 'de' => 'Gutscheinnutzung', 'fr' => 'Utilisation des coupons', 'es' => 'Uso de cupones', 'pt' => 'Utilização de cupões', 'it' => 'Utilizzo coupon' ],
+        'coupon_usage'              => [ 'nl' => 'Coupongebruik',   'en' => 'Coupon usage',     'de' => 'Gutscheinnutzung', 'fr' => 'Utilisation des coupons',       'es' => 'Uso de cupones',         'pt' => 'Utilização de cupões',  'it' => 'Utilizzo coupon' ],
 
         /* ---- Tab: Daily report ---- */
         'daily_report_title'        => [ 'nl' => 'Dag rapport — verkochte producten', 'en' => 'Daily report — sold products', 'de' => 'Tagesbericht — verkaufte Produkte', 'fr' => 'Rapport journalier — produits vendus', 'es' => 'Informe diario — productos vendidos', 'pt' => 'Relatório diário — produtos vendidos', 'it' => 'Report giornaliero — prodotti venduti' ],
@@ -129,7 +129,7 @@ function ph_translations(): array { // phpcs:ignore WordPress.NamingConventions.
         'load'                      => [ 'nl' => 'Laden',                             'en' => 'Load',                         'de' => 'Laden',                             'fr' => 'Charger',                              'es' => 'Cargar',                              'pt' => 'Carregar',                             'it' => 'Carica' ],
 
         /* ---- Tab: Customers ---- */
-        'top_customers'             => [ 'nl' => 'Top klanten', 'en' => 'Top customers', 'de' => 'Top-Kunden', 'fr' => 'Meilleurs clients', 'es' => 'Principales clientes', 'pt' => 'Principais clientes', 'it' => 'Clienti principali' ],
+        'top_customers'             => [ 'nl' => 'Top klanten',     'en' => 'Top customers',    'de' => 'Top-Kunden',       'fr' => 'Meilleurs clients',              'es' => 'Principales clientes',   'pt' => 'Principais clientes',  'it' => 'Clienti principali' ],
 
         /* ---- Tab: Stock ---- */
         'stock_out'                 => [ 'nl' => 'Uitverkocht',             'en' => 'Out of stock',           'de' => 'Ausverkauft',                'fr' => 'Rupture de stock',           'es' => 'Sin stock' ,                   'pt' => 'Sem stock',                  'it' => 'Esaurito' ],
@@ -191,7 +191,7 @@ function ph_translations(): array { // phpcs:ignore WordPress.NamingConventions.
         'customer_card'             => [ 'nl' => 'Klantenkaart', 'en' => 'Customer card', 'de' => 'Kundenkarte', 'fr' => 'Fiche client', 'es' => 'Ficha de cliente' , 'pt' => 'Ficha de cliente', 'it' => 'Scheda cliente' ],
 
         /* ---- Order detail modal ---- */
-        'edit_btn'                  => [ 'nl' => 'Bewerken', 'en' => 'Edit', 'de' => 'Bearbeiten', 'fr' => 'Modifier', 'es' => 'Editar' , 'pt' => 'Editar', 'it' => 'Modifica' ],
+        'edit_btn'                  => [ 'nl' => 'Bewerken',     'en' => 'Edit',          'de' => 'Bearbeiten',  'fr' => 'Modifier',     'es' => 'Editar' ,           'pt' => 'Editar',           'it' => 'Modifica' ],
 
         /* ---- Order edit modal ---- */
         'edit_order'                => [ 'nl' => 'Order bewerken',                                          'en' => 'Edit order',                                    'de' => 'Bestellung bearbeiten',                                    'fr' => 'Modifier la commande',                                   'es' => 'Editar pedido' ,                                    'pt' => 'Editar encomenda',                                      'it' => 'Modifica ordine' ],
