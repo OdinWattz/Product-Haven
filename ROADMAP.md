@@ -52,11 +52,13 @@ Features that pull the plugin too far into CRM, marketing automation, or enterpr
 These are the improvements that are most worth doing before or shortly after publishing.
 
 #### ~~1. English user-facing copy~~ ✅ Done
-**Priority:** High  
-**Status:** Completed in v1.3.3  
+
+**Priority:** High
+**Status:** Completed in v1.3.3
 **Why it matters:** The plugin is already documented in English, but a lot of the admin and frontend interface text is still Dutch. For a public GitHub or WordPress.org release, English UI text will make the plugin feel much more complete and accessible.
 
 **Examples:**
+
 - ~~AJAX error messages~~ ✅
 - ~~admin labels and buttons~~ ✅
 - ~~widget labels~~ ✅
@@ -65,10 +67,12 @@ These are the improvements that are most worth doing before or shortly after pub
 - ~~stock action reasons/default texts~~ ✅
 
 #### 2. Screenshot and presentation assets
-**Priority:** High  
+
+**Priority:** High
 **Why it matters:** Good screenshots often do more for adoption than one extra feature.
 
 **Suggested assets:**
+
 - admin dashboard overview
 - order timeline modal
 - stock management panel
@@ -77,10 +81,12 @@ These are the improvements that are most worth doing before or shortly after pub
 - Elementor widgets on the frontend
 
 #### 3. Final UX polish pass
-**Priority:** High  
+
+**Priority:** High
 **Why it matters:** Small UX improvements often create more value than feature growth.
 
 **Examples:**
+
 - better empty states
 - clearer success/error feedback
 - more consistent button labels
@@ -88,11 +94,13 @@ These are the improvements that are most worth doing before or shortly after pub
 - improved spacing and grouping in settings
 
 #### ~~4. Broader smoke testing~~ ✅ Done
-**Priority:** High  
-**Status:** Completed  
+
+**Priority:** High
+**Status:** Completed
 **Why it matters:** A public release should feel stable on a clean WooCommerce install.
 
 **Suggested checks:**
+
 - ~~plugin activation with WooCommerce active~~ ✅
 - ~~plugin behaviour with WooCommerce inactive~~ ✅
 - ~~settings save flow~~ ✅
@@ -109,8 +117,9 @@ These are the improvements that are most worth doing before or shortly after pub
 These are the best future features because they match the plugin well and should add clear value without introducing huge support burden.
 
 ### 1. Saved filters and custom views
-**Priority:** Very High  
-**Estimated value:** High  
+
+**Priority:** Very High
+**Estimated value:** High
 **Support burden:** Low to medium
 
 Allow users to save common dashboard views, such as:
@@ -122,32 +131,38 @@ Allow users to save common dashboard views, such as:
 - high-value customers
 
 **Why this is a strong addition:**
+
 - fits your current dashboard model perfectly
 - improves speed for merchants
 - feels more advanced without being hard to explain
 
 ### 2. Scheduled summary emails or admin digests
-**Priority:** High  
-**Estimated value:** High  
+
+**Priority:** High
+**Estimated value:** High
 **Support burden:** Low
 
 Examples:
+
 - daily store summary
 - weekly revenue summary
 - low-stock digest
 - top-products digest
 
 **Why this is a strong addition:**
+
 - useful for merchants who do not log in constantly
 - easy to position in the plugin description
 - good perceived value for relatively controlled scope
 
 ### 3. Activity log / audit history
-**Priority:** High  
-**Estimated value:** High  
+
+**Priority:** High
+**Estimated value:** High
 **Support burden:** Medium
 
 Possible log items:
+
 - stock changes
 - quick product edits
 - manual order status changes
@@ -155,32 +170,38 @@ Possible log items:
 - sequential counter resets
 
 **Why this is a strong addition:**
+
 - useful for teams and store managers
 - increases trust and traceability
 - fits naturally with your operations focus
 
 ### 4. Better stock actions
-**Priority:** High  
-**Estimated value:** High  
+
+**Priority:** High
+**Estimated value:** High
 **Support burden:** Medium
 
 Possible additions:
+
 - one-click restock amounts
 - “mark for reorder” status
 - restock notes or supplier notes
 - low-stock sorting by recent sales velocity
 
 **Why this is a strong addition:**
+
 - direct store value
 - strengthens a major existing part of the plugin
 - more useful than adding something unrelated
 
 ### 5. Enhanced customer insights card
-**Priority:** Medium  
-**Estimated value:** Medium to high  
+
+**Priority:** Medium
+**Estimated value:** Medium to high
 **Support burden:** Low to medium
 
 Potential additions:
+
 - lifetime value
 - average order size
 - last order date
@@ -189,6 +210,7 @@ Potential additions:
 - simple new vs returning customer badge
 
 **Why this is worth considering:**
+
 - builds on something already present
 - creates stronger “store intelligence” value
 - useful without changing plugin identity
@@ -200,6 +222,7 @@ Potential additions:
 These are useful ideas, but they should come after polish and the higher-value items above.
 
 ### 1. Export presets
+
 Allow users to quickly export predefined datasets such as:
 
 - orders for the selected date range
@@ -211,6 +234,7 @@ Allow users to quickly export predefined datasets such as:
 **Why useful:** practical, clear, low-friction feature.
 
 ### 2. Admin dashboard widgets
+
 Add smaller summary widgets to the default WordPress dashboard, for example:
 
 - today’s revenue
@@ -221,6 +245,7 @@ Add smaller summary widgets to the default WordPress dashboard, for example:
 **Why useful:** good visibility, fairly simple concept.
 
 ### 3. More granular REST API controls
+
 If the REST API becomes more important later, you could add:
 
 - endpoint toggles
@@ -231,6 +256,7 @@ If the REST API becomes more important later, you could add:
 **Why useful:** helpful for developers, but lower priority than merchant UX.
 
 ### 4. Better onboarding / first-run guidance
+
 Potential additions:
 
 - welcome panel
@@ -246,19 +272,23 @@ Potential additions:
 These are not necessarily “headline features,” but they could improve the quality of the plugin significantly.
 
 ### 1. Consistent language and translation readiness
+
 - ~~convert the remaining Dutch UI strings to English~~ ✅
 - keep all user-facing strings wrapped in translation functions
 - ~~make sure wording is consistent across admin, frontend, and widgets~~ ✅
 
 ### 2. Cleaner capability strategy
+
 A review of capabilities could make access management more consistent.
 
 Examples to evaluate:
+
 - where `manage_woocommerce` is used
 - where `manage_options` is used
 - whether some actions should be more granular later
 
 ### 3. Better fallback handling for dependencies
+
 Make sure the plugin behaves cleanly when:
 
 - WooCommerce is inactive
@@ -267,20 +297,25 @@ Make sure the plugin behaves cleanly when:
 - optional integrations are unavailable
 
 ### 4. More consistent notices and feedback messages
+
 Examples:
+
 - consistent success notice language
 - clearer error phrasing
 - more helpful empty-state text
 - confirmation prompts for destructive actions
 
 ### 5. Better visual consistency
+
 Examples:
+
 - spacing consistency in admin panels
 - card and tab styling consistency
 - more predictable button hierarchy
 - more readable mobile admin layouts if relevant
 
 ### 6. Changelog and release discipline
+
 Keep releases tidy with:
 
 - versioned changelog updates
@@ -294,7 +329,9 @@ Keep releases tidy with:
 These ideas are not inherently bad, but they are likely lower-value or higher-maintenance for the current direction of Product Haven.
 
 ### 1. Full CRM features
+
 Examples:
+
 - customer segmentation systems
 - campaigns
 - lifecycle marketing
@@ -303,7 +340,9 @@ Examples:
 **Why avoid for now:** moves the plugin too far away from its current purpose.
 
 ### 2. AI-heavy forecasting
+
 Examples:
+
 - demand forecasting
 - smart order recommendations
 - restock prediction engines
@@ -311,7 +350,9 @@ Examples:
 **Why avoid for now:** higher complexity, harder to explain, more support risk.
 
 ### 3. Too many third-party integrations
+
 Examples:
+
 - HubSpot
 - Mailchimp
 - Zapier
@@ -321,17 +362,14 @@ Examples:
 **Why avoid for now:** support burden increases quickly and maintenance becomes harder.
 
 ### 4. Rebuilding full WooCommerce admin features
+
 **Why avoid for now:** can create overlap without adding enough unique value.
 
 ---
 
 ## Suggested Practical Roadmap
 
-### Version 1.4 TODO
-
-This should stay intentionally small and realistic.
-
-The goal for `v1.4` is **not** to add lots of features, but to make Product Haven feel more polished and public-release ready.
+### ~~Version 1.4 TODO~~ ✅ Released as v1.4.0 — 2026-03-25
 
 #### Core TODO
 
@@ -347,7 +385,7 @@ The goal for `v1.4` is **not** to add lots of features, but to make Product Have
 - [x] Clean up comments and formatting across JS/PHP/CSS files
 - [x] Normalize i18n translation array formatting in `i18n.php`
 - [x] Add Portuguese and Italian language buttons to settings page
-- [ ] Improve a few high-impact labels, buttons, and notices for better UX clarity
+- [x] Improve a few high-impact labels, buttons, and notices for better UX clarity
 
 #### Explicitly not in v1.4
 
@@ -359,34 +397,48 @@ To avoid over-scoping, these should stay out of this release:
 - advanced stock workflow additions
 - richer customer insights
 
-### Version 1.4
-Focus on polish and public-readiness.
+### ~~Version 1.4~~ ✅ Released — 2026-03-25
 
-**Suggested scope:**
-- convert key user-facing text to English
-- improve empty states and admin feedback
-- create screenshots/assets
-- do a release testing pass
-- tighten public-facing documentation where needed
+Polish and public-readiness release.
+
+**Completed scope:**
+
+- Converted all remaining Dutch UI text to English
+- Added PT and IT to language switcher (now 7 languages)
+- Code comments and formatting cleanup
+- i18n array formatting normalized
+- UX clarity pass: English JS fallbacks, modal aria-labels, period selector label
+- Full smoke-test and dependency review pass
+- Documentation and roadmap updated
+
+**Still open (carry to v1.5):**
+
+- Presentation screenshots for GitHub / WordPress.org
 
 ### Version 1.5
+
 Add one workflow feature with strong merchant value.
 
 **Suggested scope:**
+
 - saved filters / custom views
 - or scheduled summary digests
 
 ### Version 1.6
+
 Strengthen traceability and store operations.
 
 **Suggested scope:**
+
 - activity log
 - improved stock actions
 
 ### Version 2.0
+
 Only if the plugin gains traction and you want to deepen the product.
 
 **Suggested scope:**
+
 - richer customer insights
 - better REST API controls
 - stronger onboarding
@@ -396,17 +448,7 @@ Only if the plugin gains traction and you want to deepen the product.
 
 ## Best Next Step
 
-If only one thing should happen next, the best choice is:
-
-**Make the plugin interface feel internationally release-ready before adding more features.**
-
-That means:
-- English UI text
-- stronger polish
-- screenshots
-- small UX cleanup
-
-After that, the strongest feature candidate is:
+With v1.4 shipped, the plugin is now internationally release-ready. The strongest next candidate is:
 
 **saved filters / custom views**
 

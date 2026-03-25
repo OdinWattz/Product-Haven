@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 /* ── Nonce helper ─────────────────────────────────────────────────── */
 function ph_qp_verify_nonce(): void {
     if ( ! check_ajax_referer( 'ph_admin_nonce', 'nonce', false ) || ! current_user_can( 'edit_products' ) ) {
-        wp_send_json_error( [ 'message' => 'Geen toegang.' ], 403 );
+        wp_send_json_error( [ 'message' => 'No access.' ], 403 );
     }
 }
 
@@ -182,10 +182,10 @@ add_action( 'wp_ajax_ph_qp_save_product', 'ph_ajax_qp_save_product' );
 function ph_ajax_qp_load_product(): void {
     ph_qp_verify_nonce();
     $id = absint( $_POST['product_id'] ?? 0 );
-    if ( ! $id ) wp_send_json_error( [ 'message' => 'Geen product ID.' ] );
+    if ( ! $id ) wp_send_json_error( [ 'message' => 'No product ID.' ] );
 
     $product = wc_get_product( $id );
-    if ( ! $product ) wp_send_json_error( [ 'message' => 'Product niet gevonden.' ] );
+    if ( ! $product ) wp_send_json_error( [ 'message' => 'Product not found.' ] );
 
     $post   = get_post( $id );
     $cats   = wp_get_object_terms( $id, 'product_cat', [ 'fields' => 'ids' ] );
@@ -266,10 +266,10 @@ function ph_ajax_qp_delete_product(): void {
     ph_qp_verify_nonce();
     $id = absint( $_POST['product_id'] ?? 0 );
     if ( ! $id || ! current_user_can( 'delete_products' ) ) {
-        wp_send_json_error( [ 'message' => 'Geen rechten.' ] );
+        wp_send_json_error( [ 'message' => 'No rights.' ] );
     }
     $result = wp_trash_post( $id );
-    $result ? wp_send_json_success() : wp_send_json_error( [ 'message' => 'Verwijderen mislukt.' ] );
+    $result ? wp_send_json_success() : wp_send_json_error( [ 'message' => 'Deletion failed.' ] );
 }
 add_action( 'wp_ajax_ph_qp_delete_product', 'ph_ajax_qp_delete_product' );
 
@@ -352,7 +352,7 @@ function ph_ajax_qp_duplicate_product(): void {
     $product   = wc_get_product( $id );
     $duplicate = wc_duplicate_product( $product );
 
-    if ( ! $duplicate ) wp_send_json_error( [ 'message' => 'Dupliceren mislukt.' ] );
+    if ( ! $duplicate ) wp_send_json_error( [ 'message' => 'Duplication failed.' ] );
 
     wp_send_json_success( [
         'product_id' => $duplicate->get_id(),
@@ -393,7 +393,7 @@ function ph_ajax_qp_quick_edit(): void {
             wp_update_post( [ 'ID' => $id, 'post_status' => sanitize_key( $value ) ] );
             break;
         default:
-            wp_send_json_error( [ 'message' => 'Onbekend veld.' ] );
+            wp_send_json_error( [ 'message' => 'Unknown field.' ] );
     }
 
     wc_delete_product_transients( $id );
@@ -425,11 +425,11 @@ function ph_qp_get_page_data(): array {
     }
 
     $tax_classes   = WC_Tax::get_tax_classes();
-    $tax_class_opt = [ '' => __( 'Standaard', 'product-haven' ) ];
+    $tax_class_opt = [ '' => __( 'Standard', 'product-haven' ) ];
     foreach ( $tax_classes as $tc ) {
         $tax_class_opt[ sanitize_title( $tc ) ] = $tc;
     }
-    $tax_class_opt['zero-rate'] = __( '0% (Vrijgesteld)', 'product-haven' );
+    $tax_class_opt['zero-rate'] = __( '0% (Exempt)', 'product-haven' );
 
     $shipping_classes = WC()->shipping() ? WC()->shipping()->get_shipping_classes() : [];
 

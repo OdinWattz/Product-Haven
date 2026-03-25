@@ -6,11 +6,11 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // ── Live preview ─────────────────────────────────────────────
-    var prefix  = document.getElementById('op-so-prefix');
-    var suffix  = document.getElementById('op-so-suffix');
-    var start   = document.getElementById('op-so-start');
-    var padding = document.getElementById('op-so-padding');
-    var preview = document.getElementById('op-so-preview');
+    var prefix  = document.getElementById('ph-so-prefix');
+    var suffix  = document.getElementById('ph-so-suffix');
+    var start   = document.getElementById('ph-so-start');
+    var padding = document.getElementById('ph-so-padding');
+    var preview = document.getElementById('ph-so-preview');
 
     function updatePreview() {
         if (!preview) return;
@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ── Reset confirmation ─────────────────────────────────────────
-    var resetForm = document.getElementById('op-so-reset-form');
+    var resetForm = document.getElementById('ph-so-reset-form');
     if (resetForm) {
         resetForm.addEventListener('submit', function (e) {
-            if (!confirm('Weet je het zeker? De teller wordt gereset naar het startnummer.')) {
+            if (!confirm('Are you sure? The counter will be reset to the start number.')) {
                 e.preventDefault();
             }
         });

@@ -27,7 +27,7 @@
        Stats Widget
 */
     function initStatsWidgets() {
-        document.querySelectorAll('.mopf-stats-widget').forEach(widget => {
+        document.querySelectorAll('.ph-stats-widget').forEach(widget => {
             const days      = parseInt(widget.dataset.days || 30);
             const showChart = widget.dataset.showChart === '1';
 
@@ -35,16 +35,16 @@
                 if (!resp.success) return;
                 const d = resp.data;
 
-                const revenue = widget.querySelector('.mopf-val-revenue');
-                const orders  = widget.querySelector('.mopf-val-orders');
-                const avg     = widget.querySelector('.mopf-val-avg');
+                const revenue = widget.querySelector('.ph-val-revenue');
+                const orders  = widget.querySelector('.ph-val-orders');
+                const avg     = widget.querySelector('.ph-val-avg');
 
                 if (revenue) revenue.textContent = formatCurrency(d.revenue);
                 if (orders)  orders.textContent  = d.orders;
                 if (avg)     avg.textContent     = formatCurrency(d.avg_order);
 
                 if (showChart && window.Chart) {
-                    widget.querySelectorAll('.mopf-sparkline').forEach(canvas => {
+                    widget.querySelectorAll('.ph-sparkline').forEach(canvas => {
                         const type   = canvas.dataset.type || 'revenue';
                         const values = type === 'revenue' ? (d.chart?.revenue || []) : (d.chart?.orders || []);
                         renderSparkline(canvas, values, type);
@@ -85,7 +85,7 @@
        Timeline Widget
 */
     function initTimelineWidgets() {
-        document.querySelectorAll('.mopf-timeline-widget').forEach(widget => {
+        document.querySelectorAll('.ph-timeline-widget').forEach(widget => {
             const showItems = widget.dataset.showItems === '1';
             const showTotal = widget.dataset.showTotal === '1';
             let page = 1;
@@ -93,9 +93,9 @@
             function loadPage(p) {
                 page = p;
                 ajax('ph_front_timeline', { page, per_page: 5 }).then(resp => {
-                    const list   = widget.querySelector('#mopf-tl-list');
-                    const empty  = widget.querySelector('#mopf-tl-empty');
-                    const pager  = widget.querySelector('#mopf-tl-pagination');
+                    const list   = widget.querySelector('#ph-tl-list');
+                    const empty  = widget.querySelector('#ph-tl-empty');
+                    const pager  = widget.querySelector('#ph-tl-pagination');
 
                     if (!resp.success) {
                         if (list)  list.innerHTML  = '';
@@ -123,26 +123,26 @@
 
     function renderTimelineItem(o, showTotal, showItems) {
         const items = showItems && o.items.length
-            ? `<ul class="mopf-tl-items">
-                ${o.items.map(i => `<li>${esc(i.name)} <span class="mopf-tl-item-qty">× ${i.qty}</span></li>`).join('')}
+            ? `<ul class="ph-tl-items">
+                ${o.items.map(i => `<li>${esc(i.name)} <span class="ph-tl-item-qty">× ${i.qty}</span></li>`).join('')}
                </ul>`
             : '';
 
-        const total = showTotal ? `<span class="mopf-tl-total">${esc(o.total)}</span>` : '';
+        const total = showTotal ? `<span class="ph-tl-total">${esc(o.total)}</span>` : '';
 
         return `
-        <div class="mopf-tl-item">
-            <div class="mopf-tl-dot-wrap">
-                <div class="mopf-tl-dot mopf-status-dot-${esc(o.status)}"></div>
-                <div class="mopf-tl-line"></div>
+        <div class="ph-tl-item">
+            <div class="ph-tl-dot-wrap">
+                <div class="ph-tl-dot ph-status-dot-${esc(o.status)}"></div>
+                <div class="ph-tl-line"></div>
             </div>
-            <div class="mopf-tl-card">
-                <div class="mopf-tl-card-header">
-                    <span class="mopf-tl-number"><a href="${esc(o.view_url || '#')}">#${esc(o.number)}</a></span>
-                    <span class="mopf-status-badge mopf-status-${esc(o.status)}">${esc(o.status_label)}</span>
+            <div class="ph-tl-card">
+                <div class="ph-tl-card-header">
+                    <span class="ph-tl-number"><a href="${esc(o.view_url || '#')}">#${esc(o.number)}</a></span>
+                    <span class="ph-status-badge ph-status-${esc(o.status)}">${esc(o.status_label)}</span>
                 </div>
-                <div class="mopf-tl-meta">
-                    <span class="mopf-tl-date">${esc(o.date_human)}</span>
+                <div class="ph-tl-meta">
+                    <span class="ph-tl-date">${esc(o.date_human)}</span>
                     ${total}
                 </div>
                 ${items}
@@ -154,12 +154,12 @@
         if (totalPages <= 1) { container.innerHTML = ''; return; }
 
         let html = '';
-        if (page > 1)          html += `<button class="mopf-page-btn" data-page="${page - 1}">‹</button>`;
+        if (page > 1)          html += `<button class="ph-page-btn" data-page="${page - 1}">‹</button>`;
         html += `<span style="align-self:center;font-size:13px;color:#64748B">${page} / ${totalPages}</span>`;
-        if (page < totalPages) html += `<button class="mopf-page-btn" data-page="${page + 1}">›</button>`;
+        if (page < totalPages) html += `<button class="ph-page-btn" data-page="${page + 1}">›</button>`;
 
         container.innerHTML = html;
-        container.querySelectorAll('.mopf-page-btn').forEach(btn => {
+        container.querySelectorAll('.ph-page-btn').forEach(btn => {
             btn.addEventListener('click', () => onPage(parseInt(btn.dataset.page)));
         });
     }

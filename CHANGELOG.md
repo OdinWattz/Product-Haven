@@ -1,7 +1,7 @@
 # Changelog — Product Haven
 
-All notable changes to this project are documented here.  
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).  
+All notable changes to this project are documented here.
+Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
@@ -9,18 +9,31 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Changed
-- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and applied minor whitespace/trailing-comma tweaks. Affects `ph-admin.js`, `ph-front.js`, `sequential-orders.css`, `settings-page.php`, `ajax.php`, `data.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `sequential-orders.php`, `stats-widget.php`. No functional changes.
-- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No translation keys or string values were modified.
+
+---
+
+## [1.4.0] — 2026-03-25
+
+### Changed
+
+- **Translate UI copy to English** — Converted Dutch comments/labels to English across admin/front/sequential CSS and JS, standardized UI copy strings and comments, and updated admin PHP comments. No functional logic changes.
+- **Portuguese and Italian language buttons** — Added PT and IT language buttons to the settings page; language switcher now supports 7 languages: NL, EN, DE, FR, ES, PT, IT.
+- **Code comments and formatting cleanup** — Standardized and simplified inline comments and section dividers across the codebase. Replaced long separator comment blocks with compact `/* */` comments in JS/PHP/CSS, removed end-of-block HTML comments from admin partials, stripped redundant inline explanatory comments, and minor whitespace/trailing-comma tweaks. Affects `ph-admin.js`, `ph-front.js`, `sequential-orders.css`, `settings-page.php`, `ajax.php`, `data.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `sequential-orders.php`, `stats-widget.php`. No functional changes.
+- **i18n translation array formatting** — Normalized spacing and column alignment of the translations array in `includes/i18n.php` for improved readability. No keys or values were modified.
+- **UX clarity pass** — Replaced all remaining Dutch fallback strings in `ph-admin.js` with English equivalents (error messages, modal labels, status buttons, time-ago strings, customer card, refund/revert modal descriptions). Fixed three `aria-label="Sluiten"` attributes on modal close buttons to `aria-label="Close"`. Changed the period selector label `1j` to `1y` in `settings-page.php`.
+- **CSS/JS class prefix rename** — Renamed all legacy `mos-`, `op-` and `mopf-` prefixes to `ph-` across all PHP, JS and CSS files. Affects `settings-page.php`, `quick-products-tab.php`, `sequential-orders-tab.php`, `stats-widget.php`, `timeline-widget.php`, `ph-admin.css`, `ph-admin.js`, `ph-front.css`, `ph-front.js`, `sequential-orders.css`, `sequential-orders.js` and `product-haven.php`. No functional changes — purely a naming consistency fix to align with the Product Haven (`ph-`) prefix convention.
 
 ### Documentation
-- **Changelog split: translation and languages** — Separated the combined Unreleased changelog bullet into two distinct entries (UI copy translation + language additions) in `README.md`.
-- **Docs update: changelog, README, and roadmap** — Added Unreleased changelog entry describing UI copy translation to English and Portuguese/Italian language button additions; consolidated README formatting (tables, spacing); marked completed ROADMAP items (smoke test, dependency review, wording cleanup).
+
+- **README and readme.txt updated** — Consolidated formatting, updated version references, and expanded multilingual feature description to reflect PT and IT additions.
+- **Roadmap updated** — Marked completed v1.4 items; two items (screenshots, UX clarity pass) carried forward to v1.5.
 
 ---
 
 ## [1.3.3] — 2026-03-19
 
 ### Changed
+
 - **Translate UI copy to English** — Converted Dutch comments/labels to English across admin/front/sequential CSS and JS, standardized various UI copy strings and comments, and updated admin PHP comments. Changes are copy/comment updates and small UI text tweaks; no functional logic changes.
 - **Added Portuguese and Italian language buttons** — Added PT and IT language buttons to the settings page.
 
@@ -29,6 +42,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [1.3.2] — 2026-03-12
 
 ### Changed
+
 - **Quick Products — action button tooltips** — the 4 row-action buttons (Edit, Duplicate, Open in WC, Delete) now show a styled CSS tooltip on hover via `data-tooltip` + `::after`. Uses a dark pill (`#1e293b`) that fades in above the button; more reliable than native `title` tooltips which were suppressed by the table overflow context.
 - **Quick Products — "New product" button spacing** — added `margin-bottom: 8px` so the button no longer sits flush against the filter bar below it.
 - **Quick Products — Publish card field spacing** — `.op-qp-editor-sidebar .mos-card-body` now uses `display:flex; flex-direction:column; gap:16px`, giving proper breathing room between Status, Visibility, and Featured toggle fields.
@@ -38,6 +52,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [1.3.1] — 2026-03-12
 
 ### Changed
+
 - **Revenue tab** — container now centred with flexbox (`display:flex; justify-content:center`), padding increased to `28px 32px`; `.mos-revenue-table` gets `max-width:560px`, subtle `box-shadow`, and row padding increased from `14px 20px` to `16px 24px`.
 - **Categories tab header** — column headers ("Top categories", "Items sold", "Revenue") moved into the card-header div (`.mos-categories-col-header`), matching the coupons pattern. Card-header uses `#F8FAFC` background; text colour `#64748B`.
 - **Customers tab header** — column headers ("Top customers", "Orders", "Gem. order", "Laatste order", "Totaal besteed") moved into the card-header div (`.mos-customers-col-header`), removing the inline `mos-report-header` row. Card-header uses `#F8FAFC` background; text colour `#64748B`.
@@ -53,7 +68,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [1.3.0] — 2026-03-12
 
 ### Added
+
 - **French (FR) and Spanish (ES) translations** — all UI strings in `i18n.php` now have complete `fr` and `es` entries across every section:
+
   - General / Header
   - Tabs
   - Stat cards
@@ -86,16 +103,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
   - Sequential Orders tab
   - WooCommerce order statuses
   - CSV export columns
-
 - **German (DE) translations** — all entries that were missing `de` are now complete (same sections as above).
-
 - **Language switcher extended** — the header now shows **5 language buttons**: NL · EN · DE · FR · ES.
+
   - Each button has a localized `title` tooltip (e.g. "Switch to French").
   - New i18n keys: `lang_de`, `lang_fr`, `lang_es`, `switch_to_de`, `switch_to_fr`, `switch_to_es`.
-
 - **AJAX language handler** (`ph_set_lang`) now accepts `de`, `fr` and `es` in addition to `nl` and `en`. Previously selecting DE/FR/ES would silently fall back to `nl`.
-
 - **Locale mapping** — `locale` passed to JS is now correctly set per language:
+
   - `nl` → `nl-NL`
   - `en` → `en-GB`
   - `de` → `de-DE`
@@ -103,9 +118,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
   - `es` → `es-ES`
 
 ### Fixed
+
 - Broken flag emoji characters (🇫🇷 / 🇪🇸) that rendered as replacement boxes on some server encodings — replaced with plain text labels (`FR` / `ES`) for all language buttons.
 
 ### Changed
+
 - Language switcher `title` attribute moved from the wrapping `<div>` to individual `<button>` elements, so each button describes its own action.
 
 ---
@@ -113,6 +130,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [1.2.0] — 2026-03-11
 
 ### Added
+
 - **In-plugin order edit modal** — replaced the "Bewerken in WC" external link with an own modal inside the plugin.
   - 10 billing fields: voornaam, achternaam, bedrijf, e-mail, telefoon, adres 1, adres 2, stad, postcode, land.
   - Optioneel intern notitieveld dat als ordernotitie wordt opgeslagen na het bewaren.
@@ -126,11 +144,13 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **`openOrderModal()` heeft nu een `forceReload`-parameter** — vanuit de klantenkaart wordt altijd `forceReload=true` meegegeven zodat order-data nooit uit een mogelijk verouderde cache komt.
 
 ### Fixed
+
 - **Order edit modal toonde oude data bij heropenen** — na opslaan wordt de `orderCache` bijgewerkt, de modal body herrenderd en de editBtn opnieuw gebonden aan de verse data.
 - **Verkeerde stad/adres bij orders geopend vanuit klantenkaart** — `openOrderModal` sloeg een order op in `orderCache` vanuit de tijdlijn; bij een volgende open vanuit de klantenkaart werd de gecachede (mogelijk verouderde) versie getoond. Opgelost via `forceReload=true` en het legen van WP/WC caches in `ph_ajax_get_single_order`.
 - **`ph_ajax_get_single_order` legt nu WP object-cache en WC transients** — `clean_post_cache()` + `wc_delete_shop_order_transients()` voor het ophalen, zodat altijd actuele order-data wordt gelezen.
 
 ### Changed
+
 - `mos-modal-edit-link` CSS uitgebreid met `background:none; border:none; cursor:pointer; padding:0` zodat het element als knop werkt.
 - Nieuwe CSS-klassen: `.mos-order-edit-modal`, `.mos-order-edit-grid` (2-koloms grid), `.mos-order-edit-field`, `.mos-order-edit-footer`; backdrop `#mos-order-edit-backdrop` toegevoegd aan de `[hidden]`-suppressieblok.
 
@@ -139,6 +159,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [1.1.0] — 2026-03-10
 
 ### Added
+
 - **Voorraad-tab** — volledige Stock Sentinel-functionaliteit geïntegreerd in Product Haven als eigen "Voorraad" tab in de zijbalk.
   - Overzichtstabel met zoeken, filteren (alle / laag / uitverkocht), sorteren en paginering.
   - Statkaarten: totale producten, totale voorraadwaarde, laag op voorraad, uitverkocht.
@@ -159,12 +180,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - Full rebrand to Product Haven.
 
 ### Fixed
+
 - **Operator-precedence bug** in de alertcontrole (`$opts['key'] ?? '1' !== '1'` evalueerde verkeerd) — opgelost met extra haakjes.
 - **`require_once` stond ná een vroegtijdige `return`** — verplaatst naar vóór alle controles zodat helperfuncties altijd beschikbaar zijn.
 - **Refresh-knop vernieuwe de Voorraad-tab niet** — `loadStock()` wordt nu ook aangeroepen vanuit de refresh-handler als de Voorraad-tab actief is.
 - **Settings- en edit-popup waren traag** — `backdrop-filter: blur()` verwijderd uit de CSS (GPU-zwaar); vervangen door `rgba`-achtergrond zonder blur.
 
 ### Changed
+
 - Plugin-naam in de WordPress-zijbalk gewijzigd van `OrderSync` naar `Order Pulse` (nu: **Product Haven**).
 - Voorraadupdate gebruikt `wc_update_product_stock()` in plaats van `set_stock_quantity()/save()` voor correcte hook-triggering.
 
